@@ -1,0 +1,8 @@
+|En linux| Instalación desde snap (se actualiza automaticamente): https://snapcraft.io/go
+----------
+
+Ejecución directa:	go run hola.go
+
+Generar compilado:	go build hola.go
+
+Ejecutar compilado: ./hola
