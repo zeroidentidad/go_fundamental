@@ -1,0 +1,13 @@
+
+En la terminal ejecutar: 
+
+./server & ./cliente
+ 
+
+ Ó secuencialmente:
+
+ ./server &
+
+ y luego:
+
+ ./cliente
