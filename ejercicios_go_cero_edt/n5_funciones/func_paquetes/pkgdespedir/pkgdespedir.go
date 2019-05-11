@@ -1,0 +1,8 @@
+package pkgdespedir
+
+import "fmt"
+
+// Despedirse se despide de una persona
+func Despedirse(nombre string) {
+	fmt.Println("Adiós", nombre)
+}
