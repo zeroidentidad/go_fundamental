@@ -1,0 +1,8 @@
+{
+    "server":"172.30.213.218",
+    "port":"5432",
+    "user":"proyecto_edt",
+    "password":"xD",
+    "database":"proyecto_edt",
+    "ssl":"disable"
+}
