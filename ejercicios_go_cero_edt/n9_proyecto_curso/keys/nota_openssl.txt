@@ -1,0 +1,3 @@
+Comando para crear clave openssl para el proyecto:
+(linux) privada -> openssl genrsa -out /ruta_absoluta/poyecto/keys/private.rsa 1024
+(linux) publica -> openssl rsa -in /ruta_absoluta/poyecto/keys/private.rsa -pubout > /ruta_absoluta/poyecto/keys/public.rsa
