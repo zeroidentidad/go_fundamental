@@ -1,0 +1,17 @@
+
+// localhost:8080/api/users/ -> json raw:
+
+{
+    "username": "jesus",
+    "email": "micorreo@hotmail.com",
+    "fullname": "Jesus Ferrer",
+    "password": "secret",
+    "confirmPassword": "secret"
+}
+
+// localhost:8080/api/login -> json raw:
+
+{
+    "email": "micorreo@hotmail.com",
+    "password": "secret",    
+}
