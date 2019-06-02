@@ -1,5 +1,5 @@
 
-// localhost:8080/api/users/ -> json raw:
+//POST: localhost:8080/api/users/ -> json raw:
 
 {
     "username": "jesus",
@@ -9,9 +9,26 @@
     "confirmPassword": "secret"
 }
 
-// localhost:8080/api/login -> json raw:
+//POST: localhost:8080/api/login -> json raw:
 
 {
     "email": "micorreo@hotmail.com",
     "password": "secret",    
+}
+
+//POST: localhost:8080/api/comments/ -> json raw:
+// Headers options: [Content-Type] -> [application/json], [Authorization] -> ["tokenValue from ../api/login"]
+
+{
+	"userId": 1,
+	"parentId": 0,
+	"votes": 0,
+	"content": "Comentario de prueba"
+}
+
+{
+	"userId": 1,
+	"parentId": 1,
+	"votes": 0,
+	"content": "Comentario hijo de prueba"
 }
