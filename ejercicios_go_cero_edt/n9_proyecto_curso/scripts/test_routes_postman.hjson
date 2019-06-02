@@ -1,6 +1,5 @@
 
 //POST: localhost:8080/api/users/ -> json raw:
-
 {
     "username": "jesus",
     "email": "micorreo@hotmail.com",
@@ -10,15 +9,14 @@
 }
 
 //POST: localhost:8080/api/login -> json raw:
-
 {
     "email": "micorreo@hotmail.com",
     "password": "secret",    
 }
 
-//POST: localhost:8080/api/comments/ -> json raw:
+//POST: localhost:8080/api/comments/
 // Headers options: [Content-Type] -> [application/json], [Authorization] -> ["tokenValue from ../api/login"]
-
+//-> json raw:
 {
 	"userId": 1,
 	"parentId": 0,
@@ -32,3 +30,20 @@
 	"votes": 0,
 	"content": "Comentario hijo de prueba"
 }
+
+//GET: localhost:8080/api/comments/ :
+// Headers options: [Content-Type] -> [application/json], [Authorization] -> ["tokenValue from ../api/login"]
+//-> body respuesta:
+[
+    {
+        "ID": 1,
+        "CreatedAt": "2019-06-02T11:59:16.822106-05:00",
+        "UpdatedAt": "2019-06-02T11:59:16.822106-05:00",
+        "DeletedAt": null,
+        "userId": 1,
+        "parentId": 0,
+        "votes": 0,
+        "content": "Comentario de prueba",
+        "hasVote": 0
+    }
+]
