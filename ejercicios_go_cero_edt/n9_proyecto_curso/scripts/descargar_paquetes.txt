@@ -8,3 +8,5 @@ go get -u github.com/lib/pq
 go get -u github.com/gorilla/mux
 
 go get -u github.com/urfave/negroni
+
+go get -u github.com/olahol/melody
