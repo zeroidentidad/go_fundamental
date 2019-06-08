@@ -47,3 +47,11 @@
         "hasVote": 0
     }
 ]
+
+//POST: localhost:8080/api/votes/
+// Headers options: [Content-Type] -> [application/json], [Authorization] -> ["tokenValue from ../api/login"]
+//-> json raw:
+{
+	"commentId": 1,
+	"value": true
+}
