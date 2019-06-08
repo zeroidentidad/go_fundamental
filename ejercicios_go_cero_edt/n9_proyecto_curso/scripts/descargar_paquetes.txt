@@ -10,3 +10,12 @@ go get -u github.com/gorilla/mux
 go get -u github.com/urfave/negroni
 
 go get -u github.com/olahol/melody
+
+# librerias websocket #
+## version estandar:
+
+go get golang.org/x/net/websocket
+
+## version 3rd actualizada:
+
+go get -u github.com/gorilla/websocket
