@@ -22,6 +22,8 @@ func Conectar() {
 	}
 	log.Printf("Conectado\n %v", db)
 
+	CreateProductoTable(db)
+
 	closeErr := db.Close()
 	if closeErr != nil {
 		log.Printf("Error al cerrar conexion, motivo: %v\n", closeErr)
