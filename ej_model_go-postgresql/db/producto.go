@@ -54,3 +54,30 @@ func (pi *Producto) Save(db *pg.DB) error {
 
 	return nil
 }
+
+//SaveAndReturn para inserta y retornar valores usados
+func (pi *Producto) SaveAndReturn(db *pg.DB) (*Producto, error) {
+	InsertResult, insertErr := db.Model(pi).Returning("*").Insert()
+
+	if insertErr != nil {
+		log.Printf("Error insertando elemmento a BD, %v\n", insertErr)
+		return nil, insertErr
+	}
+	log.Printf("Nuevo Producto insertado\n")
+	log.Printf("Los valores recibidos fueron: %v\n", InsertResult.RowsReturned())
+
+	return pi, nil
+}
+
+//SaveMultiple registro multiples elementos
+func (pi *Producto) SaveMultiple(db *pg.DB, items []*Producto) error {
+	_, insertErr := db.Model(items[0], items[1]).Insert()
+
+	if insertErr != nil {
+		log.Printf("Error insertando registros, %v\n", insertErr)
+		return insertErr
+	}
+	log.Printf("Registros insertados\n")
+
+	return nil
+}
