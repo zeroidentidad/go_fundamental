@@ -8,7 +8,7 @@ import (
 )
 
 //Conectar a BD postgres
-func Conectar() {
+func Conectar() *pg.DB {
 	opts := &pg.Options{
 		User:     "postgres",
 		Password: "x1234567",
@@ -24,10 +24,11 @@ func Conectar() {
 
 	CreateProductoTable(db)
 
-	closeErr := db.Close()
+	/*closeErr := db.Close()
 	if closeErr != nil {
 		log.Printf("Error al cerrar conexion, motivo: %v\n", closeErr)
 		os.Exit(100)
 	}
-	log.Printf("Coneccion cerrada\n")
+	log.Printf("Coneccion cerrada\n")*/
+	return db
 }

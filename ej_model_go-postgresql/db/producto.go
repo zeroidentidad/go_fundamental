@@ -42,3 +42,15 @@ func CreateProductoTable(db *pg.DB) error {
 	log.Printf("Tabla creada")
 	return nil
 }
+
+//Save para inserta la estructura de datos del producto
+func (pi *Producto) Save(db *pg.DB) error {
+	insertErr := db.Insert(pi)
+	if insertErr != nil {
+		log.Printf("Error insertando elemmento a BD, %v\n", insertErr)
+		return insertErr
+	}
+	log.Printf("Producto %s insertado\n", pi.Nombre)
+
+	return nil
+}
