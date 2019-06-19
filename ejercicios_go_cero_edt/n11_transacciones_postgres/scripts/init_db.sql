@@ -41,6 +41,7 @@ returns trigger as
 $BODY$
 begin
 	update products set amount = amount - new.amount where id = new.product_id;
+	return new;
 end;
 $BODY$
 language plpgsql;
