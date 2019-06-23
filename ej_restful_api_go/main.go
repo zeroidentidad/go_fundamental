@@ -6,23 +6,16 @@ import (
 	"net/http"
 	"strconv"
 
+	"./models"
 	"github.com/gorilla/mux"
 )
 
-//Libro structura de datos base
-type Libro struct {
-	ID     int    `json:id`
-	Titulo string `json:titulo`
-	Autor  string `json:autor`
-	Anio   int    `json:anio`
-}
-
-var libros []Libro
+var libros []*models.Libro
 
 func main() {
 	router := mux.NewRouter()
 
-	libros = append(libros, Libro{ID: 1, Titulo: "Titulo de prueba 1", Autor: "Anonimo", Anio: 2019}, Libro{ID: 2, Titulo: "Titulo de prueba 2", Autor: "Anonimo", Anio: 2019}, Libro{ID: 3, Titulo: "Titulo de prueba 3", Autor: "Anonimo", Anio: 2019})
+	libros = append(libros, &models.Libro{ID: 1, Titulo: "Titulo de prueba 1", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 2, Titulo: "Titulo de prueba 2", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 3, Titulo: "Titulo de prueba 3", Autor: "Anonimo", Anio: 2019})
 
 	router.HandleFunc("/libros", getLibros).Methods("GET")
 	router.HandleFunc("/libros/{id}", getLibro).Methods("GET")
@@ -48,7 +41,7 @@ func getLibro(w http.ResponseWriter, r *http.Request) {
 }
 
 func addLibro(w http.ResponseWriter, r *http.Request) {
-	var libro Libro
+	var libro *models.Libro
 
 	_ = json.NewDecoder(r.Body).Decode(&libro)
 
@@ -58,7 +51,7 @@ func addLibro(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateLibro(w http.ResponseWriter, r *http.Request) {
-	var libro Libro
+	var libro *models.Libro
 
 	json.NewDecoder(r.Body).Decode(&libro)
 
