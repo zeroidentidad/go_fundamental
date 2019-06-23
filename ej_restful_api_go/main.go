@@ -72,5 +72,13 @@ func updateLibro(w http.ResponseWriter, r *http.Request) {
 }
 
 func removeLibro(w http.ResponseWriter, r *http.Request) {
-	log.Println("Eliminar un libro")
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+	for i, item := range libros {
+		if item.ID == id {
+			libros = append(libros[:i], libros[i+1:]...)
+		}
+	}
+
+	json.NewEncoder(w).Encode(libros)
 }
