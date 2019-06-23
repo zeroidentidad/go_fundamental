@@ -14,7 +14,7 @@ type Libro struct {
 	ID     int    `json:id`
 	Titulo string `json:titulo`
 	Autor  string `json:autor`
-	Anio   string `json:anio`
+	Anio   int    `json:anio`
 }
 
 var libros []Libro
@@ -22,7 +22,7 @@ var libros []Libro
 func main() {
 	router := mux.NewRouter()
 
-	libros = append(libros, Libro{ID: 1, Titulo: "Titulo de prueba 1", Autor: "Anonimo", Anio: "2019"}, Libro{ID: 2, Titulo: "Titulo de prueba 2", Autor: "Anonimo", Anio: "2019"}, Libro{ID: 3, Titulo: "Titulo de prueba 3", Autor: "Anonimo", Anio: "2019"})
+	libros = append(libros, Libro{ID: 1, Titulo: "Titulo de prueba 1", Autor: "Anonimo", Anio: 2019}, Libro{ID: 2, Titulo: "Titulo de prueba 2", Autor: "Anonimo", Anio: 2019}, Libro{ID: 3, Titulo: "Titulo de prueba 3", Autor: "Anonimo", Anio: 2019})
 
 	router.HandleFunc("/libros", getLibros).Methods("GET")
 	router.HandleFunc("/libros/{id}", getLibro).Methods("GET")
@@ -48,7 +48,13 @@ func getLibro(w http.ResponseWriter, r *http.Request) {
 }
 
 func addLibro(w http.ResponseWriter, r *http.Request) {
-	log.Println("Agregar un libro")
+	var libro Libro
+
+	_ = json.NewDecoder(r.Body).Decode(&libro)
+
+	libros = append(libros, libro)
+
+	json.NewEncoder(w).Encode(libros)
 }
 
 func updateLibro(w http.ResponseWriter, r *http.Request) {
