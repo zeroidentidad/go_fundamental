@@ -3,13 +3,12 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"go_fundamental/ej_restful_api_go/drivers"
 	"log"
 	"net/http"
-	"os"
 
 	"./models"
 	"github.com/gorilla/mux"
-	"github.com/lib/pq"
 	"github.com/subosito/gotenv"
 )
 
@@ -18,15 +17,7 @@ var db *sql.DB
 
 func main() {
 
-	pgURL, err := pq.ParseURL(os.Getenv("DB_URL"))
-	logFatal(err)
-
-	db, err = sql.Open("postgres", pgURL)
-	logFatal(err)
-
-	err = db.Ping()
-	logFatal(err)
-
+	db = drivers.ConectarDB()
 	log.Println("running") //pgURL
 
 	router := mux.NewRouter()
