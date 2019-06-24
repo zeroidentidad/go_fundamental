@@ -7,21 +7,13 @@ import (
 	"net/http"
 	"os"
 
-	//"./models"
+	"./models"
 	"github.com/gorilla/mux"
 	"github.com/lib/pq"
 	"github.com/subosito/gotenv"
 )
 
-//Libro structura de datos base
-type Libro struct {
-	ID     int    `json:"id"`
-	Titulo string `json:"titulo"`
-	Autor  string `json:"autor"`
-	Anio   int    `json:"anio"`
-}
-
-var libros []Libro
+var libros []models.Libro
 var db *sql.DB
 
 func main() {
@@ -59,8 +51,8 @@ func logFatal(err error) {
 }
 
 func getLibros(w http.ResponseWriter, r *http.Request) {
-	var libro Libro
-	libros = []Libro{}
+	var libro models.Libro
+	libros = []models.Libro{}
 
 	rows, err := db.Query("select * from libros")
 	logFatal(err)
@@ -78,7 +70,7 @@ func getLibros(w http.ResponseWriter, r *http.Request) {
 }
 
 func getLibro(w http.ResponseWriter, r *http.Request) {
-	var libro Libro
+	var libro models.Libro
 	params := mux.Vars(r)
 
 	rows := db.QueryRow("select * from libros where id=$1", params["id"])
@@ -89,7 +81,7 @@ func getLibro(w http.ResponseWriter, r *http.Request) {
 }
 
 func addLibro(w http.ResponseWriter, r *http.Request) {
-	var libro Libro
+	var libro models.Libro
 	var bookID int
 
 	json.NewDecoder(r.Body).Decode(&libro)
@@ -102,7 +94,7 @@ func addLibro(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateLibro(w http.ResponseWriter, r *http.Request) {
-	var libro Libro
+	var libro models.Libro
 
 	json.NewDecoder(r.Body).Decode(&libro)
 
