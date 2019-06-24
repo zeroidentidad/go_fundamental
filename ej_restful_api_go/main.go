@@ -107,13 +107,12 @@ func updateLibro(w http.ResponseWriter, r *http.Request) {
 
 	json.NewDecoder(r.Body).Decode(&libro)
 
-	for i, item := range libros {
-		if item.ID == libro.ID {
-			libros[i] = libro
-		}
-	}
+	result, err := db.Exec("update libros set titulo=$1, autor=$2, anio=$3 where id=$4 returning id", libro.Titulo, libro.Autor, libro.Anio, libro.ID)
 
-	json.NewEncoder(w).Encode(libros)
+	rowUpdated, err := result.RowsAffected()
+	logFatal(err)
+
+	json.NewEncoder(w).Encode(rowUpdated)
 }
 
 func removeLibro(w http.ResponseWriter, r *http.Request) {
