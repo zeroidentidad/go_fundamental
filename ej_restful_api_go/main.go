@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 
 	//"./models"
 	"github.com/gorilla/mux"
@@ -117,12 +116,12 @@ func updateLibro(w http.ResponseWriter, r *http.Request) {
 
 func removeLibro(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	id, _ := strconv.Atoi(params["id"])
-	for i, item := range libros {
-		if item.ID == id {
-			libros = append(libros[:i], libros[i+1:]...)
-		}
-	}
 
-	json.NewEncoder(w).Encode(libros)
+	result, err := db.Exec("delete from libros where id=$1", params["id"])
+	logFatal(err)
+
+	rowsDeleted, err := result.RowsAffected()
+	logFatal(err)
+
+	json.NewEncoder(w).Encode(rowsDeleted)
 }
