@@ -4,18 +4,30 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
+
+	_ "database/sql"
 
 	"./models"
 	"github.com/gorilla/mux"
+	"github.com/lib/pq"
+	"github.com/subosito/gotenv"
 )
 
 var libros []*models.Libro
 
 func main() {
+
+	pgURL, err := pq.ParseURL(os.Getenv("DB_URL"))
+
+	logFatal(err)
+
+	log.Println(pgURL)
+
 	router := mux.NewRouter()
 
-	libros = append(libros, &models.Libro{ID: 1, Titulo: "Titulo de prueba 1", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 2, Titulo: "Titulo de prueba 2", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 3, Titulo: "Titulo de prueba 3", Autor: "Anonimo", Anio: 2019})
+	/*libros = append(libros, &models.Libro{ID: 1, Titulo: "Titulo de prueba 1", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 2, Titulo: "Titulo de prueba 2", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 3, Titulo: "Titulo de prueba 3", Autor: "Anonimo", Anio: 2019})*/
 
 	router.HandleFunc("/libros", getLibros).Methods("GET")
 	router.HandleFunc("/libros/{id}", getLibro).Methods("GET")
@@ -24,6 +36,16 @@ func main() {
 	router.HandleFunc("/libros/{id}", removeLibro).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func init() {
+	gotenv.Load()
+}
+
+func logFatal(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func getLibros(w http.ResponseWriter, r *http.Request) {
