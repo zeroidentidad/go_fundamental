@@ -8,13 +8,21 @@ import (
 	"os"
 	"strconv"
 
-	"./models"
+	//"./models"
 	"github.com/gorilla/mux"
 	"github.com/lib/pq"
 	"github.com/subosito/gotenv"
 )
 
-var libros []*models.Libro
+//Libro structura de datos base
+type Libro struct {
+	ID     int    `json:"id"`
+	Titulo string `json:"titulo"`
+	Autor  string `json:"autor"`
+	Anio   int    `json:"anio"`
+}
+
+var libros []Libro
 var db *sql.DB
 
 func main() {
@@ -28,11 +36,9 @@ func main() {
 	err = db.Ping()
 	logFatal(err)
 
-	log.Println(pgURL)
+	log.Println("running") //pgURL
 
 	router := mux.NewRouter()
-
-	/*libros = append(libros, &models.Libro{ID: 1, Titulo: "Titulo de prueba 1", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 2, Titulo: "Titulo de prueba 2", Autor: "Anonimo", Anio: 2019}, &models.Libro{ID: 3, Titulo: "Titulo de prueba 3", Autor: "Anonimo", Anio: 2019})*/
 
 	router.HandleFunc("/libros", getLibros).Methods("GET")
 	router.HandleFunc("/libros/{id}", getLibro).Methods("GET")
@@ -54,31 +60,50 @@ func logFatal(err error) {
 }
 
 func getLibros(w http.ResponseWriter, r *http.Request) {
+	var libro Libro
+	libros = []Libro{}
+
+	rows, err := db.Query("select * from libros")
+	logFatal(err)
+
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&libro.ID, &libro.Titulo, &libro.Autor, &libro.Anio)
+		logFatal(err)
+
+		libros = append(libros, libro)
+	}
+
 	json.NewEncoder(w).Encode(libros)
 }
 
 func getLibro(w http.ResponseWriter, r *http.Request) {
+	var libro Libro
 	params := mux.Vars(r)
-	id, _ := strconv.Atoi(params["id"])
-	for _, libro := range libros {
-		if libro.ID == id {
-			json.NewEncoder(w).Encode(&libro)
-		}
-	}
+
+	rows := db.QueryRow("select * from libros where id=$1", params["id"])
+	err := rows.Scan(&libro.ID, &libro.Titulo, &libro.Autor, &libro.Anio)
+	logFatal(err)
+
+	json.NewEncoder(w).Encode(libro)
 }
 
 func addLibro(w http.ResponseWriter, r *http.Request) {
-	var libro *models.Libro
+	var libro Libro
+	var bookID int
 
-	_ = json.NewDecoder(r.Body).Decode(&libro)
+	json.NewDecoder(r.Body).Decode(&libro)
 
-	libros = append(libros, libro)
+	err := db.QueryRow("insert into libros (titulo, autor, anio) values ($1, $2, $3) returning id;", libro.Titulo, libro.Autor, libro.Anio).Scan(&bookID)
 
-	json.NewEncoder(w).Encode(libros)
+	logFatal(err)
+
+	json.NewEncoder(w).Encode(bookID)
 }
 
 func updateLibro(w http.ResponseWriter, r *http.Request) {
-	var libro *models.Libro
+	var libro Libro
 
 	json.NewDecoder(r.Body).Decode(&libro)
 
