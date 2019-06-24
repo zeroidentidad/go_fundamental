@@ -1,13 +1,12 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
-
-	_ "database/sql"
 
 	"./models"
 	"github.com/gorilla/mux"
@@ -16,11 +15,17 @@ import (
 )
 
 var libros []*models.Libro
+var db *sql.DB
 
 func main() {
 
 	pgURL, err := pq.ParseURL(os.Getenv("DB_URL"))
+	logFatal(err)
 
+	db, err = sql.Open("postgres", pgURL)
+	logFatal(err)
+
+	err = db.Ping()
 	logFatal(err)
 
 	log.Println(pgURL)
