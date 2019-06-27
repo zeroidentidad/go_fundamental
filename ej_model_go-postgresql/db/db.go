@@ -3,6 +3,7 @@ package db
 import (
 	"log"
 	"os"
+	"time"
 
 	pg "github.com/go-pg/pg"
 )
@@ -10,10 +11,16 @@ import (
 //Conectar a BD postgres
 func Conectar() *pg.DB {
 	opts := &pg.Options{
-		User:     "postgres",
-		Password: "x1234567",
-		Addr:     "localhost:5432",
-		Database: "model_go_pg",
+		User:         "postgres",
+		Password:     "x1234567",
+		Addr:         "localhost:5432",
+		Database:     "model_go_pg",
+		DialTimeout:  30 * time.Second,
+		ReadTimeout:  1 * time.Minute,
+		WriteTimeout: 1 * time.Minute,
+		IdleTimeout:  30 * time.Minute,
+		MaxConnAge:   1 * time.Minute,
+		PoolSize:     20,
 	}
 	db := pg.Connect(opts)
 	if db == nil {
