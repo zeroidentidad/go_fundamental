@@ -97,12 +97,24 @@ func (pi *Producto) DeleteItem(db *pg.DB) error {
 
 //UpdatePrice actualiza el precio de un producto
 func (pi *Producto) UpdatePrice(db *pg.DB) error {
-	_, updateErr := db.Model(pi).Set("precio = ?precio").Where("id = ?id").Update()
+
+	//transaccion
+	tx, txErr := db.Begin()
+
+	if txErr != nil {
+		log.Printf("Error iniciando tx, %v\n", txErr)
+		return txErr
+	}
+	//_, updateErr := db.Model(pi).Set("precio = ?precio").Where("id = ?id").Update()
+	_, updateErr := tx.Model(pi).Set("precio = ?precio").Where("id = ?id").Update()
 
 	if updateErr != nil {
 		log.Printf("Error actualizando registro, %v\n", updateErr)
+		tx.Rollback()
 		return updateErr
 	}
+
+	tx.Commit()
 	log.Printf("Precio del registro actualizado ID: %d\n", pi.ID)
 
 	return nil
