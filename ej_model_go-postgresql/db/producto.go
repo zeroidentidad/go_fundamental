@@ -81,3 +81,59 @@ func (pi *Producto) SaveMultiple(db *pg.DB, items []*Producto) error {
 
 	return nil
 }
+
+//DeleteItem elimina usando el nombre del model
+func (pi *Producto) DeleteItem(db *pg.DB) error {
+	_, deleteErr := db.Model(pi).Where("nombre = ?nombre").Delete()
+
+	if deleteErr != nil {
+		log.Printf("Error eliminando registro, %v\n", deleteErr)
+		return deleteErr
+	}
+	log.Printf("Registro eliminado\n", pi.Nombre)
+
+	return nil
+}
+
+//UpdatePrice actualiza el precio de un producto
+func (pi *Producto) UpdatePrice(db *pg.DB) error {
+	_, updateErr := db.Model(pi).Set("precio = ?precio").Where("id = ?id").Update()
+
+	if updateErr != nil {
+		log.Printf("Error actualizando registro, %v\n", updateErr)
+		return updateErr
+	}
+	log.Printf("Precio del registro actualizado ID: %d\n", pi.ID)
+
+	return nil
+}
+
+//GetByID obtener estructura de datos por el id proporcionado
+func (pi *Producto) GetByID(db *pg.DB) error {
+
+	//getErr := db.Select(pi)
+
+	//getErr := db.Model(pi).Where("id = ?0", pi.ID).Select()
+
+	/*getErr := db.Model(pi).Column("nombre", "descripcion").
+	Where("id = ?0", pi.ID).
+	WhereOr("nombre = ?0", pi.Nombre).Select()*/
+
+	var items []Producto
+	getErr := db.Model(&items).Column("nombre", "descripcion").
+		Where("id = ?0", pi.ID).
+		WhereOr("id = ?0", 1).
+		Offset(0).
+		Limit(2).
+		Order("id desc").
+		Select()
+
+	if getErr != nil {
+		log.Printf("Error obteniendo valores por el id, %v\n", getErr)
+		return getErr
+	}
+
+	log.Printf("Consulta correcta para: %v\n", items) //*pi
+
+	return nil
+}
