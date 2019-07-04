@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MiniChat con websocket</title>
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!--CSS-->
+    <link rel="stylesheet" href="./css/main.css?v=2">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Chat Vue-GO</a>
+    </nav>
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+    
+                <div id="chat-app" class="card">
+                    <ul id="messages" class="list-group">
+                        <li v-for="m in messages" class="list-group-item">
+                            {{ m.text }} - {{m.date}}
+                        </li>
+                    </ul>
+                    <form>
+                        <input type="text" v-model="message" class="form-control">
+                        <button @click.prevent="sendMessage" class="btn btn-dark btn-block">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- VueJs -->
+    <script src="./js/vue.js"></script>
+    <!-- Socket.io -->
+    <script src="./js/socket.io.js"></script>
+    <!-- JS -->
+    <script src="./js/main.js?v=2"></script>
+</body>
+</html>
