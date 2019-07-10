@@ -1,0 +1,100 @@
+"El polimorfismo es la capacidad de escribir código que puede adoptar diferentes comportamientos a través de
+ Implementación de tipos. Una vez que un tipo implementa una interfaz, un mundo entero de la funcionalidad se puede abrir a valores de ese tipo".
+ - Bill Kennedy
+
+"Las interfaces son tipos que solo declaran comportamiento. Este comportamiento nunca es implementado por el
+ tipo de interfaz directamente, pero en lugar de tipos definidos por el usuario a través de métodos. Cuando un tipo definido por el usuario implementa el conjunto de métodos declarados por un tipo de interfaz, valores de el tipo definido por el usuario se puede asignar a valores del tipo de interfaz. Esta asignación
+ almacena el valor del tipo definido por el usuario en el valor de la interfaz.
+
+ Si se realiza una llamada de método contra un valor de interfaz, el método equivalente para el valor almacenado definido por el usuario se ejecuta. Dado que cualquier tipo definido por el usuario puede implementar cualquier interfaz, las llamadas de método contra un valor de interfaz son de naturaleza polimórfica. Los tipo definido por el usuario en esta relación a menudo se denomina tipo concreto, ya que los valores de la interfaz no tienen un comportamiento concreto sin la implementación del valor almacenado definido por el usuario."
+  - Bill Kennedy
+
+Receptores       Valores
+-----------------------------------------------
+(t T)           T and *T
+(t *T)          *T
+
+- por puntero y sin puntero
+
+Valores          Receptores
+-----------------------------------------------
+T               (t T)
+*T              (t T) and (t *T)
+
+
+FUENTE:
+Go In Action
+William Kennedy
+/////////////////////////////////////////////////////////////////////////
+
+Los tipos Interface expresan generalizaciones o abstracciones sobre los comportamientos de otros tipos.
+Al generalizar, las interfaces nos permiten escribir funciones que son más flexibles y adaptables.
+porque no están ligados a los detalles de una implementación particular.
+
+Muchos lenguajes ​​orientados a objetos tienen alguna noción de interfaces, pero lo que hace que las interfaces de Go tan distintivo es que están SATISFECHOS IMPLICITAMENTE. En otras palabras, no hay necesidad de declarar
+todas las interfaces que satisface un determinado TIPO CONCRETO; Simplemente poseer los métodos necesarios es suficiente. Este diseño le permite crear nuevas interfaces que están satisfechas por los TIPOS CONCRETO existentes sin cambiar los tipos existentes, lo que es particularmente útil para los tipos definidos en paquetes que el programador no controla
+
+Todos los tipos que hemos visto hasta ahora han sido TIPOS CONCRETO. Un TIPO CONCRETO especifica la exacta
+representación de sus valores y expone las operaciones intrínsecas de esa representación, tales como
+aritmética para números, o indexación, agregación/append y rango para segmentos/slices. Un TIPO CONCRETO también puede proporcionar comportamientos adicionales a través de sus métodos. Cuando tienes un valor de un TIPO CONCRETO, sabes exactamente qué es ES y qué puedes hacer con él.
+
+Hay otro tipo de tipo en Go llamado TIPO INTERFAZ. Una interfaz es un TIPO ABSTRACTO. No lo hace
+exponer la representación o estructura interna de sus valores, o el conjunto de operaciones básicas que soportan; revela solo algunos de sus métodos. Cuando tiene un valor de un tipo interfaz, no sabe nada de
+lo que es; solo sabe lo que puede HACER, o más precisamente, qué COMPORTAMIENTOS SE PROPORCIONAN CON SUS MÉTODOS.
+
+-------------------
+
+type ReadWriter interface {
+    Reader
+    Writer
+}
+
+Esto se llama INCRUSTAR una interfaz.
+
+
+-------------------
+
+Un tipo SATISFACE una interfaz si posee todos los métodos que requiere la interfaz.
+
+-------------------
+
+Conceptualmente, un valor de un tipo interface, o VALOR INTERFAZ, tiene dos componentes,
+     un TIPO CONCRETO y un
+     VALOR DE ESTE TIPO.
+Estos son llamados, los de la interfaz.
+     TIPO DINÁMICO Y
+     VALOR DINÁMICO.
+
+Para un lenguaje de tipado estático como Go, los tipos son un concepto de tiempo de compilación, por lo que un tipo no es un valor.
+En nuestro modelo conceptual, un conjunto de valores denominados DESCRIPTORES DE TIPO proporciona información sobre cada tipo, tales como su nombre y métodos. En un valor de interfaz, el tipo de componente está representado por el descriptor de tipo apropiado
+
+
+var w io.Writer
+w = os.Stdout
+w = new(bytes.Buffer)
+w = nil
+
+
+var w io.Writer
+w
+type: nil
+value: nil
+
+w = os.Stdout
+w
+type: *os.File
+value: la dirección donde se almacena un valor de tipo os.File
+
+w = new(bytes.Buffer)
+w
+type: *bytes.Buffer
+value: la dirección donde se almacena un valor de tipo bytes.Buffer
+
+w = nil
+w
+type: nil
+value: nil
+
+-------------------
+The Go Programming Language
+Donovan and Kernighan
