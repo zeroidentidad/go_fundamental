@@ -1,0 +1,35 @@
+Utilizamos notación abreviada:
+ para crear una variable llamada p1 de tipo persona
+ para crear una variable llamada p2 de tipo persona
+ Inicializamos esas variables con valores específicos.
+ Usamos el operador de declaración de variable corta con una estructura literal para inicializar
+ ----------------------------------------
+ Así es como hablamos de estructuras:
+ - tipo definido por el usuario
+ - Declaramos el tipo.
+ - el tipo tiene campos
+ - El tipo también puede tener "etiquetas".
+ ---- no hemos visto esto todavía
+ - el tipo tiene un tipo subyacente
+ ---- en este caso, el tipo subyacente es struct
+ - Declaramos variables del tipo.
+ - Iniciamos esas variables.
+ ---- inicializar con un valor específico, o
+ ---- o, inicie al valor cero
+ - una estructura es un tipo compuesto
+ ----------------------------------------
+ Bill Kennedy:
+ Go nos permite la posibilidad de declarar nuestros propios tipos.
+ Los tipos de estructura se declaran al componer un conjunto fijo de campos únicos juntos.
+ Cada campo en una estructura se declara con un tipo conocido.
+ Esto podría ser un tipo incorporado u otro tipo definido por el usuario.
+ Una vez que tenemos un tipo declarado, podemos crear valores a partir del tipo
+ Cuando declaramos variables, el valor que representa la variable siempre se inicializa.
+ El valor se puede inicializar con un valor específico o se puede inicializar a su valor cero
+ Para los tipos numéricos, el valor cero sería 0; por string estaría vacío;
+ y para los booleanos sería falso.
+ En el caso de una estructura, el valor cero se aplicaría a todos los campos diferentes en la estructura.
+ Cada vez que se crea una variable y se inicializa a su valor cero, es idiomático usar la palabra clave var.
+ Reserve el uso de la palabra clave var como una forma de indicar que una variable se está configurando en su valor cero.
+ Si la variable se inicializará a algo distinto de su valor cero,
+ luego use el operador de declaración de variable corta con un struct literal

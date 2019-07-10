@@ -1,0 +1,13 @@
+tipos definidos por el usuario - declaramos un nuevo tipo, foo
+  el tipo subyacente de foo: int
+
+  conversión: int (miEdad)
+  convertir el tipo foo al tipo int
+
+  ESTE CÓDIGO ES SOLO POR EJEMPLO
+  ES UNA MALA PRÁCTICA PARA TIPOS ALIAS
+  una excepción: si necesita adjuntar métodos a un tipo
+  ver el paquete de tiempo para un ejemplo de esto
+      godoc.org/time
+      type Duration int64
+  Duration tiene métodos adjuntos.

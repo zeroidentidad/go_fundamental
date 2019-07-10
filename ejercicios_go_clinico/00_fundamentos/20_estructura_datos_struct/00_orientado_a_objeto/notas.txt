@@ -1,0 +1,33 @@
+Go está orientado a objetos
+
+(1) Encapsulación
+estado ("campos")
+comportamiento ("métodos")
+exportado / no exportado
+
+(2) Reutilización
+herencia ("tipos incrustados")
+
+(3) polimorfismo
+interfaces
+
+(4) Anulando
+"promoción"
+
+//////////////
+OOP tradicional
+
+Las clases
+- Estructura de datos que describe un tipo de objeto.
+- luego puede crear "instancias" / "objetos" de la clase / blue-print
+- Las clases tienen tanto:
+==== estado / datos / campos
+==== comportamiento / métodos
+-- Publico privado
+
+Herencia
+
+//////////////
+En Go:
+- No creas clases, creas un tipo
+- No creas instancias, creas un valor de un tipo.

@@ -1,0 +1,9 @@
+(p persona) es el "receptor"
+es otro parámetro
+no es idiomático usar "this" o "self"
+
+
+"No mucha gente lo sabe, pero la notación del método, i.e. v.Method() es en realidad azúcar sintáctica y Go también entiende la versión sin azúcar de la misma: (T).Method(v). Puede ver un ejemplo aquí. Nombrar al receptor como cualquier otro parámetro refleja que es, de hecho, simplemente otro parámetro bastante bien.
+Esto también implica que el argumento receptor dentro de un método puede ser nulo. Este no es el caso con esto en, por ejemplo, Java."
+SOURCE:
+https://www.reddit.com/r/golang/comments/3qoo36/question_why_is_self_or_this_not_considered_a/?utm_source=golangweekly&utm_medium=email
