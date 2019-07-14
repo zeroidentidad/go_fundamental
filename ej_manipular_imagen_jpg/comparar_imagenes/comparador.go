@@ -40,7 +40,8 @@ func Compare(images []*image) chan Result {
 	return ch
 }
 
-// compare top left pixel of needle, n, to every pixel in haystack, h.
+//comparar el píxel superior izquierdo de la aguja, n, con cada píxel en el pajar, h.
+//recorriendo el slice de pixeles de la imagen
 func comparePixels(n, h *image, ch chan Result) {
 
 	var diff float64
@@ -48,11 +49,11 @@ func comparePixels(n, h *image, ch chan Result) {
 
 	for i := 0; i < (h.width * h.height); i++ {
 
-		// current pixel in haystack
+		// píxel actual en el pajar
 		x := i % h.width
 		y := i / h.width
 
-		// "needle" must fit within the "haystack"
+		// la "aguja" debe encajar dentro del "pajar"
 		if h.height-y < n.height {
 			break
 		}
@@ -60,7 +61,7 @@ func comparePixels(n, h *image, ch chan Result) {
 			continue
 		}
 
-		// find the diff between the pixels
+		// encontrar la diferencia entre los píxeles
 		diff = pixelDiff(n.pixels[0], h.pixels[i])
 		if diff < limite {
 
@@ -71,7 +72,7 @@ func comparePixels(n, h *image, ch chan Result) {
 				compareSequence(n, h, i, ch)
 			}(n, h, i, ch)
 
-			//			fmt.Println("LAUNCHED COMPARE:\t", n.name, h.name, "\t", diff, "\t", y, x) // DEBUGGING
+			//fmt.Println("COMPARAR LANZADO:\t", n.name, h.name, "\t", diff, "\t", y, x) // DEBUGGING
 		}
 	}
 
@@ -97,10 +98,10 @@ func compareSequence(n, h *image, hIdx int, ch chan Result) {
 
 		diff := pixelDiff(n.pixels[i], h.pixels[hIdx])
 
-		// each row must have minimum number of pixels beneath threshold
-		// (1) did the previous row have less than 10?
-		// (2) if in new row, reset counter
-		// (3) if this pixel beneath threshold, increment counter
+		// cada fila debe tener un número mínimo de píxeles por debajo del umbral
+		// (1) ¿la fila anterior tenía menos de 10?
+		// (2) si está en una nueva fila, reinicie el contador
+		// (3) si esta el píxel debajo del umbral, incrementar contador
 		if ((i % n.width) == 0) && ((i / n.width) != 0) && counter < 10 {
 			return
 		}
@@ -111,7 +112,7 @@ func compareSequence(n, h *image, hIdx int, ch chan Result) {
 			counter++
 		}
 
-		// if start of new row, align pixels
+		// si comienza una nueva fila, alinea pixeles
 		if ((i + 1) % n.width) == 0 {
 			hIdx += (h.width - n.width)
 		}
