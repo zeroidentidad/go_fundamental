@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+{{range .}}
+    {{.Term}}<br>
+    {{range .Cursos}}
+        {{.Numero}} - {{.Nombre}} - {{.Unidades}}<br>
+    {{end}}
+{{end}}
+</body>
+</html>
