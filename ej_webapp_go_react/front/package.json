@@ -1,0 +1,16 @@
+{
+  "name": "websoporte",
+  "version": "1.0.0",
+  "description": "realtime webapp con golang y react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "golang",
+    "react",
+    "db"
+  ],
+  "author": "Jesus Ferrer",
+  "license": "ISC"
+}
