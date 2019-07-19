@@ -1,7 +1,3 @@
-let canales = [
-    {nombre: 'Soporte Tecnico'},
-    {nombre: 'Programación Web'}
-]
 
 class Canal extends React.Component{
     onClick(){
@@ -29,4 +25,60 @@ class ListaCanales extends React.Component{
     }
 }
 
-ReactDOM.render(<ListaCanales canales={canales}/>, document.getElementById('app'));
+class FormCanal extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={};
+    }
+    onChange(e) {
+        this.setState({
+            nombreCanal: e.target.value
+        });
+        //console.log(e.target.value);
+    }
+    onSubmit(e) {
+        let { nombreCanal } = this.state;
+        console.log(nombreCanal);
+        this.setState({
+            nombreCanal: ''
+        });
+        this.props.agregarCanal(nombreCanal)
+        e.preventDefault();
+    }    
+    render(){
+        return(
+            <form onSubmit={this.onSubmit.bind(this)}>
+                <input type='text' onChange={this.onChange.bind(this)} value={this.state.nombreCanal}></input>
+            </form>
+        )
+    }
+}
+
+class SeccionCanal extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            canales:[
+                { nombre: 'Soporte Tecnico' },
+                { nombre: 'Programación Web' }
+            ]
+        };
+    }
+    agregarCanal(nombre){
+        let {canales} = this.state;
+        canales.push({nombre: nombre});
+        this.setState({
+            canales: canales
+        });
+    }
+    render(){
+        return(
+            <div>
+                <ListaCanales canales={this.state.canales} />
+                <FormCanal agregarCanal={this.agregarCanal.bind(this)}/>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<SeccionCanal/>, document.getElementById('app'));
