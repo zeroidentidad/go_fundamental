@@ -9,7 +9,9 @@ class ListaCanales extends Component {
                 {this.props.canales.map(can=>{
                     return <Canal canal={can}
                     key={can.id}
-                    setCanal={this.props.setCanal}
+                    /*setCanal={this.props.setCanal}
+                    canalActivo={this.props.canalActivo}*/
+                    {...this.props}
                     />
                 })}
             </ul>
@@ -19,7 +21,8 @@ class ListaCanales extends Component {
 
 ListaCanales.propTypes ={
     canales: PropTypes.array.isRequired,
-    setCanal: PropTypes.func.isRequired
+    setCanal: PropTypes.func.isRequired,
+    canalActivo: PropTypes.object.isRequired
 }
 
 export default ListaCanales;

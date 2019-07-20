@@ -12,7 +12,9 @@ class FormCanal extends Component {
     render() {
         return (
             <form onSubmit={this.onSubmit.bind(this)}>
-                <input type='text' ref='canal'/>
+                <div className='form-group'>
+                    <input className='form-control' placeholder='Agregar canal' type='text' ref='canal' />
+                </div>
             </form>
         )
     }

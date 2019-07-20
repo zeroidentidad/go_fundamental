@@ -25,6 +25,7 @@
     "webpack": "^4.36.1"
   },
   "dependencies": {
+    "fecha": "^3.0.3",
     "prop-types": "^15.7.2"
   }
 }

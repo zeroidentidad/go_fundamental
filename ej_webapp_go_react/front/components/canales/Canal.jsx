@@ -8,9 +8,10 @@ class Canal extends Component{
         setCanal(canal);
     }
     render(){
-        const {canal}=this.props;
+        const {canal, canalActivo}=this.props;
+        const activo = canal === canalActivo ? 'active' : '';
         return(
-            <li>
+            <li className={activo}>
                 <a onClick={this.onClick.bind(this)}>{canal.nombre}</a>
             </li>
         )
@@ -19,7 +20,8 @@ class Canal extends Component{
 
 Canal.propTypes = {
     canal: PropTypes.object.isRequired,
-    setCanal: PropTypes.func.isRequired
+    setCanal: PropTypes.func.isRequired,
+    canalActivo: PropTypes.object.isRequired
 }
 
 export default Canal;
