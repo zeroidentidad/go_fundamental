@@ -8,16 +8,51 @@ class App extends Component {
         super(props);
         this.state = {
             canales: [],
-            canalActivo: { canalActivo: null },
+            canalActivo: {},
             usuarios: [],
-            mensajes: []
+            mensajes: [],
+            connected: false
         };
     }
+    //test websocket >
+    componentDidMount(){
+        let ws = this.ws = new WebSocket('ws://echo.websocket.org');
+        ws.onmessage = this.message.bind(this);
+        ws.onopen = this.open.bind(this);
+        ws.onclose = this.close.bind(this);
+    }
+    // handlers websocket test
+    message(e){
+        const event = JSON.parse(e.data);
+        if(event.nombre === 'canal agregado'){
+            this.nuevoCanal(event.data)
+        }
+    }
+    open(){
+        this.setState({ connected: true });
+    }
+    close(){
+        this.setState({ connected: false });
+    }
+    nuevoCanal(canal){
+        let {canales}=this.state;
+        canales.push(canal);
+        this.setState({ canales });
+    }
+    //< test websocket
     agregarCanal(nombre){
         let {canales}=this.state;
-        canales.push({id: canales.length, nombre});
-        this.setState({canales});
+        // canales.push({id: canales.length, nombre});
+        // this.setState({canales});
         // enviar al servidor
+        let msg = {
+            nombre: 'canal agregado',
+            data: {
+                id: canales.length,
+                nombre
+            }
+        }
+        this.ws.send(JSON.stringify(msg));
     }
     setCanal(canalActivo){
         this.setState({canalActivo});
