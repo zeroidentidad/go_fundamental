@@ -9,7 +9,7 @@ import (
 
 func main() {
 	session, err := r.Connect(r.ConnectOpts{
-		Address:  "localhost:28015",
+		Address:  "192.168.0.101:28015",
 		Database: "rtgoreact",
 	})
 
