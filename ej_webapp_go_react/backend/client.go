@@ -7,8 +7,10 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+//FindHandler export in main
 type FindHandler func(string) (Handler, bool)
 
+//Client export in main
 type Client struct {
 	send          chan Mensaje
 	socket        *websocket.Conn
@@ -19,13 +21,15 @@ type Client struct {
 	nombreUsuario string
 }
 
-func (c *Client) NewStopChannel(stopKey int) chan bool {
+//NewStopCanal export in main
+func (c *Client) NewStopCanal(stopKey int) chan bool {
 	c.StopForKey(stopKey)
 	stop := make(chan bool)
 	c.stopCanales[stopKey] = stop
 	return stop
 }
 
+//StopForKey export in main
 func (c *Client) StopForKey(key int) {
 	if ch, found := c.stopCanales[key]; found {
 		ch <- true
@@ -33,28 +37,31 @@ func (c *Client) StopForKey(key int) {
 	}
 }
 
-func (client *Client) Read() {
+//Read export in main
+func (c *Client) Read() {
 	var mensaje Mensaje
 	for {
-		if err := client.socket.ReadJSON(&mensaje); err != nil {
+		if err := c.socket.ReadJSON(&mensaje); err != nil {
 			break
 		}
-		if handler, found := client.findHandler(mensaje.Nombre); found {
-			handler(client, mensaje.Data)
+		if handler, found := c.findHandler(mensaje.Nombre); found {
+			handler(c, mensaje.Data)
 		}
 	}
-	client.socket.Close()
+	c.socket.Close()
 }
 
-func (client *Client) Write() {
-	for msg := range client.send {
-		if err := client.socket.WriteJSON(msg); err != nil {
+//Write export in main
+func (c *Client) Write() {
+	for msg := range c.send {
+		if err := c.socket.WriteJSON(msg); err != nil {
 			break
 		}
 	}
-	client.socket.Close()
+	c.socket.Close()
 }
 
+//Close export in main
 func (c *Client) Close() {
 	for _, ch := range c.stopCanales {
 		ch <- true
@@ -64,6 +71,7 @@ func (c *Client) Close() {
 	r.Table("usuario").Get(c.id).Delete().Exec(c.session)
 }
 
+//NewClient export in main
 func NewClient(socket *websocket.Conn, findHandler FindHandler,
 	session *r.Session) *Client {
 	var usuario Usuario

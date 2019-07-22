@@ -17,8 +17,8 @@ class App extends Component {
     }
     //test websocket >
     componentDidMount(){
-        //let ws = this.ws = new WebSocket('ws://echo.websocket.org');
-        let socket = this.socket = new Socket();
+        let ws = this.ws = new WebSocket('ws://localhost:3000');
+        let socket = this.socket = new Socket(ws);
         socket.on('connect', this.onConnect.bind(this));
         socket.on('disconnect', this.onDisconnect.bind(this));
         socket.on('agregar canal', this.onAgregarCanal.bind(this));
@@ -70,19 +70,8 @@ class App extends Component {
     }
     //< test websocket
     agregarCanal(nombre){
-        //let {canales}=this.state;
-        // canales.push({id: canales.length, nombre});
-        // this.setState({canales});
         // enviar al servidor
         this.socket.emit('agregar canal',{nombre});
-        /*let msg = {
-            nombre: 'agregar canal',
-            data: {
-                id: canales.length,
-                nombre
-            }
-        }
-        this.ws.send(JSON.stringify(msg)); */
     }
     setCanal(canalActivo){
         this.setState({canalActivo});
@@ -92,18 +81,9 @@ class App extends Component {
         this.socket.emit('subscribir mensaje', { canalId: canalActivo.id });
     }
     setNombreUsuario(nombre){
-        /*let {usuarios} = this.state;
-        usuarios.push({id:usuarios.length, nombre});
-        this.setState({usuarios});*/
-        // enviar al servidor
         this.socket.emit('editar usuario', { nombre });
     }
     agregarMensaje(body){
-        /*let {mensajes, usuarios} = this.state;
-        let createdAt = new Date;
-        let autor = usuarios.length > 0 ? usuarios[0].nombre: 'anonimo';
-        mensajes.push({id:mensajes.length, body, createdAt, autor});
-        this.setState({mensajes});*/
         // enviar al servidor
         let {canalActivo} = this.state;
         this.socket.emit('agregar mensaje', {canalId: canalActivo.id, body})
