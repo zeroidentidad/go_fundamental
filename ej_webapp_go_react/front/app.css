@@ -6,11 +6,11 @@
   font-size: 16px;
 }
 .nav{
-  flex-basis: 20%;
+  flex-basis: 30%;
 }
 
 .messages-container{
-  flex-basis: 80%;
+  flex-basis: 70%;
   margin-bottom: 0;
   height: 100vh;
 }
