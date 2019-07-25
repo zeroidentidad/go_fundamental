@@ -1,6 +1,9 @@
 package main
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
@@ -21,5 +24,22 @@ func main() {
 
 	eco.Static("/", "public")
 
+	eco.GET("/json", getJSON)
+
 	log.Error(eco.Start(":9000"))
+}
+
+func getJSON(c echo.Context) error {
+	time.Sleep(5 * time.Second)
+	ns := make([]Notas, 0)
+	ns = append(ns, Notas{Titulo: "xyz 123", Contenido: "lorem ipsum not"})
+	ns = append(ns, Notas{Titulo: "asd 556", Contenido: "lorem ipsum not"})
+	ns = append(ns, Notas{Titulo: "bnn 987", Contenido: "lorem ipsum not"})
+
+	return c.JSON(http.StatusOK, ns)
+}
+
+type Notas struct {
+	Titulo    string
+	Contenido string
 }
