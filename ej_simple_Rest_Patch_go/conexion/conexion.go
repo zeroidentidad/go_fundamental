@@ -46,3 +46,9 @@ func GetUser(id string) estructuras.Usuario {
 
 	return usuario
 }
+
+func CreateUser(usuario estructuras.Usuario) estructuras.Usuario {
+	conn.Create(&usuario)
+
+	return usuario
+}

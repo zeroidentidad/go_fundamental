@@ -16,6 +16,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/user/{id}", GetUser).Methods("GET")
+	r.HandleFunc("/user/nuevo", NewUser).Methods("POST")
 
 	puerto := ":3000"
 	log.Println("Servidor iniciado, puerto", puerto)
@@ -39,4 +40,24 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 	respuesta := estructuras.Respuesta{status, usuario, mensaje}
 	json.NewEncoder(w).Encode(respuesta)
+}
+
+//NewUser func
+func NewUser(w http.ResponseWriter, r *http.Request) {
+	usuario := GetUserRequest(r)
+
+	respuesta := estructuras.Respuesta{"success", conexion.CreateUser(usuario), "ok"}
+	json.NewEncoder(w).Encode(respuesta)
+}
+
+func GetUserRequest(r *http.Request) estructuras.Usuario {
+	var usuario estructuras.Usuario
+	decoder := json.NewDecoder(r.Body)
+
+	err := decoder.Decode(&usuario)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return usuario
 }
