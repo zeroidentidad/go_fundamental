@@ -17,6 +17,8 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/user/{id}", GetUser).Methods("GET")
 	r.HandleFunc("/user/nuevo", NewUser).Methods("POST")
+	r.HandleFunc("/user/actualizar/{id}", UpdateUser).Methods("PATCH")
+	r.HandleFunc("/user/eliminar/{id}", DeleteUser).Methods("DELETE")
 
 	puerto := ":3000"
 	log.Println("Servidor iniciado, puerto", puerto)
@@ -60,4 +62,27 @@ func GetUserRequest(r *http.Request) estructuras.Usuario {
 	}
 
 	return usuario
+}
+
+//UpdateUser func
+func UpdateUser(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	idUsuario := vars["id"]
+
+	usuario := GetUserRequest(r)
+
+	respuesta := estructuras.Respuesta{"success", conexion.UpdateUser(idUsuario, usuario), "ok"}
+	json.NewEncoder(w).Encode(respuesta)
+}
+
+//DeleteUser func
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	idUsuario := vars["id"]
+
+	var usuario estructuras.Usuario
+	conexion.DeleteUser(idUsuario)
+
+	respuesta := estructuras.Respuesta{"success", usuario, "ok"}
+	json.NewEncoder(w).Encode(respuesta)
 }

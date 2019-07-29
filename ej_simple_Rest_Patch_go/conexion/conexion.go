@@ -52,3 +52,25 @@ func CreateUser(usuario estructuras.Usuario) estructuras.Usuario {
 
 	return usuario
 }
+
+func UpdateUser(id string, usuario estructuras.Usuario) estructuras.Usuario {
+	usuarioAct := estructuras.Usuario{}
+	conn.Where("id=?", id).First(&usuarioAct)
+
+	usuarioAct.Nombre = usuario.Nombre
+	usuarioAct.Apellido = usuario.Apellido
+	usuarioAct.Edad = usuario.Edad
+
+	conn.Save(&usuarioAct)
+
+	return usuarioAct
+}
+
+func DeleteUser(id string) {
+	usuario := estructuras.Usuario{}
+	conn.Where("id=?", id).First(&usuario)
+
+	conn.Delete(&usuario)
+
+	//return usuario
+}
