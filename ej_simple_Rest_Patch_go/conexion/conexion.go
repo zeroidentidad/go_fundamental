@@ -3,6 +3,7 @@ package conexion
 import (
 	"log"
 
+	"../estructuras"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -35,4 +36,13 @@ func ConnString() string {
 func ConnClose() {
 	conn.Close()
 	log.Println("Conexion cerrada")
+}
+
+//Funcs consultas
+
+func GetUser(id string) estructuras.Usuario {
+	usuario := estructuras.Usuario{}
+	conn.Where("id=?", id).First(&usuario)
+
+	return usuario
 }

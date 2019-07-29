@@ -6,14 +6,9 @@ import (
 	"net/http"
 
 	"./conexion"
+	"./estructuras"
 	"github.com/gorilla/mux"
 )
-
-type Usuario struct {
-	Nombre   string `json:"nombre"`
-	Apellido string `json:"apellido"`
-	Edad     int    `json:"edad"`
-}
 
 func main() {
 	conexion.InitDB()
@@ -30,9 +25,18 @@ func main() {
 //GetUser func
 func GetUser(w http.ResponseWriter, r *http.Request) {
 
-	//vars := mux.Vars(r)
-	//id_usuario := vars["id"]
+	vars := mux.Vars(r)
+	idUsuario := vars["id"]
 
-	usuario := Usuario{"Jesus", "Ferrer", 26}
-	json.NewEncoder(w).Encode(usuario)
+	usuario := conexion.GetUser(idUsuario)
+	//usuario := estructuras.Usuario{1, "Jesus", "Ferrer", 26}
+
+	status := "success"
+	var mensaje = "ok"
+	if usuario.Id <= 0 {
+		status = "error"
+		mensaje = "Usuario no encontrado."
+	}
+	respuesta := estructuras.Respuesta{status, usuario, mensaje}
+	json.NewEncoder(w).Encode(respuesta)
 }
