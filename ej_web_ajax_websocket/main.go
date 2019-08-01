@@ -30,7 +30,7 @@ func main() {
 }
 
 func getJSON(c echo.Context) error {
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 	ns := make([]Notas, 0)
 	ns = append(ns, Notas{Titulo: "xyz 123", Contenido: "lorem ipsum not"})
 	ns = append(ns, Notas{Titulo: "asd 556", Contenido: "lorem ipsum not"})
