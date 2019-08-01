@@ -29,11 +29,13 @@ btn.addEventListener('click', e => {
 })
 
 const dibujar = data =>{
-    //cont.innerHTML = '';
 
+    //cont.innerHTML = '';
     while (cont.firstChild) { // el sig pasa a ser el primero
         cont.removeChild(cont.firstChild)
     }
+
+    const fragmento = document.createDocumentFragment();
 
     data.forEach(nota => {
         const contenedor = document.createElement('div');
@@ -46,6 +48,9 @@ const dibujar = data =>{
         contenedor.appendChild(titulo);
         contenedor.appendChild(contenido);
 
-        cont.append(contenedor);
+        //cont.append(contenedor);
+        fragmento.appendChild(contenedor);
     });
+
+    cont.appendChild(fragmento);
 }
