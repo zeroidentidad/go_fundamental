@@ -3,6 +3,12 @@ const cont = document.getElementById('contenido');
 const btn = document.getElementById('btnAjax');
 const load = document.getElementById('load');
 
+//status
+const status_ok = 200;
+const status_unathorized = 401;
+const status_notfound = 404;
+const status_internalserver_error = 500;
+
 load.style.display = 'none';
 
 btn.addEventListener('click', e => {
@@ -17,9 +23,23 @@ btn.addEventListener('click', e => {
     xhr.addEventListener('load', e => {
         //cont.innerHTML = e.target.responseText;
         //console.log('Estado objeto: ', xhr.readyState);
-        const data = JSON.parse(e.target.responseText);
-        console.log(data);
-        dibujar(data);
+
+        switch (e.target.status) {
+            case status_ok:
+                const data = JSON.parse(e.target.responseText);
+                dibujar(data);                
+                break;
+            case status_unathorized:
+                cont.textContent='No estas autorizado para ver el contenido';
+                break;
+            case status_notfound:
+                cont.textContent = 'No existe, no encontrado';
+                break;                
+            case status_internalserver_error:
+                cont.textContent = 'Error de servidor';
+                break;
+        }
+
         load.style.display = 'none';
     })
 

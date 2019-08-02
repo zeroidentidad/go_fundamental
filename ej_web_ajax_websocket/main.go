@@ -37,6 +37,9 @@ func getJSON(c echo.Context) error {
 	ns = append(ns, Notas{Titulo: "bnn 987", Contenido: "lorem ipsum not"})
 
 	return c.JSON(http.StatusOK, ns)
+	//return c.JSON(http.StatusUnauthorized, ns)
+	//return c.JSON(http.StatusNotFound, ns)
+	//return c.JSON(http.StatusInternalServerError, ns)
 }
 
 type Notas struct {
