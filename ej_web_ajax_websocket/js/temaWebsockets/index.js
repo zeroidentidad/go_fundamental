@@ -5,13 +5,19 @@ const setText = data => {
     log.insertAdjacentHTML('beforeend', msg)
 }
 
+const setMensaje = data => {
+    const msg = `<div><span>${data.nombre}: </span><span> ${data.mensaje}</span></div>`
+    log.insertAdjacentHTML('beforeend', msg)
+}
+
 btnConn.addEventListener('click', e => {
     ws = new WebSocket('ws://demos.kaazing.com/echo');
     ws.onopen = () => setText('Conectado')
     ws.onclose = () => setText('Desconectado')
     ws.onerror = e => setText(e)
     ws.onmessage = e => {
-        setText(e.data)
+        const mensaje = JSON.parse(e.data)
+        setMensaje(mensaje)
     }
 })
 
@@ -20,5 +26,9 @@ btnDesc.addEventListener('click', e => {
 })
 
 btnEnv.addEventListener('click', e => {
-    ws.send(txtMsg.value)
+    const mensaje = {
+        nombre: txtNombre.value,
+        mensaje: txtMsg.value
+    }
+    ws.send(JSON.stringify(mensaje))
 })
