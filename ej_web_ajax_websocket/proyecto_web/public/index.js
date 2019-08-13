@@ -1,5 +1,5 @@
 let ws = null, theChart = null
-const dataChart = [5, 7, 9]
+const dataChart = [3, 4, 2]
 
 const setSystemMessage = data => {
     systemMessage.textContent = data
