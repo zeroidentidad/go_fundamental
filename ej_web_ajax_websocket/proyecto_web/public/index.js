@@ -55,13 +55,18 @@ const connectWS = data => {
                 theChart.update()
                 break;
             case 'pong':
-
+                //setSystemMessage('Reconexion al WS.')
+                console.log('Reconexion a WS')
                 break;                        
             default:
                 setSystemMessage('Mensaje desconocido recibido')
                 break;
         }
     }
+
+    setInterval(() => {
+        ws.send(JSON.stringify({type: 'ping'}))
+    }, 60000);
 }
 
 btnSend.addEventListener('click', e => {
