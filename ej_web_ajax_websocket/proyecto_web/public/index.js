@@ -55,7 +55,7 @@ const connectWS = data => {
                 theChart.update()
                 break;
             case 'pong':
-                //setSystemMessage('Reconexion al WS.')
+                setSystemMessage('Reconexion al WS.')
                 console.log('Reconexion a WS')
                 break;                        
             default:

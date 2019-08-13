@@ -193,7 +193,7 @@ func mensaje(s *melody.Session, msg []byte) {
 		}
 		mel.Broadcast(r)
 	case "ping":
-		mel.BroadcastFilter([]byte(`{"type":"pong"`),
+		mel.BroadcastFilter([]byte(`{"type":"pong"}`),
 			func(sa *melody.Session) bool {
 				return sa == s
 			},
