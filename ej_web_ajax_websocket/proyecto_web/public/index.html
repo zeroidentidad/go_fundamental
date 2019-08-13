@@ -5,17 +5,19 @@
     <title>WebSocket</title>
     <style>
         canvas {
-        width: 800px !important;
-        height: 600px !important;
+        height: 750px !important;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;        
         }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<br/>
 <body>
-    <div id="systemMessage"></div>
-
+    <div align="center" id="systemMessage"></div>
+    
+    <hr />
     <div align="center">
     <label for="usrName">Usuario:</label>
     <input type="text" id="usrName">
@@ -23,14 +25,12 @@
     <input type="password" id="password">
     <button id="btnLogin">Login</button>
 
-    <br/>
-    <br/>
+    <hr/>
     <label for="txtMsg">Mensaje:</label>
     <input type="text" id="textMsg">
     <button id="btnSend">Enviar</button>
 
-    <br/>
-    <br/>
+    <hr />
     <label for="product">Productos:</label>
     <select id="product">
         <option value="0">Caguamita</option>
@@ -42,9 +42,12 @@
     <input type="number" id="quantity">
     <button id="btnSale">Vender</button>
     </div>
-
+    <hr />
     <div id="content" style="background-color: rgb(187, 184, 184)"></div>
-    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <div align="center" style="width: 100%;">
+        <canvas id="myChart"></canvas>
+    </div>
 
     <script src="Chart.min.js"></script>
     <script src="index.js"></script>

@@ -1,4 +1,5 @@
-let ws = null
+let ws = null, theChart = null
+const dataChart = [5, 7, 9]
 
 const setSystemMessage = data => {
     systemMessage.textContent = data
@@ -18,7 +19,7 @@ const login = async() => {
         case 200:
            data = await response.json()
             connectWS(data)
-            console.log(data)
+            loadChart()
             setSystemMessage(`Conectado OK. Code: ${response.status}`)
             break;
         case 401:
@@ -50,7 +51,8 @@ const connectWS = data => {
                 content.insertAdjacentHTML('beforeend',`<div>De: ${data.data_response.name}, Mensaje: ${data.data_response.message}</div>`)
                 break;
             case 'sale':
-
+                dataChart[data.data_sale.product] += data.data_sale.quantity
+                theChart.update()
                 break;
             case 'pong':
 
@@ -75,3 +77,61 @@ btnSend.addEventListener('click', e => {
         ws.send(JSON.stringify(data))
     }
 })
+
+btnSale.addEventListener('click', e => {
+    e.preventDefault()
+    const data = {
+            type: 'sale',
+            product: parseInt(product.value, 10),
+            quantity: parseInt(quantity.value, 10)
+    }
+    if(data.quantity>0){
+        ws.send(JSON.stringify(data)) 
+    }else{
+        setSystemMessage('Sin cantidad.') 
+    }   
+})
+
+const loadChart = () => {
+    const ctx = myChart.getContext('2d')
+    myChart.width = 400
+    myChart.height = 400
+    theChart  = new Chart(ctx,{
+        type: 'bar',
+        fill: false,
+        data:{
+            labels: ["Caguamita", "Caguama", "Caguamon"],
+            datasets:[{
+                label: "Ventas",
+                data: dataChart,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1.5)',
+                    'rgba(54, 162, 235, 1.5)',
+                    'rgba(255, 206, 86, 1.5)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options:{
+            hoverMode: 'index',
+            stacked: false,
+            responsive: true,
+            scales:{
+                yAxes: [{
+                    ticks:{
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+}
+
+/*window.randomScalingFactor = function () {
+    return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.random() * 100;
+};*/
