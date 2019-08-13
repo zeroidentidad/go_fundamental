@@ -70,7 +70,7 @@ func main() {
 		log.Error(err)
 	}
 
-	log.Printf("Servidor iniciado correctament...")
+	log.Printf("Servidor iniciado correctamente...")
 
 }
 

@@ -9,30 +9,39 @@
         height: 600px !important;
         }
     </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+<br/>
 <body>
     <div id="systemMessage"></div>
 
-    <label for="usrName">Usuario</label>
+    <div align="center">
+    <label for="usrName">Usuario:</label>
     <input type="text" id="usrName">
-    <label for="password">Usuario</label>
+    <label for="password">Password:</label>
     <input type="password" id="password">
     <button id="btnLogin">Login</button>
 
-    <label for="txtMsg">Mensaje</label>
+    <br/>
+    <br/>
+    <label for="txtMsg">Mensaje:</label>
     <input type="text" id="textMsg">
     <button id="send">Enviar</button>
 
-    <label for="product">Productos</label>
+    <br/>
+    <br/>
+    <label for="product">Productos:</label>
     <select id="product">
         <option value="0">Caguamita</option>
         <option value="1">Caguama</option>
         <option value="2">Caguamon</option>
     </select>
 
-    <label for="quantity">Cantidad</label>
+    <label for="quantity">Cantidad:</label>
     <input type="number" id="quantity">
     <button id="btnSale">Vender</button>
+    </div>
 
     <div id="content"></div>
     <canvas id="myChart" width="400" height="400"></canvas>
