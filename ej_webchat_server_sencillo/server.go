@@ -16,18 +16,18 @@ func Hola(w http.ResponseWriter, r *http.Request) {
 
 type Response struct {
 	Mensaje string `json:"mensaje"`
-	Nombre  string `json:"nombre"`
+	Valid   bool   `json:"valid"`
 }
 
 func HolaJSON(w http.ResponseWriter, r *http.Request) {
-	resonse := CreateResponse()
-	json.NewEncoder(w).Encode(resonse)
+	response := CreateResponse("Ke onda es JSON", true)
+	json.NewEncoder(w).Encode(response)
 }
 
-func CreateResponse() Response {
+func CreateResponse(mensaje string, valid bool) Response {
 	return Response{
-		"Ke onda es JSON",
-		"Jesus",
+		mensaje,
+		valid,
 	}
 }
 
@@ -47,10 +47,28 @@ var Users = struct {
 func ValidarUser(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	username := r.FormValue("username")
+
+	response := Response{}
+	if UserExist(username) {
+		//no permitir otro ingreso
+		response.Mensaje = "No es valido"
+		response.Valid = false
+	} else {
+		//permitir ingreso
+		response.Mensaje = "Es valido"
+		response.Valid = true
+	}
+	json.NewEncoder(w).Encode(response)
 }
 
 func UserExist(username string) bool {
+	Users.RLock()
+	defer Users.RUnlock()
 
+	if _, ok := Users.m[username]; ok {
+		return true
+	}
+	return false
 }
 
 func main() {
