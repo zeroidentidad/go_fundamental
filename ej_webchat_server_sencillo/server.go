@@ -30,12 +30,23 @@ func CreateResponse() Response {
 	}
 }
 
+func html(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./frontend/index.html")
+}
+
 func main() {
+
+	cssHandle := http.FileServer(http.Dir("./frontend/css/"))
+	jsHandle := http.FileServer(http.Dir("./frontend/js/"))
+
 	mux := mux.NewRouter()
 	mux.HandleFunc("/", Hola).Methods("GET")
 	mux.HandleFunc("/json", HolaJSON).Methods("GET")
+	mux.HandleFunc("/html", html).Methods("GET")
 
 	http.Handle("/", mux) //se traducen a las rutas de mux
+	http.Handle("/css/", http.StripPrefix("/css/", cssHandle))
+	http.Handle("/js/", http.StripPrefix("/js/", jsHandle))
 
 	log.Println("Server ejecutandose")
 	log.Fatal(http.ListenAndServe(":8000", nil))
