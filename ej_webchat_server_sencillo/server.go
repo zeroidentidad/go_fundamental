@@ -11,18 +11,9 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func Hola(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Ke pedo"))
-}
-
 type Response struct {
 	Mensaje string `json:"mensaje"`
 	Valid   bool   `json:"valid"`
-}
-
-func HolaJSON(w http.ResponseWriter, r *http.Request) {
-	response := CreateResponse("Ke onda es JSON", true)
-	json.NewEncoder(w).Encode(response)
 }
 
 func CreateResponse(mensaje string, valid bool) Response {
@@ -147,8 +138,6 @@ func main() {
 	jsHandle := http.FileServer(http.Dir("./frontend/js/"))
 
 	mux := mux.NewRouter()
-	mux.HandleFunc("/", Hola).Methods("GET")
-	mux.HandleFunc("/json", HolaJSON).Methods("GET")
 	mux.HandleFunc("/html", Html).Methods("GET")
 	mux.HandleFunc("/validar", ValidarUser).Methods("POST")
 	mux.HandleFunc("/chat/{username}", WebSocket).Methods("GET")
