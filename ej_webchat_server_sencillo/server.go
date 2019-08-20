@@ -37,7 +37,8 @@ func Html(w http.ResponseWriter, r *http.Request) {
 }
 
 type User struct {
-	UserName string
+	UserName  string
+	Websocket *websocket.Conn
 }
 
 var Users = struct {
@@ -63,7 +64,7 @@ func ValidarUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserExist(username string) bool {
-	Users.RLock()
+	Users.RLock() //lectura
 	defer Users.RUnlock()
 
 	if _, ok := Users.m[username]; ok {
@@ -72,12 +73,48 @@ func UserExist(username string) bool {
 	return false
 }
 
+func CreateUser(username string, ws *websocket.Conn) User {
+	return User{
+		username,
+		ws,
+	}
+}
+
+func AddUser(user User) {
+	Users.Lock() //escritura
+	defer Users.Unlock()
+	Users.m[user.UserName] = user
+}
+
+func RemoveUser(username string) {
+	Users.Lock() //escritura
+	defer Users.Unlock()
+	delete(Users.m, username) //borrar del map
+}
+
 func WebSocket(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	username := vars["username"]
+
 	ws, err := websocket.Upgrade(w, r, nil, 1024, 1024)
 
 	if err != nil {
 		log.Println("Error:", err)
 		return
+	}
+
+	currentUser := CreateUser(username, ws)
+	AddUser(currentUser)
+	log.Println("Usuario agregado")
+
+	for {
+		typeMsg, msg, err := ws.ReadMessage()
+
+		if err != nil {
+			RemoveUser(username)
+			return
+		}
 	}
 }
 
