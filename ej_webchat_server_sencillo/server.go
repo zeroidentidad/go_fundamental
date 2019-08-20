@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"encoding/json"
+	"sync"
 
 	"github.com/gorilla/mux"
 )
@@ -30,8 +31,26 @@ func CreateResponse() Response {
 	}
 }
 
-func html(w http.ResponseWriter, r *http.Request) {
+func Html(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "./frontend/index.html")
+}
+
+type User struct {
+	UserName string
+}
+
+var Users = struct {
+	m map[string]User
+	sync.RWMutex
+}{m: make(map[string]User)}
+
+func ValidarUser(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	username := r.FormValue("username")
+}
+
+func UserExist(username string) bool {
+
 }
 
 func main() {
@@ -42,7 +61,8 @@ func main() {
 	mux := mux.NewRouter()
 	mux.HandleFunc("/", Hola).Methods("GET")
 	mux.HandleFunc("/json", HolaJSON).Methods("GET")
-	mux.HandleFunc("/html", html).Methods("GET")
+	mux.HandleFunc("/html", Html).Methods("GET")
+	mux.HandleFunc("/validar", ValidarUser).Methods("POST")
 
 	http.Handle("/", mux) //se traducen a las rutas de mux
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandle))
