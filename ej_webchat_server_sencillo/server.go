@@ -92,6 +92,25 @@ func RemoveUser(username string) {
 	delete(Users.m, username) //borrar del map
 }
 
+func SendMessage(typeMsg int, msg []byte) {
+	Users.RLock() //lectura
+	defer Users.RUnlock()
+
+	for _, user := range Users.m {
+		if err := user.Websocket.WriteMessage(typeMsg, msg); err != nil {
+			return
+		}
+	}
+}
+
+func ArrayByte(value string) []byte {
+	return []byte(value)
+}
+
+func ConcatMsg(username string, arr []byte) string {
+	return username + ": " + string(arr[:]) //todo
+}
+
 func WebSocket(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -115,6 +134,9 @@ func WebSocket(w http.ResponseWriter, r *http.Request) {
 			RemoveUser(username)
 			return
 		}
+
+		finalMsg := ConcatMsg(username, msg)
+		SendMessage(typeMsg, ArrayByte(finalMsg))
 	}
 }
 
@@ -128,7 +150,7 @@ func main() {
 	mux.HandleFunc("/json", HolaJSON).Methods("GET")
 	mux.HandleFunc("/html", Html).Methods("GET")
 	mux.HandleFunc("/validar", ValidarUser).Methods("POST")
-	mux.HandleFunc("/chat{username}", WebSocket).Methods("GET")
+	mux.HandleFunc("/chat/{username}", WebSocket).Methods("GET")
 
 	http.Handle("/", mux) //se traducen a las rutas de mux
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandle))

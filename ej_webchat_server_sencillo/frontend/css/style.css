@@ -9,7 +9,7 @@ body {
     margin: 0 auto;
     text-align: center;
     padding-bottom: 60px;
-    margin-top: 10em;
+    margin-top: 1em;
 }
 
 #registro input, #registro label {
@@ -30,4 +30,10 @@ body {
     float: right;
     clear: both;
     display: block;
+}
+
+#container-chat {
+    display: none;
+    width: 40%;
+    margin: 0 auto;    
 }

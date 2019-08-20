@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
-    const username
+    var username;
+    var finalConexion;
 
     $("#form-registro").on("submit", function (e) {
         e.preventDefault();
@@ -19,7 +20,6 @@ $(document).ready(function () {
     })
 
     function result(data) {
-        //console.log("El servidor envio algo, Data:", JSON.parse(data))
         obj = JSON.parse(data)
 
         if(obj.valid===true){
@@ -30,6 +30,21 @@ $(document).ready(function () {
     }
 
     function crearConexion() {
-        const conexion = new WebSocket(`ws://localhost:8000/chat${username}`)
+        $("#registro").hide()
+        $("#container-chat").show()
+        var conexion = new WebSocket("ws://localhost:8000/chat/"+username)
+        finalConexion = conexion
+        conexion.onopen = function (response) {
+            conexion.onmessage = function (response) {
+                console.log(response.data)
+            }
+        }
     }
+
+    $("#form-mensaje").on("submit", function (e) {
+        e.preventDefault()
+        mensaje = $("#mensaje").val()
+        finalConexion.send(mensaje)
+        $("#mensaje").val("")
+    })
 })
