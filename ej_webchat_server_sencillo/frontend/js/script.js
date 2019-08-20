@@ -37,6 +37,8 @@ $(document).ready(function () {
         conexion.onopen = function (response) {
             conexion.onmessage = function (response) {
                 console.log(response.data)
+                val = $("#chatArea").val()
+                $("#chatArea").val(val+"\n"+response.data)
             }
         }
     }

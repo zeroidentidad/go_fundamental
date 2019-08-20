@@ -87,6 +87,7 @@ func AddUser(user User) {
 }
 
 func RemoveUser(username string) {
+	log.Println(username, "se ha ido")
 	Users.Lock() //escritura
 	defer Users.Unlock()
 	delete(Users.m, username) //borrar del map
