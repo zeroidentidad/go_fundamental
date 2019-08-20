@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/mux"
+	"github.com/gorilla/websocket"
 )
 
 func Hola(w http.ResponseWriter, r *http.Request) {
@@ -71,6 +72,15 @@ func UserExist(username string) bool {
 	return false
 }
 
+func WebSocket(w http.ResponseWriter, r *http.Request) {
+	ws, err := websocket.Upgrade(w, r, nil, 1024, 1024)
+
+	if err != nil {
+		log.Println("Error:", err)
+		return
+	}
+}
+
 func main() {
 
 	cssHandle := http.FileServer(http.Dir("./frontend/css/"))
@@ -81,6 +91,7 @@ func main() {
 	mux.HandleFunc("/json", HolaJSON).Methods("GET")
 	mux.HandleFunc("/html", Html).Methods("GET")
 	mux.HandleFunc("/validar", ValidarUser).Methods("POST")
+	mux.HandleFunc("/chat{username}", WebSocket).Methods("GET")
 
 	http.Handle("/", mux) //se traducen a las rutas de mux
 	http.Handle("/css/", http.StripPrefix("/css/", cssHandle))

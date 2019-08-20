@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    const username
+
     $("#form-registro").on("submit", function (e) {
         e.preventDefault();
         username = $('#username').val();
@@ -27,6 +30,6 @@ $(document).ready(function () {
     }
 
     function crearConexion() {
-        console.log("conectado")
+        const conexion = new WebSocket(`ws://localhost:8000/chat${username}`)
     }
 })
