@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>funciones globales predefinidas</title>
+</head>
+<body>
+
+{{index . 2}}
+{{index . 0}}
+{{index . 1}}
+
+<!--
+index
+una func que se puede usar en una plantilla
+es una "función global predefinida"
+
+Index devuelve el resultado de indexar su primer argumento por los
+siguientes argumentos. Por lo tanto, "index x 1 2 3" es, en la sintaxis Go,
+x [1] [2] [3]. Cada elemento indexado debe ser un map, un slice o un array.
+https://godoc.org/text/template#hdr-Functions
+-->
+
+<!-- FYI -->
+Este es un comentario de plantilla
+{{/*(index .Sabidura 3).Nombre*/}}
+
+</body>
+</html>

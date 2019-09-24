@@ -1,0 +1,41 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>funciones globales predefinidas</title>
+</head>
+<body>
+
+
+EJEMPLO #1
+{{range .}}
+    {{.}}
+{{end}}
+
+
+EJEMPLO #2
+{{if .}}
+    EJEMPLO #2 - {{.}}
+{{end}}
+
+EJEMPLO #3
+{{range .}}
+    {{if .Nombre}}
+       EJEMPLO #3 - {{.Nombre}}
+    {{end}}
+{{end}}
+
+
+EJEMPLO #4
+{{range .}}
+    {{if and .Nombre .Admin}}
+        EJEMPLO #4 - Nombre: {{.Nombre}}
+        EJEMPLO #4 - Lema: {{.Lema}}
+        EJEMPLO #4 - Admin: {{.Admin}}
+    {{end}}
+{{end}}
+
+
+</body>
+</html>
