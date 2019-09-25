@@ -1,0 +1,22 @@
+para lectura, sobre literales compuestas:
+https://golang.org/ref/spec#Composite_literals
+
+	y := anio{
+		Otonio: semestre{
+			Temporada: "Otonio",
+			Cursos: []curso{
+				curso{"","","",},
+				curso{"","","",},
+				curso{"","","",},
+				curso{"","","",},
+			},
+		},
+		Primavera: semestre{
+			Temporada: "Primavera",
+			Cursos: []curso{
+				curso{"","","",},
+				curso{"","","",},
+				curso{"","","",},
+			},
+		},
+	}
