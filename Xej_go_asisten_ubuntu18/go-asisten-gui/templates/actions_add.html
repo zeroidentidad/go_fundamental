@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head"}}
+
+<body>
+    {{template "sidebar"}}
+    <form action="/config/actions/add-api" method="GET">
+        <div class="form-group">
+            <label>Nombre Action</label>
+            <input name="Name" type="text" placeholder="Nombre" />
+            <small class="text-muted">Nombre de la action</small>
+        </div>
+        <div class="form-group">
+            <label>Respuestas Asistente (Opcional)</label>
+            <input name="Responses" type="text" data-role="taginput" class="mt-4" data-random-color="true">
+        </div>
+
+
+        <div class="form-group">
+            <label>Comandos Bash (Opcional)</label>
+            <input name="Command" type="text" placeholder="Nombre" />
+            <small class="text-muted">Comandos Bash (Opcional)</small>
+        </div>
+
+        <div class="form-group">
+            <label>SystemGo 'Deverlop' (Opcional)</label>
+            <input name="SystemGo"  type="text" placeholder="Nombre" />
+            <small class="text-muted">Comandos SystemGo (Opcional)</small>
+        </div>
+
+        <div class="form-group">
+            <button class="button success">Agregar</button>
+            <input type="submit" class="button" value="Cancel">
+        </div>
+    </form>
+    {{template "scripts"}}
+</body>
+</html>

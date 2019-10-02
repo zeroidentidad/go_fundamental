@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head"}}
+
+<body>
+    {{template "sidebar"}}
+    <a href="/config/actions/add" class="button success"><span class="mif-download"></span>Agregar</a>
+    <table class="table compact">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Command</th>
+                <th>SystemGo</th>
+                <th>Opt</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Actions}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Command}}</td>
+                <td>{{.SystemGo}}</td>
+                <td>
+                    <button class="button primary">Editar</button>
+                    <button class="button alert">Eliminar</button>
+                    <a href="/config/group_keys?action_id={{.ID}}" class="button success">Group KeyWords</a>
+                    <a href="/config/actions_response?action_id={{.ID}}" class="button success">Respuestas</a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    {{template "scripts"}}
+</body>
+
+</html>

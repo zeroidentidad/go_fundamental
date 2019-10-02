@@ -1,0 +1,62 @@
+{{ define "head" }}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GoAsistenGUI</title>
+    <link rel="shortcut icon" href="/assets/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+</head>
+{{ end }}
+
+{{ define "sidebar" }}
+<aside id="sb1" class="sidebar pos-absolute z-2" data-role="sidebar" data-toggle="#sidebar-toggle-2">
+    <div class="sidebar-header"
+        data-image="https://coolbackgrounds.io/images/backgrounds/black/pure-black-background-f9eeb41f.jpg">
+        <a href="/" class="fg-white sub-action" onclick="Metro.sidebar.close('#sb1'); return false;">
+            <span class="mif-arrow-left mif-2x"></span>
+        </a>
+        <div class="avatar">
+            <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--0q9sj6fn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/wvz5ds8yskdutswiw4lh.png"
+                data-role="gravatar" data-email="andrus-example@gmail.com">
+        </div>
+        <span class="title fg-white">GoAsistenGUI</span>
+        <span class="subtitle fg-white"> 2019 © Andrus Diaz</span>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="/config"><span class="mif-home icon"></span>Home</a></li>
+        <li class="divider"></li>
+        <li><a href="/config/actions"><span class="mif-books icon"></span>Actions</a></li>
+        <li><a href="/config/command_keys"><span class="mif-books icon"></span>CommandKeys</a></li>
+        <li><a href="/config/keywords"><span class="mif-books icon"></span>KeyWords</a></li>
+        <li><a href="/config/programs"><span class="mif-books icon"></span>Programs</a></li>
+    </ul>
+</aside>
+<div class="shifted-content-2 h-100 p-ab">
+    <div class="appbar pos-absolute bg-black z-1" data-role="appbar">
+
+        <button class="app-bar-item c-pointer" id="sidebar-toggle-2">
+            <span class="mif-menu fg-white"></span>
+        </button>
+    </div>
+    <!-- <div class="h-50 p-4">
+        <p class="h1">GoAsistenGUI ({{.Title}})</p>
+    </div> -->
+</div>
+{{ end }}
+
+
+
+{{ define "scripts" }}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+<script>
+    $(document).on("keypress", 'form', function (e) {
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+</script>
+{{ end }}

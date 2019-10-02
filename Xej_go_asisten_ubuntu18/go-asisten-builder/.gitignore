@@ -1,0 +1,7 @@
+*/go-asisten-gui.desktop
+*.tar.xz
+*.deb
+*/pkg
+*/src
+ubuntu/anybuild.sh
+ubuntu/go-asisten

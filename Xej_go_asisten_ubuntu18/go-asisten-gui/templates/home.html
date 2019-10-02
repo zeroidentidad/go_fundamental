@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+{{template "head"}}
+
+<body>
+    {{template "sidebar"}}
+    <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow" method="POST" action="/form"
+        data-on-validate-form="validateForm">
+        <span class="mif-vpn-lock mif-4x place-right" style="margin-top: -10px;"></span>
+        <h2 class="text-light">GoAsistenGUI</h2>
+        <hr class="thin mt-4 mb-4 bg-white">
+        <div class="form-group">
+            <label>Name Asisten: </label>
+            <input type="text" data-role="input" data-prepend="<span class='mif-user'>"
+                placeholder="Name">
+        </div>
+
+        <div class="form-group">
+            <label>Language: </label>
+            <select data-role="select">
+                <option value="en-EN">English</option>
+                <option selected value="es-ES">Spanish</option>
+            </select>
+        </div>
+
+
+        <div class="form-group mt-10">
+            <button title="Desactivado Temporalmente" disabled class="button">GUARDAR</button>
+        </div>
+    </form>
+
+    {{template "scripts"}}
+</body>
+
+</html>

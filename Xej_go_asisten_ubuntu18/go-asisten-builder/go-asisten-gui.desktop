@@ -1,0 +1,20 @@
+[Desktop Entry]
+Comment[es_VE]=
+Comment=
+Exec=/opt/go-asisten/go-asisten-gui/go-asisten-gui
+GenericName[es_VE]=
+GenericName=
+Icon=ktip
+MimeType=
+Name[es_VE]=GoAsisten GUI
+Name=GoAsistenGUI
+Path=/opt/go-asisten/go-asisten-gui
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-RunOnDiscreteGpu=false
+X-KDE-SubstituteUID=false
+X-KDE-Username=

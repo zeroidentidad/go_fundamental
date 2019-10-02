@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head"}}
+
+<body>
+    {{template "sidebar"}}
+    <form action="/config/programs/add" method="GET">
+        <div class="form-group">
+            <label>GeneralName</label>
+            <input placeholder="Palabra Clave" name="GeneralName" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Programas</label>
+            <input name="Programas" type="text" data-role="taginput" class="mt-4" data-random-color="true">
+        </div>
+        <div class="form-group">
+            <button class="button success">Agregar</button>
+        </div>
+    </form>
+
+    <table class="table compact">
+        <thead>
+            <tr>
+                <th>ID (Identificador)</th>
+                <th>GeneralName</th>
+                <th>Programas</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .Elements}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.GeneralName}}</td>
+                <td>{{.Programs}}</td>
+                <td>
+                    <a href="/config/programs/edit/{{.ID}}" class="button primary">Editar</a>
+                    <a href="/config/programs/delete/{{.ID}}" class="button alert">Eliminar</a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    {{template "scripts"}}
+</body>
+
+</html>
+

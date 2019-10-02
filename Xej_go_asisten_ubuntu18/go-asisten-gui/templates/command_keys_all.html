@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head"}}
+
+<body>
+    {{template "sidebar"}}
+
+    <form action="/config/command_keys/add" method="GET">
+        <div class="form-group">
+            <label>Key (Palabra Clave)</label>
+            <input placeholder="Palabra Clave" name="Key" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Command (Comando)</label>
+            <input placeholder="Comando Bash" name="Command" type="text" />
+        </div>
+        <div class="form-group">
+            <button class="button success">Agregar</button>
+        </div>
+    </form>
+
+    <table class="table compact">
+        <thead>
+            <tr>
+                <th>ID (Identificador)</th>
+                <th>Key (Palabra Clave)</th>
+                <th>Command (Comando)</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .CommandKeys}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.Key}}</td>
+                <td>{{.Command}}</td>
+                <td>
+                    <a class="button primary">Editar</a>
+                    <a href="/config/command_keys/delete/{{.ID}}" class="button alert">Eliminar</a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+    {{template "scripts"}}
+</body>
+</html>
