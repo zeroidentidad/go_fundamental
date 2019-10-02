@@ -19,10 +19,15 @@ var GoAsistenGUIDir = ""
 
 func init() {
 	flag.StringVar(&ServerPort, "server-port", "1325", "Server port")
-	flag.StringVar(&GoAsistenCoreDir, "go-asisten-core", "/opt/go-asisten/go-asisten-core/go-asisten-core.so", "Core file")
+	/*flag.StringVar(&GoAsistenCoreDir, "go-asisten-core", "/opt/go-asisten/go-asisten-core/go-asisten-core.so", "Core file")
 	flag.StringVar(&GoAsistenPreDataDir, "go-predata-dir", "/opt/go-asisten/go-asisten-core/data/", "Pre Data Dir")
 	flag.StringVar(&GoAsistenDataDir, "go-data-dir", "$HOME/.config/go-asisten/", "Data Dir")
-	flag.StringVar(&GoAsistenGUIDir, "go-gui-dir", "/opt/go-asisten/go-asisten-gui/", "Gui Dir")
+	flag.StringVar(&GoAsistenGUIDir, "go-gui-dir", "/opt/go-asisten/go-asisten-gui/", "Gui Dir")*/
+
+	flag.StringVar(&GoAsistenCoreDir, "go-asisten-core", "../go-asisten-core/go-asisten-core.so", "Core file")
+	flag.StringVar(&GoAsistenPreDataDir, "go-predata-dir", "../go-asisten-core/data/", "Pre Data Dir")
+	flag.StringVar(&GoAsistenDataDir, "go-data-dir", "./.config/go-asisten/", "Data Dir")
+	flag.StringVar(&GoAsistenGUIDir, "go-gui-dir", "./", "Gui Dir")
 
 	flag.Parse()
 }

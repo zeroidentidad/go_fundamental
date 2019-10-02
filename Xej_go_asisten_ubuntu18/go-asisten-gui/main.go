@@ -31,7 +31,7 @@ func main() {
 	server.InitServer(ServerPort, coreClient.GetDB(), GoAsistenGUIDir)
 
 	// Open gui HTTP
-	ui, err := gui.NewLorcaHTTP("http://localhost:"+ServerPort+"/asisten", 290, 330)
+	ui, err := gui.NewLorcaHTTP("http://localhost:"+ServerPort+"/asisten", 800, 600)
 	defer ui.Close()
 	// Set Methods Speech
 	ui.Bind("speech", speech(coreClient))
