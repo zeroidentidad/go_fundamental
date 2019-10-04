@@ -2,7 +2,7 @@
   "port": ":443",
   "cert_pem": "./certificados/cert.pem",
   "key_pem": "./certificados/key.pem",
-  "my_token": "",
+  "my_token": "pruebas-xyz:v",
   "fb_token": "",
   "fb_url": ""
 }
