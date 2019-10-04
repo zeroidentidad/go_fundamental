@@ -6,10 +6,12 @@ import (
 )
 
 func main() {
+	getConfig()
+
 	http.HandleFunc("/", saluda)
 	//log.Println(http.ListenAndServe("localhost:8080", nil))
-	log.Println("Serv iniciado https://...")
-	err := http.ListenAndServeTLS(":443", "./certificados/cert.pem", "./certificados/key.pem", nil)
+	log.Printf("Serv iniciado https://localhost:%v", c.Port)
+	err := http.ListenAndServeTLS(c.Port, c.CertPem, c.KeyPem, nil)
 	if err != nil {
 		log.Println(err)
 	}
