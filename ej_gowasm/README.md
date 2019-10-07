@@ -29,7 +29,7 @@
 <script src="wasm_exec.js"></script>
 ```
 
-## 3 - La ejecución directa seria agregar la herramieta goexec para probar sin crear el programar de servidor:
+## 3 - La ejecución directa seria con agregar la herramieta goexec para probar, sin crear el programa de servidor:
 
 ``` Shell
  go get -u github.com/shurcooL/goexec
