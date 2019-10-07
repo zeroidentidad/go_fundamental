@@ -1,0 +1,7 @@
+{
+    "go.useLanguageServer": true,
+    "go.toolsEnvVars": {
+        "GOOS":"js",
+        "GOARCH":"wasm"
+    }
+}
