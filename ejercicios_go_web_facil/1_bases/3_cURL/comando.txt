@@ -1,0 +1,4 @@
+
+curl -o index.html https://www.google.com.mx
+
+curl -o salida.txt http://localhost:8080
