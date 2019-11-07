@@ -1,0 +1,22 @@
+{{template "header"}}
+
+<form method="POST" enctype="text/plain">
+    <label for="Nombre">Nombre</label>
+    <input type="text" id="Nombre" name="Nombre">
+    <br>
+    <label for="Apellido">Apellido</label>
+    <input type="text" id="Apellido" name="Apellido">
+    <br>
+    <label for="Subscrito">Subscrito</label>
+    <input type="checkbox" id="Subscrito" name="Subscrito">
+    <br>
+    <input type="submit">
+</form>
+
+<br>
+
+{{if .}}
+<h1>BODY: {{.}}</h1>
+{{end}}
+
+{{template "footer"}}
