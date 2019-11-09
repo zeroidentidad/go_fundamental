@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<form method="post">
+
+    <input type="email" name="username" placeholder="email"><br>
+    <input type="text" name="nombre" placeholder="nombre"><br>
+    <input type="text" name="apellido" placeholder="apellido"><br>
+    <input type="submit">
+
+</form>
+
+
+{{if .Nombre}}
+USUARIO {{.UserName}}<br>
+NOMBRE {{.Nombre}}<br>
+APELLIDO {{.Apellido}}<br>
+{{end}}
+
+<br>
+<h2>Ir a <a href="/bar">Bar</a></h2>
+</body>
+</html>
