@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BAR</title>
+</head>
+<body>
+
+<h1>Bienvenido a Bar</h1>
+
+{{if .Nombre}}
+USUARIO {{.UserName}}<br>
+PASSWORD {{.Password}}<br>
+NOMBRE {{.Nombre}}<br>
+APELLIDO {{.Apellido}}<br>
+<h2><a href="/logout">log out</a></h2>
+{{end}}
+
+</body>
+</html>
