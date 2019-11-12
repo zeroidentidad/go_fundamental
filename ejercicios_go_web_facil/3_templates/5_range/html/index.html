@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Watahea {{.UserName}}</h1>
+
+    <p>Tags</p>
+    <ul>
+        {{ range .Tags}}
+        <li>{{ . }}</li>
+        {{ end }}
+    </ul>
+    
+    <p>Cursos</p>
+    <ul>
+        {{ range .Cursos}}
+        <li>Curso: {{ .Nombre }} - Duración: {{ .Duracion }}</li>
+        {{ end }}
+    </ul>
+</body>
+</html>
