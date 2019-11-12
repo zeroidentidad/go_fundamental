@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Watahea {{.UserName}}</h1>
+
+    {{with $valor:= "Watahea x100 Watahea" }}
+    <p>{{ $valor }}</p>
+        {{with $valor2:= "Watahea x200 Watahea" }}
+        <p>{{ $valor2 }}</p>
+        {{ end }}
+    {{ end }}
+
+    {{with $valor3:= .Edad }}
+    <p>{{ $valor3 }}</p>
+    {{ end }}
+
+    {{with $valor4:= true }}
+    <p>{{ $valor4 }}</p>
+        {{if $valor4 }}
+        <p>Verdadero</p>
+        {{ end }}
+    {{ end }}
+</body>
+</html>
