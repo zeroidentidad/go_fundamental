@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Watahea {{.UserName}}</h1>
+
+    {{if .Activo}}
+    <p>Usuario activo</p>
+    {{else}}
+    <p>Usuario inactivo</p>
+    {{end}}
+
+    {{if (and .Activo .Admin)}}
+    <p>Eres admin</p>
+    {{else}}
+    <p>NO eres admin</p>
+    {{end}}
+
+    {{if (gt .Edad 50)}}
+        <h2>tienes mas de 50 años</h2>
+    {{end}} 
+    
+    <div align="center">
+        <h3>Condicionales templates Go</h3>
+        <img src="./captura.png">
+    </div>
+    
+</body>
+</html>
