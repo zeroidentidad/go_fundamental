@@ -42,3 +42,10 @@ func SaveUser(user User) User {
 	users[user.ID] = user
 	return user
 }
+
+func UpdateUser(user User, username, password string) User {
+	user.Username = username
+	user.Password = password
+	users[user.ID] = user
+	return user
+}
