@@ -14,18 +14,12 @@ type Response struct {
 	writer      http.ResponseWriter
 }
 
-func GetDefaultResponse(w http.ResponseWriter) Response {
+func CreateDefaultResponse(w http.ResponseWriter) Response {
 	return Response{
 		Status:      http.StatusOK,
 		writer:      w,
 		contentType: "application/json",
 	}
-}
-
-func (this *Response) NotFoundResponse(msg string) {
-	this.Status = http.StatusNotFound
-	this.Data = nil
-	this.Message = msg
 }
 
 func (this *Response) Send() {
@@ -34,4 +28,21 @@ func (this *Response) Send() {
 
 	responsejson, _ := json.Marshal(&this)
 	fmt.Fprintf(this.writer, string(responsejson))
+}
+
+func SendData(w http.ResponseWriter, data interface{}) {
+	response := CreateDefaultResponse(w)
+	response.Data = data
+	response.Send()
+}
+
+func SendNotFound(w http.ResponseWriter) {
+	response := CreateDefaultResponse(w)
+	response.NotFoundResponse("Recurso no disponible")
+	response.Send()
+}
+
+func (this *Response) NotFoundResponse(msg string) {
+	this.Status = http.StatusNotFound
+	this.Message = msg
 }

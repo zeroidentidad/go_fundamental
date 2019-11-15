@@ -19,17 +19,11 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userId, _ := strconv.Atoi(vars["id"])
 
-	response := models.GetDefaultResponse(w)
-
-	user, err := models.GetUser(userId)
-	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
-		response.NotFoundResponse(err.Error())
+	if user, err := models.GetUser(userId); err != nil {
+		models.SendNotFound(w)
 	} else {
-		response.Data = user
+		models.SendData(w, user)
 	}
-
-	response.Send()
 }
 
 func PostUser(w http.ResponseWriter, r *http.Request) {
