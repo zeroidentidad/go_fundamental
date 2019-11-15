@@ -57,3 +57,14 @@ func (this *Response) UnprocessableEntity(msg string) {
 	this.Status = http.StatusUnprocessableEntity
 	this.Message = msg
 }
+
+func SendNoContent(w http.ResponseWriter) {
+	response := CreateDefaultResponse(w)
+	response.NoContent("Contenido eliminado")
+	response.Send()
+}
+
+func (this *Response) NoContent(msg string) {
+	this.Status = http.StatusNoContent
+	this.Message = msg
+}

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -67,5 +66,11 @@ func PutUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Delete eliminar un usuario\n")
+
+	if user, err := getUserByRequest(r); err != nil {
+		models.SendNotFound(w)
+	} else {
+		models.DeleteUser(user.ID)
+		models.SendNoContent(w)
+	}
 }

@@ -11,3 +11,7 @@ test PUT:
 
 curl http://localhost:8080/api/v1/users/1 -X PUT -d '{"username":"Zero mod", "password":"xd mod"}' -H "Content-Type: application/json"
 curl http://localhost:8080/api/v1/users/2 -X PUT -d '{"username":"Zero3 mod", "password":"xd3 mod"}' -H "Content-Type: application/json"
+
+test DELETE:
+
+curl http://localhost:8080/api/v1/users/1 -X DELETE
