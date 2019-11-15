@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -27,7 +28,14 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Post nuevo usuario\n")
+	user := models.User{}
+	decoder := json.NewDecoder(r.Body)
+
+	if err := decoder.Decode(&user); err != nil {
+		models.SendUnprocessableEntity(w)
+	} else {
+		models.SendData(w, models.SaveUser(user))
+	}
 }
 
 func PutUser(w http.ResponseWriter, r *http.Request) {

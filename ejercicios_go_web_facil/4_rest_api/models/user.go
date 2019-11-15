@@ -36,3 +36,9 @@ func GetUsers() Users {
 
 	return list
 }
+
+func SaveUser(user User) User {
+	user.ID = len(users) + 1
+	users[user.ID] = user
+	return user
+}

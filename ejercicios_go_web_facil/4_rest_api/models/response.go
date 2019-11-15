@@ -46,3 +46,14 @@ func (this *Response) NotFoundResponse(msg string) {
 	this.Status = http.StatusNotFound
 	this.Message = msg
 }
+
+func SendUnprocessableEntity(w http.ResponseWriter) {
+	response := CreateDefaultResponse(w)
+	response.UnprocessableEntity("Entidad no procesable")
+	response.Send()
+}
+
+func (this *Response) UnprocessableEntity(msg string) {
+	this.Status = http.StatusUnprocessableEntity
+	this.Message = msg
+}
