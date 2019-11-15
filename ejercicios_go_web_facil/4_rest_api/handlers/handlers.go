@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 
 	"../models"
 )
@@ -13,8 +16,18 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
-	user := models.User{ID: 1, Username: "Zero", Password: "xd"}
+	//user := models.User{ID:1, Username:"Zero", Password:"xd"}
+
 	w.Header().Set("Content-Type", "application/json")
+
+	vars := mux.Vars(r)
+	userId, _ := strconv.Atoi(vars["id"])
+
+	user, err := models.GetUser(userId)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+	}
+
 	userjson, _ := json.Marshal(user)
 	fmt.Fprintf(w, string(userjson))
 }
