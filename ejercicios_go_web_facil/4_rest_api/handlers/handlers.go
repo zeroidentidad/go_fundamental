@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -16,13 +15,11 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
-	//user:=models.User{ID:1,Username:"Zero",Password:"xd"}
-	w.Header().Set("Content-Type", "application/json")
 
 	vars := mux.Vars(r)
 	userId, _ := strconv.Atoi(vars["id"])
 
-	response := models.GetDefaultResponse()
+	response := models.GetDefaultResponse(w)
 
 	user, err := models.GetUser(userId)
 	if err != nil {
@@ -32,8 +29,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		response.Data = user
 	}
 
-	userjson, _ := json.Marshal(response)
-	fmt.Fprintf(w, string(userjson))
+	response.Send()
 }
 
 func PostUser(w http.ResponseWriter, r *http.Request) {
