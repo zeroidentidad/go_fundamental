@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>INDEX</title>
+</head>
+<body>
+<div class="container">
+<form method="post" enctype="multipart/form-data">
+    <br>
+    <input type="file" name="nf">
+    <input type="submit">
+</form>
+
+<h1>Imagenes subidas:</h1>
+{{range .}}
+<img src="/public/pics/{{.}}" heigth="400px">
+{{end}}
+</div>
+</body>
+</html>
