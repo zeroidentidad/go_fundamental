@@ -6,5 +6,6 @@ import (
 
 func main() {
 	models.CreateConnection()
+	models.Ping()
 	models.CloseConnection()
 }

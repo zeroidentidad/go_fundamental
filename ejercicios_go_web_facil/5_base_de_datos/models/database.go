@@ -28,6 +28,12 @@ func generateURL() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", username, password, host, port, database)
 }
 
+func Ping() {
+	if err := db.Ping(); err != nil {
+		panic(err)
+	}
+}
+
 func CloseConnection() {
 	db.Close()
 }
