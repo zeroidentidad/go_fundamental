@@ -24,6 +24,8 @@ func CreateConnection() {
 	}
 }
 
+//Para la DB en general:
+
 func generateURL() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", username, password, host, port, database)
 }
@@ -36,4 +38,12 @@ func Ping() {
 
 func CloseConnection() {
 	db.Close()
+}
+
+//Para las tablas en especifico:
+
+func ExistsTable(tableName string) bool {
+	sql := fmt.Sprintf("SHOW TABLES LIKE '%s'", tableName)
+	rows, _ := db.Query(sql)
+	return rows.Next()
 }
