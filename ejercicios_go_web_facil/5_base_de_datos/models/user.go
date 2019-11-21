@@ -23,6 +23,12 @@ func NewUser(username, password, email string) *User {
 	return user
 }
 
+func CreateUser(username, password, email string) *User {
+	user := NewUser(username, password, email)
+	user.Save()
+	return user
+}
+
 // Metodos:
 
 func (this *User) Save() {

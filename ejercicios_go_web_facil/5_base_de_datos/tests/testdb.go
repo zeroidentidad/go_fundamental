@@ -13,8 +13,7 @@ func main() {
 	//models.Ping()
 	models.CreateTables()
 
-	user := models.NewUser("Jesus3", "xd3", "test@mail.com")
-	user.Save()
+	user := models.CreateUser("Jesus4", "xd4", "test2@mail.com")
 	fmt.Println(user)
 
 	models.CloseConnection()
