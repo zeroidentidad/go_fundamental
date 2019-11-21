@@ -8,23 +8,25 @@ const userSchema string = `CREATE TABLE users(
         created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`
 
 type User struct {
-	ID       int    `json:"id"`
+	ID       int64  `json:"id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Email    string `json:"email"`
 }
 
 type Users []User
 
 // Constructores estructuras:
 
-func NewUser(username, password string) *User {
-	user := &User{Username: username, Password: password}
+func NewUser(username, password, email string) *User {
+	user := &User{Username: username, Password: password, Email: email}
 	return user
 }
 
 // Metodos:
 
 func (this *User) Save() {
-	sql := "INSERT users SET username=?, password=?"
-	Exec(sql, this.Username, this.Password)
+	sql := "INSERT users SET username=?, password=?, email=?"
+	result, _ := Exec(sql, this.Username, this.Password, this.Email)
+	this.ID, _ = result.LastInsertId() //int64
 }

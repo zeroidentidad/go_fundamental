@@ -13,9 +13,9 @@ func main() {
 	//models.Ping()
 	models.CreateTables()
 
-	user := models.NewUser("Jesus", "xd")
-	fmt.Println(user)
+	user := models.NewUser("Jesus3", "xd3", "test@mail.com")
 	user.Save()
+	fmt.Println(user)
 
 	models.CloseConnection()
 }
