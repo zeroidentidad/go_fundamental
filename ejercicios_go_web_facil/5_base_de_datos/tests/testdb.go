@@ -22,8 +22,11 @@ func main() {
 	//userdel := models.User{ID: 1}
 	//userdel.Delete()
 
-	user := models.GetUser(3)
-	fmt.Println(user)
+	//user := models.GetUser(3)
+	//fmt.Println(user)
+
+	users := models.GetUsers()
+	fmt.Println(users)
 
 	models.CloseConnection()
 }

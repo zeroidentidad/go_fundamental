@@ -66,3 +66,17 @@ func GetUser(id int) *User {
 
 	return user
 }
+
+func GetUsers() Users {
+	sql := "SELECT id, username, password, email FROM users"
+	users := Users{}
+	rows, _ := Query(sql)
+
+	for rows.Next() {
+		user := User{}
+		rows.Scan(&user.ID, &user.Username, &user.Password, &user.Email)
+		users = append(users, user)
+	}
+
+	return users
+}
