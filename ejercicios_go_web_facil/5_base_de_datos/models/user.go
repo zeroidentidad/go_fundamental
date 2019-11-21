@@ -32,7 +32,20 @@ func CreateUser(username, password, email string) *User {
 // Metodos:
 
 func (this *User) Save() {
+	if this.ID == 0 {
+		this.insert()
+	} else {
+		this.update()
+	}
+}
+
+func (this *User) insert() {
 	sql := "INSERT users SET username=?, password=?, email=?"
 	result, _ := Exec(sql, this.Username, this.Password, this.Email)
 	this.ID, _ = result.LastInsertId() //int64
+}
+
+func (this *User) update() {
+	sql := "UPDATE users SET username=?, password=?, email=?"
+	Exec(sql, this.Username, this.Password, this.Email)
 }
