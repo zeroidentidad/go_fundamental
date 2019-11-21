@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -42,8 +43,21 @@ func CloseConnection() {
 
 //Para las tablas en especifico:
 
-func ExistsTable(tableName string) bool {
+func existsTable(tableName string) bool {
 	sql := fmt.Sprintf("SHOW TABLES LIKE '%s'", tableName)
 	rows, _ := db.Query(sql)
 	return rows.Next()
+}
+
+func CreateTables() {
+	createTable("users", userSchema)
+}
+
+func createTable(tableName, schema string) {
+	if !existsTable(tableName) {
+		_, err := db.Exec(schema)
+		if err != nil {
+			log.Println(err)
+		}
+	}
 }
