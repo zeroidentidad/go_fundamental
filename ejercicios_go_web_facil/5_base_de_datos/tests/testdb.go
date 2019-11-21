@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"../models"
 )
 
@@ -10,5 +12,10 @@ func main() {
 	//fmt.Println(result)
 	//models.Ping()
 	models.CreateTables()
+
+	user := models.NewUser("Jesus", "xd")
+	fmt.Println(user)
+	user.Save()
+
 	models.CloseConnection()
 }
