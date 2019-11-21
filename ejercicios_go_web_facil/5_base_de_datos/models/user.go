@@ -54,3 +54,15 @@ func (this *User) Delete() {
 	sql := "DELETE FROM users WHERE id=?"
 	Exec(sql, this.ID)
 }
+
+func GetUser(id int) *User {
+	user := NewUser("", "", "")
+	sql := "SELECT id, username, password, email FROM users WHERE id=?"
+	rows, _ := Query(sql, id)
+
+	for rows.Next() {
+		rows.Scan(&user.ID, &user.Username, &user.Password, &user.Email)
+	}
+
+	return user
+}
