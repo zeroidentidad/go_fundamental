@@ -29,7 +29,7 @@ func CreateUser(username, password, email string) *User {
 	return user
 }
 
-// Metodos:
+// Metodos DB:
 
 func (this *User) Save() {
 	if this.ID == 0 {
@@ -48,4 +48,9 @@ func (this *User) insert() {
 func (this *User) update() {
 	sql := "UPDATE users SET username=?, password=?, email=?"
 	Exec(sql, this.Username, this.Password, this.Email)
+}
+
+func (this *User) Delete() {
+	sql := "DELETE FROM users WHERE id=?"
+	Exec(sql, this.ID)
 }

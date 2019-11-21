@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"../models"
 )
 
@@ -11,10 +9,13 @@ func main() {
 	//result := models.ExistsTable("users")
 	//fmt.Println(result)
 	//models.Ping()
-	models.CreateTables()
+	//models.CreateTables()
 
-	user := models.CreateUser("Jesus4", "xd4", "test2@mail.com")
-	fmt.Println(user)
+	//user := models.CreateUser("Jesus4", "xd4", "test2@mail.com")
+	//fmt.Println(user)
+
+	userdel := models.User{ID: 1}
+	userdel.Delete()
 
 	models.CloseConnection()
 }
