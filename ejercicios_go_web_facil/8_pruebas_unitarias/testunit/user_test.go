@@ -45,3 +45,10 @@ func randomUsername() string {
 	rand.Seed(time.Now().UTC().UnixNano())
 	return fmt.Sprintf("%s/%d", username, rand.Intn(1000))
 }
+
+func TestUniqueUsername(t *testing.T) {
+	_, err := models.CreateUser(username, password, email)
+	if err == nil {
+		t.Error("Es posible insertar registros con usernames duplicados!")
+	}
+}
