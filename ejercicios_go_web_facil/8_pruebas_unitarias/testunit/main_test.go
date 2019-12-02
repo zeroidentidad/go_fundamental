@@ -19,7 +19,7 @@ func beforeTest() {
 	fmt.Println("== Antes de las pruebas ==>")
 	models.CreateConnection()
 	//models.CreateTables()
-	createDefaultUser()
+	//createDefaultUser()
 }
 
 func createDefaultUser() {

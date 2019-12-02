@@ -28,7 +28,7 @@ USE `gowebrestdb`;
 
 CREATE TABLE `users` (
   `id` int(6) UNSIGNED NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL UNIQUE,
   `password` varchar(64) COLLATE utf8mb4_spanish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP

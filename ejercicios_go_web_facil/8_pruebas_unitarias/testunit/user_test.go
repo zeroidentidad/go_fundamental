@@ -1,7 +1,10 @@
 package test
 
 import (
+	"fmt"
+	"math/rand"
 	"testing"
+	"time"
 
 	"../models"
 )
@@ -25,15 +28,20 @@ func TestNewUser(t *testing.T) {
 }
 
 func TestSave(t *testing.T) {
-	user := models.NewUser("zerox", password, email)
+	user := models.NewUser(randomUsername(), password, email)
 	if err := user.Save(); err != nil {
 		t.Error("No es posible crear el usuario", err)
 	}
 }
 
 func TestCreateUser(t *testing.T) {
-	_, err := models.CreateUser("zerox2", password, email)
+	_, err := models.CreateUser(randomUsername(), password, email)
 	if err != nil {
 		t.Error("No es posible insertar el objeto user", nil)
 	}
+}
+
+func randomUsername() string {
+	rand.Seed(time.Now().UTC().UnixNano())
+	return fmt.Sprintf("%s/%d", username, rand.Intn(1000))
 }
