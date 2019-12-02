@@ -26,6 +26,11 @@ func GetConnection() *sql.DB {
 // < para propositos de test
 
 func CreateConnection() {
+
+	if GetConnection() != nil {
+		return
+	}
+
 	url := config.UrlDatabase()
 	if connection, err := sql.Open("mysql", url); err != nil {
 		panic(err)
