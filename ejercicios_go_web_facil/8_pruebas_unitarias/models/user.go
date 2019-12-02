@@ -41,8 +41,9 @@ func (this *User) Save() error {
 
 func (this *User) insert() error {
 	sql := "INSERT users SET username=?, password=?, email=?"
-	result, err := Exec(sql, this.Username, this.Password, this.Email)
-	this.ID, err = result.LastInsertId() //int64
+	id, err := InsertData(sql, this.Username, this.Password, this.Email)
+	//this.ID, err = result.LastInsertId() //int64
+	this.ID = id
 	return err
 }
 
