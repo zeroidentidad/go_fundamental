@@ -52,3 +52,11 @@ func TestUniqueUsername(t *testing.T) {
 		t.Error("Es posible insertar registros con usernames duplicados!")
 	}
 }
+
+func TestDuplicateUsername(t *testing.T) {
+	_, err := models.CreateUser(username, password, email)
+	message := fmt.Sprintf("Error 1062: Duplicate entry '%s' for key 'username'", username)
+	if err.Error() != message {
+		t.Error("Es posible que tenga un username duplicado en la base de datos!")
+	}
+}
