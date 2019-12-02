@@ -11,12 +11,14 @@ import (
 )
 
 var db *sql.DB
+var debug bool
 
 // para propositos de test >
 
 func init() {
 	CreateConnection()
 	//CreateTables()
+	debug = config.Debug()
 }
 
 func GetConnection() *sql.DB {
@@ -90,7 +92,7 @@ func truncateTable(tableName string) {
 
 func Exec(query string, args ...interface{}) (sql.Result, error) {
 	result, err := db.Exec(query, args...)
-	if err != nil {
+	if err != nil && !debug {
 		log.Println(err)
 	}
 	return result, err
@@ -98,7 +100,7 @@ func Exec(query string, args ...interface{}) (sql.Result, error) {
 
 func Query(query string, args ...interface{}) (*sql.Rows, error) {
 	rows, err := db.Query(query, args...)
-	if err != nil {
+	if err != nil && !debug {
 		log.Println(err)
 	}
 	return rows, err

@@ -34,3 +34,9 @@ func UrlDatabase() string {
 func (this *DatabaseConfig) url() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true", this.username, this.password, this.host, this.port, this.database)
 }
+
+/* funcs entorno de desarrollo y pruebas */
+
+func Debug() bool {
+	return database.debug
+}
