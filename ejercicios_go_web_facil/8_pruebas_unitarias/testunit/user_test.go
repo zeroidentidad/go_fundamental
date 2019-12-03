@@ -62,7 +62,7 @@ func TestDuplicateUsername(t *testing.T) {
 }
 
 func TestGetUser(t *testing.T) {
-	user := models.GetUser(id)
+	user := models.GetUserById(id)
 	if !equalsUser(user) || !equalsCreatedDate(user.GetCreatedDate()) {
 		t.Error("No es posible obtener el usuario")
 	}
@@ -88,6 +88,18 @@ func TestPassword(t *testing.T) {
 	user := models.NewUser(username, password, email)
 	if user.Password == password || len(user.Password) != 60 {
 		t.Error("No es posible cifrar el password")
+	}
+}
+
+func TestLogin(t *testing.T) {
+	if valid := models.Login(username, password); !valid {
+		t.Error("No es posible realizar el login")
+	}
+}
+
+func TestNoLogin(t *testing.T) {
+	if valid := models.Login(randomUsername(), password); valid {
+		t.Error("Es posible realizar un login con parametros erróneos")
 	}
 }
 

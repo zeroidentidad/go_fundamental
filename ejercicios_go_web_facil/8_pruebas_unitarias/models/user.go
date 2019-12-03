@@ -67,10 +67,12 @@ func (this *User) Delete() error {
 	return err
 }
 
-func GetUser(id int) *User {
-	user := NewUser("", "", "")
-	sql := "SELECT id, username, password, email, created_at FROM users WHERE id=?"
-	rows, _ := Query(sql, id)
+func GetUser(sql string, conditional interface{}) *User {
+	user := &User{}
+	rows, err := Query(sql, conditional)
+	if err != nil {
+		return user
+	}
 
 	for rows.Next() {
 		rows.Scan(&user.ID, &user.Username, &user.Password, &user.Email, &user.createdAt)
@@ -100,4 +102,21 @@ func (this *User) GetCreatedDate() time.Time {
 func (this *User) SetPassword(password string) {
 	hash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	this.Password = string(hash)
+}
+
+func Login(username, password string) bool {
+	user := GetUserByUsername(username)
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+
+	return err == nil
+}
+
+func GetUserByUsername(username string) *User {
+	sql := "SELECT id, username, password, email, created_date FROM users WHERE username=?"
+	return GetUser(sql, username)
+}
+
+func GetUserById(id int) *User {
+	sql := "SELECT id, username, password, email, created_date FROM users WHERE id=?"
+	return GetUser(sql, id)
 }
