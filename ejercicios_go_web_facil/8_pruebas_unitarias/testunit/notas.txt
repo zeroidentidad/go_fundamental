@@ -1,0 +1,6 @@
+
+go test :-> para correr todas las pruebas definidas
+
+go test -v :-> para detalles de ejecución de las pruebas
+
+go test run TestNameFunc :-> para ejecutar una prueba en especifico de todas la definidas

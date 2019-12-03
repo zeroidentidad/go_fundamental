@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"regexp"
 	"time"
 
@@ -26,15 +27,25 @@ type Users []User
 
 // Constructores estructuras:
 
-func NewUser(username, password, email string) *User {
+func NewUser(username, password, email string) (*User, error) {
 	user := &User{Username: username, Email: email}
-	user.SetPassword(password)
-	return user
+
+	if err := user.Valid(); err != nil {
+		return &User{}, err
+	}
+
+	err := user.SetPassword(password)
+	return user, err
 }
 
 func CreateUser(username, password, email string) (*User, error) {
-	user := NewUser(username, password, email)
-	err := user.Save()
+	user, err := NewUser(username, password, email)
+
+	if err != nil {
+		return &User{}, err
+	}
+
+	err = user.Save()
 	return user, err
 }
 
@@ -100,9 +111,13 @@ func (this *User) GetCreatedDate() time.Time {
 	return this.createdAt
 }
 
-func (this *User) SetPassword(password string) {
-	hash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+func (this *User) SetPassword(password string) error {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return errors.New("no es posible cifrar contraseña")
+	}
 	this.Password = string(hash)
+	return nil
 }
 
 func Login(username, password string) bool {
@@ -124,6 +139,33 @@ func GetUserById(id int) *User {
 
 var emailRegexp = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 
-func ValidEmail(email string) bool {
-	return emailRegexp.MatchString(email)
+func ValidEmail(email string) error {
+	if !emailRegexp.MatchString(email) {
+		return errors.New("formato de email incorrecto")
+	}
+	return nil
+}
+
+func (this *User) Valid() error {
+	if err := ValidEmail(this.Email); err != nil {
+		return err
+	}
+
+	if err := ValidUsername(this.Username); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ValidUsername(username string) error {
+	if username == "" {
+		return errors.New("username vacio")
+	}
+
+	if len(username) > 30 {
+		return errors.New("username muy largo, máximo 30 caracteres")
+	}
+
+	return nil
 }
