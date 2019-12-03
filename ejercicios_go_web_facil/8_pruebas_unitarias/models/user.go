@@ -1,6 +1,7 @@
 package models
 
 import (
+	"regexp"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -119,4 +120,10 @@ func GetUserByUsername(username string) *User {
 func GetUserById(id int) *User {
 	sql := "SELECT id, username, password, email, created_date FROM users WHERE id=?"
 	return GetUser(sql, id)
+}
+
+var emailRegexp = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+
+func ValidEmail(email string) bool {
+	return emailRegexp.MatchString(email)
 }

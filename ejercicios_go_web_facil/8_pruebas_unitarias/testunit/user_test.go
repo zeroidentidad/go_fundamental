@@ -103,6 +103,18 @@ func TestNoLogin(t *testing.T) {
 	}
 }
 
+func TestValidEmail(t *testing.T) {
+	if valid := models.ValidEmail(email); !valid {
+		t.Error("Validación errónea en el email", nil)
+	}
+}
+
+func TestInValidEmail(t *testing.T) {
+	if valid := models.ValidEmail("watahea:cxd.com"); valid {
+		t.Error("Validación errónea en el email")
+	}
+}
+
 /*func TestDeleteUser(t *testing.T) {
 	if err := user.Delete(); err != nil {
 		t.Error("No es posible eliminar al usuario")
