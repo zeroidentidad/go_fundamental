@@ -17,7 +17,7 @@ const (
 	password     = "password"
 	passwordHash = "$2a$10$vm0Ua5kMfSc2HqwjDN6m7eiXgB7zu0K6CTrW45SLxKI0ZCq44aQ3K"
 	email        = "zero@email.com"
-	createdDate  = "2019-12-02"
+	createdAt    = "2019-12-02"
 )
 
 func TestNewUser(t *testing.T) {
@@ -59,4 +59,33 @@ func TestDuplicateUsername(t *testing.T) {
 	if err.Error() != message {
 		t.Error("Es posible que tenga un username duplicado en la base de datos!")
 	}
+}
+
+func TestGetUser(t *testing.T) {
+	user := models.GetUser(id)
+	if !equalsUser(user) || !equalsCreatedDate(user.GetCreatedDate()) {
+		t.Error("No es posible obtener el usuario")
+	}
+}
+
+func equalsUser(user *models.User) bool {
+	return user.Username == username && user.Email == email
+}
+
+func TestGetUsers(t *testing.T) {
+	users := models.GetUsers()
+	if len(users) == 0 {
+		t.Error("No es posible obtener a los usuarios")
+	}
+}
+
+func TestDeleteUser(t *testing.T) {
+	if err := user.Delete(); err != nil {
+		t.Error("No es posible eliminar al usuario")
+	}
+}
+
+func equalsCreatedDate(date time.Time) bool {
+	t, _ := time.Parse("2006-01-02", createdAt)
+	return t == date
 }

@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 const userSchema string = `CREATE TABLE users(
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(50) NOT NULL UNIQUE, 
@@ -8,10 +10,11 @@ const userSchema string = `CREATE TABLE users(
         created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`
 
 type User struct {
-	ID       int64  `json:"id"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Email    string `json:"email"`
+	ID        int64  `json:"id"`
+	Username  string `json:"username"`
+	Password  string `json:"password"`
+	Email     string `json:"email"`
+	createdAt time.Time
 }
 
 type Users []User
@@ -53,33 +56,38 @@ func (this *User) update() error {
 	return err
 }
 
-func (this *User) Delete() {
+func (this *User) Delete() error {
 	sql := "DELETE FROM users WHERE id=?"
-	Exec(sql, this.ID)
+	_, err := Exec(sql, this.ID)
+	return err
 }
 
 func GetUser(id int) *User {
 	user := NewUser("", "", "")
-	sql := "SELECT id, username, password, email FROM users WHERE id=?"
+	sql := "SELECT id, username, password, email, created_at FROM users WHERE id=?"
 	rows, _ := Query(sql, id)
 
 	for rows.Next() {
-		rows.Scan(&user.ID, &user.Username, &user.Password, &user.Email)
+		rows.Scan(&user.ID, &user.Username, &user.Password, &user.Email, &user.createdAt)
 	}
 
 	return user
 }
 
 func GetUsers() Users {
-	sql := "SELECT id, username, password, email FROM users"
+	sql := "SELECT id, username, password, email, created_at FROM users"
 	users := Users{}
 	rows, _ := Query(sql)
 
 	for rows.Next() {
 		user := User{}
-		rows.Scan(&user.ID, &user.Username, &user.Password, &user.Email)
+		rows.Scan(&user.ID, &user.Username, &user.Password, &user.Email, &user.createdAt)
 		users = append(users, user)
 	}
 
 	return users
+}
+
+func (this *User) GetCreatedDate() time.Time {
+	return this.createdAt
 }
