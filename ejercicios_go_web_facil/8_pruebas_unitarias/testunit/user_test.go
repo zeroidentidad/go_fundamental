@@ -12,8 +12,8 @@ import (
 var user *models.User
 
 const (
-	id           = 1
-	username     = "zeroidentidad"
+	id           = 6
+	username     = "zerox"
 	password     = "password"
 	passwordHash = "$2a$10$vm0Ua5kMfSc2HqwjDN6m7eiXgB7zu0K6CTrW45SLxKI0ZCq44aQ3K"
 	email        = "zero@email.com"
@@ -22,7 +22,7 @@ const (
 
 func TestNewUser(t *testing.T) {
 	user := models.NewUser(username, password, email)
-	if user.Username != "zeroidentidad" {
+	if user.Username != "zerox" {
 		t.Error("No es posible crear el objeto user", nil)
 	}
 }
@@ -79,13 +79,20 @@ func TestGetUsers(t *testing.T) {
 	}
 }
 
-func TestDeleteUser(t *testing.T) {
-	if err := user.Delete(); err != nil {
-		t.Error("No es posible eliminar al usuario")
-	}
-}
-
 func equalsCreatedDate(date time.Time) bool {
 	t, _ := time.Parse("2006-01-02", createdAt)
 	return t == date
 }
+
+func TestPassword(t *testing.T) {
+	user := models.NewUser(username, password, email)
+	if user.Password == password || len(user.Password) != 60 {
+		t.Error("No es posible cifrar el password")
+	}
+}
+
+/*func TestDeleteUser(t *testing.T) {
+	if err := user.Delete(); err != nil {
+		t.Error("No es posible eliminar al usuario")
+	}
+}*/

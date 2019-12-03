@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 const userSchema string = `CREATE TABLE users(
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -22,7 +26,8 @@ type Users []User
 // Constructores estructuras:
 
 func NewUser(username, password, email string) *User {
-	user := &User{Username: username, Password: password, Email: email}
+	user := &User{Username: username, Email: email}
+	user.SetPassword(password)
 	return user
 }
 
@@ -90,4 +95,9 @@ func GetUsers() Users {
 
 func (this *User) GetCreatedDate() time.Time {
 	return this.createdAt
+}
+
+func (this *User) SetPassword(password string) {
+	hash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	this.Password = string(hash)
 }
