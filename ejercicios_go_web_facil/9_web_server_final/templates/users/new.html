@@ -1,0 +1,62 @@
+{{define "users/new" }}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Go web</title>
+  <meta charset="UTF-8">
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+</head>
+<body>
+  
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Dev web Go</a>
+    </div>
+  </nav>
+  
+  {{ if .Error }}
+    <div class="alert alert-danger">
+      <strong> {{ .Error }} </strong>
+    </div>
+  {{ end }}
+
+  <div class="container col-md-8">
+    <div class="col-md-auto">
+        <br>
+        <form method="POST" action="#">
+          
+          <div class="form-group">
+            <label class="control-label" for="email">Username:</label>
+            <input type="text" class="form-control" id="Username" placeholder="Ingresar username" name="username">
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="email">Email:</label>
+            <input type="email" class="form-control" id="email" placeholder="Ingresar email" name="email" >
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label" for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd" placeholder="Ingresar password" name="password">
+          </div>
+          
+          <div class="form-group"> 
+            <button type="submit" class="btn btn-primary">Registrar</button>
+          </div>
+
+        </form>
+
+        <div class="text-right">
+            <a href="/users/login"> Ya tengo cuenta</a>
+        </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
+{{ end }}
