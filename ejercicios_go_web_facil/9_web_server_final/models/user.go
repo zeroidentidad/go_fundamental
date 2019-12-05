@@ -13,7 +13,7 @@ const userSchema string = `CREATE TABLE users(
         username VARCHAR(50) NOT NULL UNIQUE, 
         password VARCHAR(64) NOT NULL,
         email VARCHAR(50),
-        created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`
 
 type User struct {
 	ID        int64  `json:"id"`
@@ -128,12 +128,12 @@ func Login(username, password string) bool {
 }
 
 func GetUserByUsername(username string) *User {
-	sql := "SELECT id, username, password, email, created_date FROM users WHERE username=?"
+	sql := "SELECT id, username, password, email, created_at FROM users WHERE username=?"
 	return GetUser(sql, username)
 }
 
 func GetUserById(id int) *User {
-	sql := "SELECT id, username, password, email, created_date FROM users WHERE id=?"
+	sql := "SELECT id, username, password, email, created_at FROM users WHERE id=?"
 	return GetUser(sql, id)
 }
 

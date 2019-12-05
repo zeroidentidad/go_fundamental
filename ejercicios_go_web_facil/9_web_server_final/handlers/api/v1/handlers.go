@@ -1,4 +1,4 @@
-package handlers
+package v1
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"../models"
+	"../../../models"
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
