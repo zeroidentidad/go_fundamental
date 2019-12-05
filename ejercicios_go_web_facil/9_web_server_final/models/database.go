@@ -42,8 +42,7 @@ func CreateConnection() {
 		return
 	}
 
-	url := config.UrlDatabase()
-	if connection, err := sql.Open("mysql", url); err != nil {
+	if connection, err := sql.Open("mysql", config.UrlDatabase()); err != nil {
 		panic(err)
 	} else {
 		db = connection

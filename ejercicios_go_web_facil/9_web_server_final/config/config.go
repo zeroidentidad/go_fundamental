@@ -15,7 +15,14 @@ type DatabaseConfig struct {
 	debug    bool
 }
 
+type ServerConfig struct {
+	host  string
+	port  int
+	debug bool
+}
+
 var database *DatabaseConfig
+var server *ServerConfig
 
 func init() {
 	database = &DatabaseConfig{}
@@ -25,6 +32,11 @@ func init() {
 	database.port = GetIntEnv("PORT", 3306)
 	database.database = GetStringEnv("DATABASE", "gowebrestdb")
 	database.debug = GetBoolEnv("DEBUG", true)
+
+	server = &ServerConfig{}
+	server.host = GetStringEnv("HOST", "localhost")
+	server.port = GetIntEnv("PORT", 8080)
+	server.debug = GetBoolEnv("DEBUG", true)
 }
 
 func UrlDatabase() string {
@@ -35,8 +47,21 @@ func (this *DatabaseConfig) url() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true", this.username, this.password, this.host, this.port, this.database)
 }
 
+func UrlServer() string {
+	return server.url()
+}
+
+func ServerPort() int {
+	return server.port
+}
+
+func (this *ServerConfig) url() string {
+	return fmt.Sprintf("%s:%d", this.host, this.port)
+}
+
 /* funcs entorno de desarrollo y pruebas */
 
 func Debug() bool {
-	return database.debug
+	//return database.debug
+	return server.debug
 }
