@@ -5,14 +5,13 @@ import (
 	"net/http"
 
 	"./handlers"
-	"./models"
 	"github.com/gorilla/mux"
 )
 
 func main() {
 	port := "8080"
 	mux := mux.NewRouter()
-	models.SetDefaultUser()
+	//models.SetDefaultUser()
 
 	//endpoints
 	mux.HandleFunc("/api/v1/users/", handlers.GetUsers).Methods("GET")
