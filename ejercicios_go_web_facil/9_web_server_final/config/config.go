@@ -65,3 +65,13 @@ func Debug() bool {
 	//return database.debug
 	return server.debug
 }
+
+/* funcs dir templates src html */
+
+func DirTemplate() string {
+	return "templates/**/*.html"
+}
+
+func DirTemplateError() string {
+	return "templates/error.html"
+}

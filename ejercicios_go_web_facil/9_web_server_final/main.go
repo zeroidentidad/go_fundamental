@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"./config"
+	"./handlers"
 	v1 "./handlers/api/v1"
 	"github.com/gorilla/mux"
 )
@@ -12,6 +13,8 @@ import (
 func main() {
 	mux := mux.NewRouter()
 	//models.SetDefaultUser()
+
+	mux.HandleFunc("/", handlers.Index).Methods("GET")
 
 	//endpoints
 	mux.HandleFunc("/api/v1/users/", v1.GetUsers).Methods("GET")

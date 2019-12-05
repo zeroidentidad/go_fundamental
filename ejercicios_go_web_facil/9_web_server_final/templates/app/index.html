@@ -1,0 +1,39 @@
+{{define "app/index" }}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Go web</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Dev web Go</a>
+
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a href="/users/new">
+                        <i class="material-icons">account_circle</i> Sign Up
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/users/login">
+                        <i class="material-icons">lock_open</i> Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</body>
+
+</html>
+
+{{ end }}

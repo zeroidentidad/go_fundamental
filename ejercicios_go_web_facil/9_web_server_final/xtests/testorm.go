@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"../orm"
+	"../x/orm"
 )
 
 func main() {
