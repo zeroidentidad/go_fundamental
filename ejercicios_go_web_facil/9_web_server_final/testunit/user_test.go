@@ -122,7 +122,7 @@ func TestUsernameLenght(t *testing.T) {
 	}
 
 	_, err := models.NewUser(newUsername, password, email)
-	if err == nil || err.Error() != "username muy largo, máximo 30 caracteres" {
+	if err == nil || err.Error() != "Username es demasiado largo." {
 		t.Error("Es posible generar un usuario con un username muy grande")
 	}
 }

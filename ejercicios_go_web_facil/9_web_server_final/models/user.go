@@ -1,7 +1,6 @@
 package models
 
 import (
-	"errors"
 	"regexp"
 	"time"
 
@@ -114,7 +113,7 @@ func (this *User) GetCreatedDate() time.Time {
 func (this *User) SetPassword(password string) error {
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		return errors.New("no es posible cifrar contraseña")
+		return errorPasswordEncryption
 	}
 	this.Password = string(hash)
 	return nil
@@ -141,7 +140,7 @@ var emailRegexp = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0
 
 func ValidEmail(email string) error {
 	if !emailRegexp.MatchString(email) {
-		return errors.New("formato de email incorrecto")
+		return errorEmail
 	}
 	return nil
 }
@@ -160,11 +159,15 @@ func (this *User) Valid() error {
 
 func ValidUsername(username string) error {
 	if username == "" {
-		return errors.New("username vacio")
+		return errorUsername
+	}
+
+	if len(username) < 5 {
+		return errorShortUsername
 	}
 
 	if len(username) > 30 {
-		return errors.New("username muy largo, máximo 30 caracteres")
+		return errorLargeUsername
 	}
 
 	return nil
