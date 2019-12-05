@@ -5,9 +5,10 @@ import "errors"
 type ValidationError error
 
 var (
-	errorUsername      = ValidationError(errors.New("Username no debe estar vacío."))
-	errorShortUsername = ValidationError(errors.New("Username es demasiado corto."))
-	errorLargeUsername = ValidationError(errors.New("Username es demasiado largo."))
+	errorUsername       = ValidationError(errors.New("Username no debe estar vacío."))
+	errorShortUsername  = ValidationError(errors.New("Username es demasiado corto."))
+	errorLargeUsername  = ValidationError(errors.New("Username es demasiado largo."))
+	errorUsernameExists = ValidationError(errors.New("Username ya existe en la BD."))
 
 	errorEmail = ValidationError(errors.New("Formato invalido de Email."))
 

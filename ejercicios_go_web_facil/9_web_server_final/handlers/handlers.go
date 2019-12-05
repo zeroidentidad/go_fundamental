@@ -9,6 +9,7 @@ import (
 )
 
 func NewUser(w http.ResponseWriter, r *http.Request) {
+	context := make(map[string]interface{})
 
 	if r.Method == "POST" {
 		username := r.FormValue("username")
@@ -16,10 +17,11 @@ func NewUser(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 
 		if _, err := models.CreateUser(username, password, email); err != nil {
-			fmt.Println("No se pudo crear usuario")
+			errorMessage := err.Error()
+			context["Error"] = errorMessage
 		} else {
 			fmt.Println("Usuario creado correctamente")
 		}
 	}
-	utils.RenderTemplate(w, "users/new", nil)
+	utils.RenderTemplate(w, "users/new", context)
 }
