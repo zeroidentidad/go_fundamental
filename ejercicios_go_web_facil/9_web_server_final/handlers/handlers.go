@@ -41,3 +41,27 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	utils.RenderTemplate(w, "users/login", context)
 }
+
+func Logout(w http.ResponseWriter, r *http.Request) {
+	deleteCookie(w)
+	http.Redirect(w, r, "/users/login", http.StatusSeeOther)
+}
+
+func createCookie(w http.ResponseWriter) {
+	cookie := &http.Cookie{
+		Name:  "cookie_name",
+		Value: "cookie_value",
+		Path:  "/",
+	}
+	http.SetCookie(w, cookie)
+}
+
+func deleteCookie(w http.ResponseWriter) {
+	cookie := &http.Cookie{
+		Name:   "cookie_name",
+		Value:  "",
+		Path:   "/",
+		MaxAge: -1,
+	}
+	http.SetCookie(w, cookie)
+}
