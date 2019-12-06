@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strings"
 
 	"../config"
 
@@ -27,6 +28,11 @@ func GetConnection() *sql.DB {
 
 func InsertData(query string, args ...interface{}) (int64, error) {
 	if result, err := Exec(query, args...); err != nil {
+
+		if strings.Contains(err.Error(), "1062") {
+			err = errorUsernameExists
+		}
+
 		return int64(0), err
 	} else {
 		id, err := result.LastInsertId()

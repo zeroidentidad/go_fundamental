@@ -2,7 +2,6 @@ package models
 
 import (
 	"regexp"
-	"strings"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -46,10 +45,6 @@ func CreateUser(username, password, email string) (*User, error) {
 	}
 
 	err = user.Save()
-
-	if strings.Contains(err.Error(), "Error 1062: Duplicate entry") {
-		err = errorUsernameExists
-	}
 
 	return user, err
 }
