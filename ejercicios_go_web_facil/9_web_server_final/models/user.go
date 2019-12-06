@@ -125,11 +125,15 @@ func (this *User) SetPassword(password string) error {
 	return nil
 }
 
-func Login(username, password string) bool {
+func Login(username, password string) (*User, error) {
 	user := GetUserByUsername(username)
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 
-	return err == nil
+	if err != nil {
+		return &User{}, errorLogin
+	}
+
+	return user, nil
 }
 
 func GetUserByUsername(username string) *User {

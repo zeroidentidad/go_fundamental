@@ -17,6 +17,7 @@ func main() {
 	//rutas templates html
 	mux.HandleFunc("/", handlers.Index).Methods("GET")
 	mux.HandleFunc("/users/new", handlers.NewUser).Methods("GET", "POST")
+	mux.HandleFunc("/users/login", handlers.Login).Methods("GET", "POST")
 
 	//endpoints api
 	mux.HandleFunc("/api/v1/users/", v1.GetUsers).Methods("GET")
