@@ -16,8 +16,8 @@ func (p *Postgres) Connect() error {
 	dsn := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		"postgres",
-		"postgres",
-		"127.0.0.1",
+		"x1234567",
+		"192.168.0.100",
 		"5432",
 		"postgres",
 	)

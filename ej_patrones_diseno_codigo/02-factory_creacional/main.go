@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/alexyslozada/patrones-de-diseno-con-go/creacionales/02-factory/factory"
 	"os"
+
+	"./factory"
 )
 
 func main() {
