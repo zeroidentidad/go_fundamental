@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/alexyslozada/patrones-de-diseno-con-go/creacionales/01-singleton/client-one"
-	"github.com/alexyslozada/patrones-de-diseno-con-go/creacionales/01-singleton/client-two"
-	"github.com/alexyslozada/patrones-de-diseno-con-go/creacionales/01-singleton/singleton"
+	"../client-one"
+	"../client-two"
+	"../singleton"
 	"sync"
 )
 
