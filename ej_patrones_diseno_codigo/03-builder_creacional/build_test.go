@@ -1,8 +1,9 @@
 package builder_test
 
 import (
-	builder "github.com/alexyslozada/patrones-de-diseno-con-go/creacionales/03-builder"
 	"testing"
+
+	builder "../03-builder_creacional"
 )
 
 func TestSender_BuildMessage(t *testing.T) {
@@ -26,3 +27,5 @@ func TestSender_BuildMessage(t *testing.T) {
 
 	t.Log(string(xmlMsg.Body))
 }
+
+// probar combinar con factory de lo propuesto en la explicacion
