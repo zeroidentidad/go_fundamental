@@ -13,3 +13,5 @@ Cuando hablamos del costo de creación de un objeto, hablamos de que para crearl
 * Cliente: Crea el nuevo objeto solicitando al prototipo que se clone.
 
 ## Video
+
+https://www.youtube.com/watch?v=jyo9arilqos

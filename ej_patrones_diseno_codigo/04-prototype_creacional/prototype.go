@@ -22,6 +22,7 @@ func (p *prototype) String() string {
 }
 
 func (p *prototype) Clone() prototype {
+	// primera forma: friends = append([]string{}, p.friends...)
 	friends := make([]string, len(p.friends), len(p.friends))
 	copy(friends, p.friends)
 

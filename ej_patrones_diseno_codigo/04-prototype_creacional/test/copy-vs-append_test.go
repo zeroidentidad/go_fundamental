@@ -7,21 +7,21 @@ import (
 func TestCopy(t *testing.T) {
 	y := doCopy(true, false)
 	if len(y) != 1000 {
-		t.Fatalf("Expected len(y) to be 1000 but was %d", len(y))
+		t.Fatalf("Se esperaba que len (y) fuera 1000 pero era %d", len(y))
 	}
 }
 
 func TestAppend(t *testing.T) {
 	y := doCopy(false, false)
 	if len(y) != 1000 {
-		t.Fatalf("Expected len(y) to be 1000 but was %d", len(y))
+		t.Fatalf("Se esperaba que len (y) fuera 1000 pero era %d", len(y))
 	}
 }
 
 func TestAppendAlloc(t *testing.T) {
 	y := doCopy(false, true)
 	if len(y) != 1000 {
-		t.Fatalf("Expected len(y) to be 1000 but was %d", len(y))
+		t.Fatalf("Se esperaba que len (y) fuera 1000 pero era %d", len(y))
 	}
 }
 
@@ -71,4 +71,3 @@ func BenchmarkCopy(b *testing.B) {
 		doCopy(true, true)
 	}
 }
-

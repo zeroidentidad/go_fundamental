@@ -5,13 +5,13 @@ import "fmt"
 func main() {
 	color := "rojo"
 	phones := map[string]string{"home": "123456", "work": "789456"}
-	p1 := prototype{"Alexys", 39, []string{"Deibis", "Carol"}, &color, phones}
+	p1 := prototype{"Jesus", 39, []string{"Deibis", "Ana"}, &color, phones}
 	// copia del objeto original
 	p2 := p1.Clone()
 
 	// cambio de los valores al objeto p2
 	p2.age = 40
-	p2.name = "Carol"
+	p2.name = "Ana"
 	p2.friends[0] = "Maria"
 	p2.friends[1] = "Pedro"
 
@@ -23,4 +23,3 @@ func main() {
 	fmt.Println(p1.String())
 	fmt.Println(p2.String())
 }
-
