@@ -3,32 +3,26 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(Calculo(5, 46))
-	fmt.Println(Calculo(2, 23, 45, 68))
-	fmt.Println(Calculo(5))
-	fmt.Println(Calculo(5, 46, 17, 25, 26, 98, 17))
-
-}
-
-func uno(numero int) (z int) {
-	z = numero * 2
-	return
-}
-
-func dos(numero int) (int, bool) {
-	if numero == 1 {
-		return 5, false
-	} else {
-		return 10, true
-	}
-}
-
-func Calculo(numero ...int) int {
-	total := 0
-	for item, num := range numero {
-		total = total + num
-		fmt.Printf("\n Item %d \n", item)
+	var i, j = 0, 0
+	for i < 10 {
+		fmt.Printf("\n valor de i: %d", i)
+		if i == 5 {
+			fmt.Printf("\t\t multiplicamos por 2 \n")
+			i = i * 2
+			continue
+		}
+		fmt.Printf("\t\t paso por aqui \n")
+		i++
 	}
 
-	return total
+RUTINA:
+	for j < 10 {
+		if j == 4 {
+			j = j + 2
+			fmt.Println("\n voy a RUTINA sumando 2 a 1")
+			goto RUTINA
+		}
+		fmt.Printf("\n valor de j: %d \n", j)
+		j++
+	}
 }
