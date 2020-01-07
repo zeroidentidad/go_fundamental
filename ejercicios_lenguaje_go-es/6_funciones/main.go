@@ -3,6 +3,9 @@ package main
 import "fmt"
 
 func main() {
+	fmt.Println(uno(5))
+	num, estado := dos(5)
+	fmt.Println(num, estado)
 	fmt.Println(Calculo(5, 46))
 	fmt.Println(Calculo(2, 23, 45, 68))
 	fmt.Println(Calculo(5))
@@ -27,8 +30,9 @@ func Calculo(numero ...int) int {
 	total := 0
 	for item, num := range numero {
 		total = total + num
-		fmt.Printf("\n Item %d \n", item)
+		fmt.Printf("Item %d", item)
+		fmt.Println()
 	}
 
-	return total
+	return total + 1
 }
