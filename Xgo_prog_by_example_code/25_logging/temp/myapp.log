@@ -1,0 +1,3 @@
+APP: 2020/01/14 17:48:00 main.go:48: This is error message 1
+APP: 2020/01/14 17:48:00 main.go:49: This is error message 2
+APP: 2020/01/14 17:48:00 main.go:50: This is error message 3
