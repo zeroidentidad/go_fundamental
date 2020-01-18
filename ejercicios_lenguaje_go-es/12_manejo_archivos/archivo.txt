@@ -1,0 +1,2 @@
+hola mundo
+bienvenidos al curso de GO desde 0
