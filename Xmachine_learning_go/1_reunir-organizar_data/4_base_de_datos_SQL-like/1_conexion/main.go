@@ -8,7 +8,12 @@ import (
 	// pq es la biblioteca que nos permite conectarnos
 	// a postgres con databases/sql.
 	_ "github.com/lib/pq"
+	"github.com/subosito/gotenv"
 )
+
+func init() {
+	gotenv.Load()
+}
 
 func main() {
 
