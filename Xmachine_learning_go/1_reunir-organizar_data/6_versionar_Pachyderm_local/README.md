@@ -99,6 +99,20 @@ pachctl version --client-only
 pachctl deploy local
 ```
 
+- Verificar estado de los pods de Pachyderm en deploy ejecutando varias veces kubectl get pods
+```shell
+kubectl get pods
+NAME                     READY     STATUS              RESTARTS   AGE
+dash-6c9dc97d9c-vb972    0/2       ContainerCreating    0          6m
+etcd-7dbb489f44-9v5jj    1/1       Running              0          6m
+pachd-6c878bbc4c-f2h2c   1/1       Running              0          6m
+```
+    * Cuando Pachyderm está listo para usarse, todos los pods de Pachyderm deben estar en el estado Running.
+    Para ver detalladamente ejecutar:
+```shell
+kubectl get all
+```    
+
 - Ejecutar **pachctl version** para verificar que pachd hizo el deploy.
 ```shell
 pachctl version
@@ -106,16 +120,6 @@ COMPONENT           VERSION
 pachctl             1.9.11
 pachd               1.9.11
 ```
-
-- Verificar el estado de los pods de Pachyderm ejecutando periódicamente kubectl get pods
-```shell
-kubectl get pods
-NAME                     READY     STATUS    RESTARTS   AGE
-dash-6c9dc97d9c-vb972    2/2       Running   0          6m
-etcd-7dbb489f44-9v5jj    1/1       Running   0          6m
-pachd-6c878bbc4c-f2h2c   1/1       Running   0          6m
-```
-    *Cuando Pachyderm está listo para usarse, todos los pods de Pachyderm deben estar en el estado Running.
 
 - Utilizar el reenvío de puertos para acceder al panel de control Pachyderm.
 ```shell
