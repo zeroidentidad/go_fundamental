@@ -74,7 +74,8 @@ sudo minikube start --vm-driver=none
 sudo minikube config set vm-driver none
 ```
 
-    * En caso de error de permisos usando --vm-driver=none optar por usar con virtualvox
+    *- En caso de error de permisos usando --vm-driver=none optar por usar con virtualvox
+    *- Hacer minikube delete y eliminar ~/.minikube (directorio de archivos de caché), creado incompleto
 
 - Una vez finalice inicio de minikube, ejecutar el comando para verificar el estado del clúster:
 ```shell
