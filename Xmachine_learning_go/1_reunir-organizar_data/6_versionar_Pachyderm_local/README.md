@@ -74,6 +74,8 @@ sudo minikube start --vm-driver=none
 sudo minikube config set vm-driver none
 ```
 
+    * En caso de error de permisos usando --vm-driver=none optar por usar con virtualvox
+
 - Una vez finalice inicio de minikube, ejecutar el comando para verificar el estado del clúster:
 ```shell
 minikube status
@@ -83,7 +85,7 @@ minikube status
 
 - Descarga e instalación:
 ```shell
-$ curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.9.11/pachctl_1.9.11_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
+curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v1.9.11/pachctl_1.9.11_amd64.deb && sudo dpkg -i /tmp/pachctl.deb
 ```
 
 - Confirmar instalación:
