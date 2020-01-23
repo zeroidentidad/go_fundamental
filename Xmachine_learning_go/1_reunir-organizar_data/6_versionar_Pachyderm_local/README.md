@@ -13,8 +13,8 @@
 
 **1** - Para verificar si virtualización es compatible con Linux, ejecutar el comando y verificar que la salida no esté vacía:
 
-    ```shell
-    grep -E --color 'vmx|svm' /proc/cpuinfo
-    ```
+```shell
+grep -E --color 'vmx|svm' /proc/cpuinfo
+```
 
     Deberá mandar cadenas de valores dependiendo del numero de nucleos.
