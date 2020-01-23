@@ -102,8 +102,8 @@ pachctl deploy local
 ```shell
 pachctl version
 COMPONENT           VERSION
-pachctl             1.9.8
-pachd               1.9.8
+pachctl             1.9.11
+pachd               1.9.11
 ```
 
 - Verificar el estado de los pods de Pachyderm ejecutando periódicamente kubectl get pods
