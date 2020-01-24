@@ -142,3 +142,8 @@ pachctl config update context `pachctl config get active-context` --pachd-addres
 ```
 
 El resultado seria acceder como en la siguiente url: **http://192.168.99.100:30080**
+
+## Nota extra:
+### Sobre la persistencia al iniciar instancia.
+
+- Esto es principalmente una cuestión de cómo implementar kubernetes. Hasta donde sé, no hay una buena manera de persistir cuando se ejecuta minikube en modo vm, que es el valor predeterminado. No está destinado a cargas de trabajo de larga duración, sino más bien como un entorno de prueba/desarrollo. Se puede intentar ejecutar con --vm-driver=none (solo Linux). Usar asi funciona y persiste. También se podría considerar configurar kubernetes en un proveedor de la nube, o usar la oferta en la nube: hub.pachyderm.com aunque actualmente también está diseñado más como sandbox y tiene un tiempo de vencimiento establecido en clústeres.
