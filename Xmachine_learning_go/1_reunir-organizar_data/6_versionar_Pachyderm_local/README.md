@@ -11,7 +11,7 @@
 
     - https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-* Instalar ambos o alguno de los 2 de acuerdo a preferencias sobre el paso **3**
+* De acuerdo a preferencias sobre el paso **3**
 
 ### **1** - Para verificar si la virtualización es compatible con Linux, ejecutar el comando y verificar que la salida no esté vacía:
 
@@ -125,7 +125,9 @@ pachd               1.9.11
 ```shell
 pachctl port-forward
 ```
-    *Este comando debe dejarse ejecutando continuamente y no sale a menos que lo interrumpa.
+    *Este comando debe dejarse ejecutando continuamente y no sale a menos que lo interrumpa para terminar de usar la instancia del dashboard.
+
+El resultado seria acceder como en la siguiente url: **http://localhost:30080**
 
 - Alternativamente, configurar Pachyderm para conectarse directamente a la instancia de Minikube:
 
@@ -136,5 +138,7 @@ minikube ip
 
 - -Configurar Pachyderm para conectarse directamente a la instancia de Minikube:
 ```shell
-pachctl config update context `pachctl config get active-context` --pachd-address=`minikube ip`:30650
+pachctl config update context `pachctl config get active-context` --pachd-address=`num.ip.sin.comillas`:30650
 ```
+
+El resultado seria acceder como en la siguiente url: **http://192.168.99.100:30080**
