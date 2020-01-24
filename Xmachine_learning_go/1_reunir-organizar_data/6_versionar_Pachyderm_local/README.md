@@ -5,7 +5,7 @@
 
 ## **Pasos en Ubuntu 18.04.3 LTS**
 
-### **0** - Instalaciónes previas de VirtualBox y Docker Engine en sus metodos de instalación de repositorio DEB, enlaces:
+### **0** - Instalaciones previas de VirtualBox y Docker Engine en sus métodos de instalación de repositorio DEB, enlaces:
 
     - https://www.virtualbox.org/wiki/Linux_Downloads
 
@@ -26,9 +26,9 @@ egrep -q 'vmx|svm' /proc/cpuinfo && echo yes || echo no
 ```
     Debera mandar 'yes' en caso de estar soportada    
 
-### **2** - Instalación kubectl (Kubernetes CLI) con metodo de gestion automatica: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux
+### **2** - Instalación kubectl (Kubernetes CLI) con método de gestion automatica: https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux
 
-- Se opto por el metodo de snap package manager:
+- Se opto por el método de snap package manager:
 ```shell
 snap install kubectl --classic
 ```
@@ -41,7 +41,7 @@ kubectl version
 
  ### **3** - Instalación Minikube: https://kubernetes.io/docs/tasks/tools/install-minikube/
 
- - Se opto por el metodo de paquete para linux (https://minikube.sigs.k8s.io/docs/start/linux/): 
+ - Se opto por el método de paquete para linux (https://minikube.sigs.k8s.io/docs/start/linux/): 
 
     Versión estable a elaboración de este README (*minikube_1.6.2.deb*)
 
