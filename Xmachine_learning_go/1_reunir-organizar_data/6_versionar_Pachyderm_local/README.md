@@ -1,5 +1,5 @@
 
-# Instalación y deploy Pachyderm 1.9.x latest [23/Enero/2020]
+# Instalación y deploy Pachyderm 1.9.x latest [23/01/2020]
 
 ## Doc: https://docs.pachyderm.com/latest/getting_started/local_installation/
 
