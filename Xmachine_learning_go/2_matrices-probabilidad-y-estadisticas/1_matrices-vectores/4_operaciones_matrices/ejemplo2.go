@@ -22,10 +22,11 @@ func main() {
 
 	// Calcular y generar el inverso de a.
 	//aInverse := mat.NewDense(0, 0, nil) // <- panic
-	aInverse := mat.NewDense(3, 3, nil) // <- salida extra misma dimensiones
+	//aInverse := mat.NewDense(3, 3, nil) // <- salida extra
+	var aInverse mat.Dense // fixed mismo resultado
 	if err := aInverse.Inverse(a); err != nil {
 		log.Fatal(err)
 	}
-	fi := mat.Formatted(aInverse, mat.Prefix("       "))
+	fi := mat.Formatted(&aInverse, mat.Prefix("       ")) // mod * -> &
 	fmt.Printf("a^-1 = %v\n\n", fi)
 }
