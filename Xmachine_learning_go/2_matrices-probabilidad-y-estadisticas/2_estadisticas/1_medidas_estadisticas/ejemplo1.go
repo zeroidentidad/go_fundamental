@@ -12,6 +12,8 @@ import (
 
 func main() {
 
+	// Medidas de tendencia central:
+
 	// Abrir archivo CSV
 	irisFile, err := os.Open("./data/iris.csv")
 	if err != nil {
