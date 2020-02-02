@@ -11,9 +11,7 @@ import (
 
 func main() {
 
-	// Precision
-
-	// Abrir las observaciones binarias y las predicciones.
+	// Abrir las observaciones y predicciones etiquetadas.
 	f, err := os.Open("./data/labeled.csv")
 	if err != nil {
 		log.Fatal(err)
@@ -39,7 +37,7 @@ func main() {
 			break
 		}
 
-		// Saltar el encabezado.
+		// Saltar el encabezado
 		if line == 1 {
 			line++
 			continue
@@ -64,19 +62,47 @@ func main() {
 		line++
 	}
 
-	// Esta variable mantendrá recuento de valores verdaderos positivos y verdaderos negativos.
-	var truePosNeg int
+	// classes contiene las tres clases posibles en los datos etiquetados.
+	classes := []int{0, 1, 2}
 
-	// Acumular el recuento de verdadero positivo/negativo.
-	for idx, oVal := range observed {
-		if oVal == predicted[idx] {
-			truePosNeg++
+	// Recorre cada clase.
+	for _, class := range classes {
+
+		// Estas variables mantendrán recuento de positivos verdaderos y recuento de falsos positivos.
+		var truePos int
+		var falsePos int
+		var falseNeg int
+
+		// Acumular los recuentos positivo verdadero y falso positivo.
+		for idx, oVal := range observed {
+
+			switch oVal {
+
+			// Si el valor observado es la clase relevante, se deberia verificar para predecir esa clase.
+			case class:
+				if predicted[idx] == class {
+					truePos++
+					continue
+				}
+
+				falseNeg++
+
+			// Si el valor observado es una clase diferente, deberíamos verificar si predecimos un falso positivo.
+			default:
+				if predicted[idx] == class {
+					falsePos++
+				}
+			}
 		}
+
+		// Calcular la precision.
+		precision := float64(truePos) / float64(truePos+falsePos)
+
+		// Calcule el retiro.
+		recall := float64(truePos) / float64(truePos+falseNeg)
+
+		// Salida del valor de precisión a la salida estándar.
+		fmt.Printf("\nPrecision (class %d) = %0.2f", class, precision)
+		fmt.Printf("\nRecall (class %d) = %0.2f\n\n", class, recall)
 	}
-
-	// Calcular la precisión (precisión del subconjunto).
-	accuracy := float64(truePosNeg) / float64(len(observed))
-
-	// Salida del valor de precisión a la salida estándar.
-	fmt.Printf("\nAccuracy = %0.2f\n\n", accuracy)
 }
