@@ -22,7 +22,7 @@ func main() {
 	vectorA.ScaleVec(1.5, vectorA)
 	fmt.Printf("Escalando A por 1.5 da: %v\n", vectorA)
 
-	// Compute the norm/length of B.
+	// Calcule la norma/longitud de B.
 	normB := blas64.Nrm2(vectorB.RawVector())
 	fmt.Printf("La norma/longitud de B es: %0.2f\n", normB)
 }
