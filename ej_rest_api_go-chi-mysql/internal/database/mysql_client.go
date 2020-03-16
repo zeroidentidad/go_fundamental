@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/zeroidentidad/rest-chi-mysql/internal/logs"
 )
 
 type MySqlClient struct {
@@ -19,7 +20,11 @@ func NewSqlClient(datasource string) *MySqlClient {
 		panic(err)
 	}
 
-	//err = db.Ping()
+	err = db.Ping()
+
+	if err != nil {
+		logs.Log().Warn("Could not connect to mysql!")
+	}
 
 	return &MySqlClient{db}
 }
