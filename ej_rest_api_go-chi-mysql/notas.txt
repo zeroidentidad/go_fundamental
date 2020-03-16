@@ -7,4 +7,11 @@ Pasos:
 6-tests
 7-makefile
 8-dockerizar proyecto
-9-deploy heroku
+
+Notas gotools:
+
+Ejecutar tests dirs niveles inferiores:
+normal-> go test ./... | verbose-> go test -v ./... 
+
+Formatear codigo files directorio actual:
+gofmt -w .
