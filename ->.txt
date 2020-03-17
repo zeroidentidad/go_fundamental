@@ -1,6 +1,4 @@
 
-[-> ej_rest_api_go-chi-mysql ]
-
 -> Xej_recetas_estandar_lib_go
 
 -> Xmachine_learning_go
