@@ -8,6 +8,7 @@ import (
 	"github.com/zeroidentidad/rest-chi-mysql/gadgets/smartphones/web"
 	database "github.com/zeroidentidad/rest-chi-mysql/internal/database"
 	"github.com/zeroidentidad/rest-chi-mysql/internal/logs"
+	reviews "github.com/zeroidentidad/rest-chi-mysql/reviews/web"
 )
 
 const (
@@ -19,10 +20,13 @@ func main() {
 	_ = logs.InitLogger()
 
 	client := database.NewSqlClient("remoto:x1234567@tcp(localhost:3306)/go_phones_review")
-	doMigrate(client, "go_phones_review")
+	//doMigrate(client, "go_phones_review")
+
+	mongoClient := database.NewMongoClient("localhost") // 13:18
 
 	handler := web.NewCreateSmartphoneHandler(client)
-	mux := Routes(handler)
+	reviewHandler := reviews.NewReviewHandler(mongoClient)
+	mux := Routes(handler, reviewHandler)
 	server := NewServer(mux)
 	server.Run()
 }

@@ -3,11 +3,8 @@
     1- crear modelos
     2- acceder a la bd (mysql)
     3- crear conectores
-    4- crear webserver, handlers y routing (chi)
-    5- documentacion con swagger
+    4- crear webserver, handlers y routing (chi) 
     6- tests
-    7- makefile
-    8- dockerizar proyecto
 
 ### Notas gotools:
 

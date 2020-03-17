@@ -7,10 +7,12 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/zeroidentidad/rest-chi-mysql/gadgets/smartphones/web"
+	reviews "github.com/zeroidentidad/rest-chi-mysql/reviews/web"
 )
 
 func Routes(
 	sph *web.CreateSmartphoneHandler,
+	reviewHandler *reviews.ReviewHandler,
 ) *chi.Mux {
 	mux := chi.NewMux()
 
@@ -22,6 +24,7 @@ func Routes(
 
 	mux.Post("/smartphones", sph.SaveSmartphoneHandler)
 	mux.Get("/hello", helloHandler)
+	mux.Post("/reviews", reviewHandler.AddReviewHandler)
 
 	return mux
 }
