@@ -5,6 +5,7 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	migration "github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/zeroidentidad/rest-chi-mysql/gadgets/smartphones/web"
 	database "github.com/zeroidentidad/rest-chi-mysql/internal/database"
 	"github.com/zeroidentidad/rest-chi-mysql/internal/logs"
 )
@@ -19,6 +20,11 @@ func main() {
 
 	client := database.NewSqlClient("remoto:x1234567@tcp(localhost:3306)/go_phones_review")
 	doMigrate(client, "go_phones_review")
+
+	handler := web.NewCreateSmartphoneHandler(client)
+	mux := Routes(handler)
+	server := NewServer(mux)
+	server.Run()
 }
 
 func doMigrate(client *database.MySqlClient, dbName string) {

@@ -36,3 +36,8 @@ Bajar dependencias en dir de trabajo actual:
 ## Tareas Dir cmd:
 
 - Init migracion: go run cmd/main/main.go
+- Init main Dir files: go run cmd/main/*.go
+
+## Postman data test:
+- URL: http://localhost:9000/smartphones
+- Content-Type application/json - Raw JSON: {"name":"Pixie5","price":"2800","country_origin":"Mexico","os":"Android 6"}
