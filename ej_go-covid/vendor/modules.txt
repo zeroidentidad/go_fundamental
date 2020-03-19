@@ -1,0 +1,2 @@
+# github.com/ahmednafies/go-covid v0.1.2
+github.com/ahmednafies/go-covid/covid
