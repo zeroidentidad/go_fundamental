@@ -1,0 +1,19 @@
+
+pachctl create pipeline -v -f model.json
+
+kubectl get pods
+
+pachctl list job
+
+pachctl list file model master
+
+pachctl get file model master model.json
+
+
+pachctl create pipeline -f prediction.json
+
+...
+
+pachctl get file prediction master 1.json
+
+pachctl put file attributes master -c -r -f .
