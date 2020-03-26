@@ -16,7 +16,7 @@ func main() {
 	gohan := Saiyan{"Gohan", 9000}*/
 
 	goku := &Saiyan{"Goku", 9001}
-	goku.Super()
+	goku.Super()            // recibe struct
 	fmt.Println(goku.Power) // will print 19001
 }
 
