@@ -1,13 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"time"
+)
 
 func main() {
 	arr_original := []int{412, 12, 123, 1, 2324, 3, 155, 23412, 2}
 
+	start := time.Now()
 	arr_ordenado := selection_sort(arr_original)
 
 	fmt.Println(arr_ordenado)
+
+	elapsed := time.Since(start)
+	log.Printf("\nSelection Sort tomó: %s", elapsed)
 }
 
 func selection_sort(arreglo []int) []int {

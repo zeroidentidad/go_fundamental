@@ -2,12 +2,19 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"time"
 )
 
 func main() {
-	arr_original := []int{31, 41, 59, 26, 53, 58, 97, 93, 23, 84, 40, 1, 150}
+	arr_original := []int{412, 12, 123, 1, 2324, 3, 155, 23412, 2}
+
+	start := time.Now()
 	quick_sort(&arr_original, 0, len(arr_original)-1)
 	fmt.Println(arr_original)
+
+	elapsed := time.Since(start)
+	log.Printf("\nQuick Sort tomó: %s", elapsed)
 }
 
 func quick_sort(arreglo *[]int, izquierda, derecha int) []int {

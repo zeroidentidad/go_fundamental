@@ -2,11 +2,19 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"time"
 )
 
 func main() {
-	arr_original := []int{31, 41, 59, 26, 53, 58, 97, 93, 23, 84, 1, 100, 5, 23}
+	arr_original := []int{412, 12, 123, 1, 2324, 3, 155, 23412, 2}
+
+	start := time.Now()
 	fmt.Printf("Resultado:\n%v\n", merge_sort(arr_original))
+
+	elapsed := time.Since(start)
+	log.Printf("\nMerge Sort tomó: %s", elapsed)
+
 }
 
 func merge_sort(arreglo []int) []int {
@@ -20,8 +28,9 @@ func merge_sort(arreglo []int) []int {
 	mitad := arreglo_size / 2
 	izquierda := arreglo[0:mitad]
 	derecha := arreglo[mitad:arreglo_size]
-	fmt.Println(izquierda)
-	fmt.Println(derecha)
+	// salida sub arreglos a mezclar
+	//fmt.Println(izquierda)
+	//fmt.Println(derecha)
 
 	// ordenar partidos
 	izquierda = merge_sort(izquierda)
