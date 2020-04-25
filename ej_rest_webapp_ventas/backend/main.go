@@ -22,6 +22,8 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Get("/products", AllProducts)
 	r.Post("/products", CreateProduct)
+	r.Put("/products/{id}", UpdateProduct)
+	r.Delete("/products/{id}", DeleteProduct)
 	http.ListenAndServe(":3000", r)
 }
 
@@ -68,4 +70,32 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 	defer query.Close()
 
 	responseWithJSON(w, http.StatusCreated, map[string]string{"message": "successfully created"})
+}
+
+func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	var product models.Product
+	id := chi.URLParam(r, "id")
+	json.NewDecoder(r.Body).Decode(&product)
+
+	query, err := dbConn.Prepare(`UPDATE products SET product_code=?, description=? where id=?`)
+	catch(err)
+
+	_, _err := query.Exec(product.Product_Code, product.Description, id)
+	catch(_err)
+	defer query.Close()
+
+	responseWithJSON(w, http.StatusOK, map[string]string{"message": "successfully updated"})
+}
+
+func DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+
+	query, err := dbConn.Prepare(`DELETE FROM products where id=?`)
+	catch(err)
+
+	_, _err := query.Exec(id)
+	catch(_err)
+	defer query.Close()
+
+	responseWithJSON(w, http.StatusOK, map[string]string{"message": "successfully deleted"})
 }
