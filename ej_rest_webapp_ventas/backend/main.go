@@ -2,13 +2,12 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/zeroidentidad/backend/database"
-	"github.com/zeroidentidad/backend/models"
+	"github.com/zeroidentidad/backend/product"
 )
 
 var dbConn *sql.DB
@@ -18,12 +17,14 @@ func main() {
 	dbConn = database.InitDB()
 	defer dbConn.Close()
 
+	var productRepository = product.NewRepository(dbConn)
+	var productService product.Service
+	productService = product.NewService(productRepository)
+
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
-	r.Get("/products", AllProducts)
-	r.Post("/products", CreateProduct)
-	r.Put("/products/{id}", UpdateProduct)
-	r.Delete("/products/{id}", DeleteProduct)
+	r.Mount("/products", product.MakeHttpHandler(productService))
+
 	http.ListenAndServe(":3000", r)
 }
 
@@ -31,71 +32,4 @@ func catch(err error) {
 	if err != nil {
 		panic(err)
 	}
-}
-
-func responseWithJSON(w http.ResponseWriter, code int, payload interface{}) {
-	response, _ := json.Marshal(payload)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(code)
-	w.Write(response)
-}
-
-func AllProducts(w http.ResponseWriter, r *http.Request) {
-	const sql = `SELECT id, product_code, COALESCE(description,'') FROM products`
-	results, err := dbConn.Query(sql)
-	catch(err)
-
-	var products []*models.Product
-
-	for results.Next() {
-		product := &models.Product{}
-		err = results.Scan(&product.ID, &product.Product_Code, &product.Description)
-
-		catch(err)
-		products = append(products, product)
-	}
-
-	responseWithJSON(w, http.StatusOK, products)
-}
-
-func CreateProduct(w http.ResponseWriter, r *http.Request) {
-	var product models.Product
-	json.NewDecoder(r.Body).Decode(&product)
-
-	query, err := dbConn.Prepare(`INSERT products SET product_code=?, description=?`)
-	catch(err)
-
-	_, _err := query.Exec(product.Product_Code, product.Description)
-	catch(_err)
-	defer query.Close()
-
-	responseWithJSON(w, http.StatusCreated, map[string]string{"message": "successfully created"})
-}
-
-func UpdateProduct(w http.ResponseWriter, r *http.Request) {
-	var product models.Product
-	id := chi.URLParam(r, "id")
-	json.NewDecoder(r.Body).Decode(&product)
-
-	query, err := dbConn.Prepare(`UPDATE products SET product_code=?, description=? where id=?`)
-	catch(err)
-
-	_, _err := query.Exec(product.Product_Code, product.Description, id)
-	catch(_err)
-	defer query.Close()
-
-	responseWithJSON(w, http.StatusOK, map[string]string{"message": "successfully updated"})
-}
-
-func DeleteProduct(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-
-	query, err := dbConn.Prepare(`DELETE FROM products where id=?`)
-	catch(err)
-
-	_, _err := query.Exec(id)
-	catch(_err)
-	defer query.Close()
-
-	responseWithJSON(w, http.StatusOK, map[string]string{"message": "successfully deleted"})
 }
