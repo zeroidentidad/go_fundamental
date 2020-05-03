@@ -28,10 +28,4 @@ func main() {
 	http.ListenAndServe(":3000", r)
 }
 
-func catch(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
 // live-reload bin watcher: github.com/canthefason/go-watcher

@@ -1,6 +1,10 @@
 package product
 
-import "database/sql"
+import (
+	"database/sql"
+
+	"github.com/zeroidentidad/backend/helper"
+)
 
 type Repository interface {
 	GetProductById(productId int) (*Product, error)
@@ -31,9 +35,7 @@ func (r *repository) GetProductById(productId int) (*Product, error) {
 
 	err := row.Scan(&product.ID, &product.ProductCode, &product.ProductName, &product.Description, &product.StandarCost, &product.ListPrice, &product.Category)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	return product, err
 }
@@ -45,9 +47,7 @@ func (r *repository) GetProducts(params *getProductsRequest) ([]*Product, error)
 
 	results, err := r.db.Query(sql, params.Limit, params.Offset)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	var products []*Product
 	for results.Next() {
@@ -71,9 +71,7 @@ func (r *repository) GetTotalProducts() (int, error) {
 	row := r.db.QueryRow(sql)
 	err := row.Scan(&total)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	return total, nil
 }
@@ -82,15 +80,11 @@ func (r *repository) InsertProduct(params *getAddProductRequest) (int64, error) 
 	const sql = `INSERT INTO products (product_code, product_name, category, description, list_price, standard_cost) VALUES(?,?,?,?,?,?)`
 
 	insert, err := r.db.Prepare(sql)
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	result, _err := insert.Exec(params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandarCost)
 
-	if _err != nil {
-		panic(_err)
-	}
+	helper.Catch(_err)
 
 	id, _ := result.LastInsertId()
 
@@ -102,15 +96,11 @@ func (r *repository) UpdateProduct(params *getUpdateProductRequest) (int64, erro
 				description=?, list_price=?, standard_cost=? WHERE id=?`
 
 	update, err := r.db.Prepare(sql)
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	_, _err := update.Exec(params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandarCost, params.ID)
 
-	if _err != nil {
-		panic(_err)
-	}
+	helper.Catch(_err)
 
 	return params.ID, nil
 }
@@ -119,15 +109,11 @@ func (r *repository) DeleteProduct(params *getDeleteProductRequest) (int64, erro
 	const sql = `DELETE FROM products WHERE id=?`
 
 	delete, err := r.db.Prepare(sql)
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	result, _err := delete.Exec(params.ProductID)
 
-	if _err != nil {
-		panic(_err)
-	}
+	helper.Catch(_err)
 
 	rows, _ := result.RowsAffected()
 
@@ -142,9 +128,7 @@ func (r *repository) GetBestSellers() ([]*ProductTop, error) {
 
 	results, err := r.db.Query(sql)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	var productsTop []*ProductTop
 	for results.Next() {
@@ -169,9 +153,7 @@ func (r *repository) GetTotalVentas() (float64, error) {
 	row := r.db.QueryRow(sql)
 	err := row.Scan(&total)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	return total, nil
 }

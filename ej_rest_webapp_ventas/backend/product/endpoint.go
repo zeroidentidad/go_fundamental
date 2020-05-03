@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-kit/kit/endpoint"
+	"github.com/zeroidentidad/backend/helper"
 )
 
 type getProductByIDRequest struct {
@@ -45,9 +46,7 @@ func makeGetProductByIdEndPoint(s Service) endpoint.Endpoint {
 		request := req.(getProductByIDRequest)
 		product, err := s.GetProductById(&request)
 
-		if err != nil {
-			panic(err)
-		}
+		helper.Catch(err)
 
 		return product, nil
 	}
@@ -60,9 +59,7 @@ func makeGetProductsEndPoint(s Service) endpoint.Endpoint {
 		request := req.(getProductsRequest)
 		products, err := s.GetProducts(&request)
 
-		if err != nil {
-			panic(err)
-		}
+		helper.Catch(err)
 
 		return products, nil
 	}
@@ -75,9 +72,7 @@ func makeAddProductEndPoint(s Service) endpoint.Endpoint {
 		request := req.(getAddProductRequest)
 		productId, err := s.InsertProduct(&request)
 
-		if err != nil {
-			panic(err)
-		}
+		helper.Catch(err)
 
 		return productId, nil
 	}
@@ -90,9 +85,7 @@ func makeUpdateProductEndPoint(s Service) endpoint.Endpoint {
 		request := req.(getUpdateProductRequest)
 		productId, err := s.UpdateProduct(&request)
 
-		if err != nil {
-			panic(err)
-		}
+		helper.Catch(err)
 
 		return productId, nil
 	}
@@ -105,9 +98,7 @@ func makeDeleteProductEndPoint(s Service) endpoint.Endpoint {
 		request := req.(getDeleteProductRequest)
 		rows, err := s.DeleteProduct(&request)
 
-		if err != nil {
-			panic(err)
-		}
+		helper.Catch(err)
 
 		return rows, nil
 	}
@@ -119,9 +110,7 @@ func makeBestSellersEndPoint(s Service) endpoint.Endpoint {
 	getBestSellersEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		productsTop, err := s.GetBestSellers()
 
-		if err != nil {
-			panic(err)
-		}
+		helper.Catch(err)
 
 		return productsTop, nil
 	}

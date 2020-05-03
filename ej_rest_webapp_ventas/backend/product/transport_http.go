@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-chi/chi"
 	httptransport "github.com/go-kit/kit/transport/http"
+	"github.com/zeroidentidad/backend/helper"
 )
 
 func MakeHttpHandler(s Service) http.Handler {
@@ -45,9 +46,7 @@ func getProductsRequestDecoder(ctx context.Context, r *http.Request) (interface{
 	request := getProductsRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	return request, nil
 }
@@ -56,9 +55,7 @@ func addProductRequestDecoder(ctx context.Context, r *http.Request) (interface{}
 	request := getAddProductRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	return request, nil
 }
@@ -67,9 +64,7 @@ func updateProductRequestDecoder(ctx context.Context, r *http.Request) (interfac
 	request := getUpdateProductRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 
-	if err != nil {
-		panic(err)
-	}
+	helper.Catch(err)
 
 	return request, nil
 }
