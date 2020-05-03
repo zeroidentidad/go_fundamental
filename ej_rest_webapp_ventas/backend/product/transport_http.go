@@ -25,6 +25,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	updateProductHandler := httptransport.NewServer(makeUpdateProductEndPoint(s), updateProductRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodPut, "/", updateProductHandler)
 
+	deleteProductHandler := httptransport.NewServer(makeDeleteProductEndPoint(s), deleteProductRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodDelete, "/{id}", deleteProductHandler)
+
 	return r
 }
 
@@ -66,4 +69,10 @@ func updateProductRequestDecoder(ctx context.Context, r *http.Request) (interfac
 	}
 
 	return request, nil
+}
+
+func deleteProductRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	return getDeleteProductRequest{
+		ProductID: chi.URLParam(r, "id"),
+	}, nil
 }

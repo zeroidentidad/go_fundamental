@@ -8,6 +8,7 @@ type Repository interface {
 	GetTotalProducts() (int, error)
 	InsertProduct(params *getAddProductRequest) (int64, error)
 	UpdateProduct(params *getUpdateProductRequest) (int64, error)
+	DeleteProduct(params *getDeleteProductRequest) (int64, error)
 }
 
 type repository struct {
@@ -110,4 +111,23 @@ func (r *repository) UpdateProduct(params *getUpdateProductRequest) (int64, erro
 	}
 
 	return params.ID, nil
+}
+
+func (r *repository) DeleteProduct(params *getDeleteProductRequest) (int64, error) {
+	const sql = `DELETE FROM products WHERE id=?`
+
+	delete, err := r.db.Prepare(sql)
+	if err != nil {
+		panic(err)
+	}
+
+	result, _err := delete.Exec(params.ProductID)
+
+	if _err != nil {
+		panic(_err)
+	}
+
+	rows, _ := result.RowsAffected()
+
+	return rows, nil
 }
