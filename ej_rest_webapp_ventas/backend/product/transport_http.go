@@ -22,6 +22,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	addProductHandler := httptransport.NewServer(makeAddProductEndPoint(s), addProductRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodPost, "/", addProductHandler)
 
+	updateProductHandler := httptransport.NewServer(makeUpdateProductEndPoint(s), updateProductRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodPut, "/", updateProductHandler)
+
 	return r
 }
 
@@ -45,6 +48,17 @@ func getProductsRequestDecoder(ctx context.Context, r *http.Request) (interface{
 
 func addProductRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
 	request := getAddProductRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return request, nil
+}
+
+func updateProductRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	request := getUpdateProductRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 
 	if err != nil {

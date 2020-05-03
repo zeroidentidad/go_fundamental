@@ -7,6 +7,7 @@ type Repository interface {
 	GetProducts(params *getProductsRequest) ([]*Product, error)
 	GetTotalProducts() (int, error)
 	InsertProduct(params *getAddProductRequest) (int64, error)
+	UpdateProduct(params *getUpdateProductRequest) (int64, error)
 }
 
 type repository struct {
@@ -91,4 +92,22 @@ func (r *repository) InsertProduct(params *getAddProductRequest) (int64, error) 
 	id, _ := result.LastInsertId()
 
 	return id, nil
+}
+
+func (r *repository) UpdateProduct(params *getUpdateProductRequest) (int64, error) {
+	const sql = `UPDATE products SET product_code=?, product_name=?, category=?, 
+				description=?, list_price=?, standard_cost=? WHERE id=?`
+
+	update, err := r.db.Prepare(sql)
+	if err != nil {
+		panic(err)
+	}
+
+	_, _err := update.Exec(params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandarCost, params.ID)
+
+	if _err != nil {
+		panic(_err)
+	}
+
+	return params.ID, nil
 }
