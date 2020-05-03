@@ -28,6 +28,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	deleteProductHandler := httptransport.NewServer(makeDeleteProductEndPoint(s), deleteProductRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodDelete, "/{id}", deleteProductHandler)
 
+	getBestSellersHandler := httptransport.NewServer(makeBestSellersEndPoint(s), getBestSellersRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodGet, "/bestSellers", getBestSellersHandler)
+
 	return r
 }
 
@@ -75,4 +78,8 @@ func deleteProductRequestDecoder(ctx context.Context, r *http.Request) (interfac
 	return getDeleteProductRequest{
 		ProductID: chi.URLParam(r, "id"),
 	}, nil
+}
+
+func getBestSellersRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	return getBestSellersRequest{}, nil
 }
