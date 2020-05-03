@@ -33,3 +33,5 @@ func catch(err error) {
 		panic(err)
 	}
 }
+
+// live-reload bin watcher: github.com/canthefason/go-watcher
