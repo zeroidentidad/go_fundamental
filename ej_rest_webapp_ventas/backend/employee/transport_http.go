@@ -19,6 +19,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	getEmployeeByIDHandler := httptransport.NewServer(makeGetEmployeeByIdEndPoint(s), getEmployeeByIDRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodGet, "/{id}", getEmployeeByIDHandler)
 
+	getBestEmployeeHandler := httptransport.NewServer(makeGetBestEmployeeEndPoint(s), getBestEmployeeRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodGet, "/best", getBestEmployeeHandler)
+
 	return r
 }
 
@@ -35,4 +38,8 @@ func getEmployeeByIDRequestDecoder(ctx context.Context, r *http.Request) (interf
 	return getEmployeeByIDRequest{
 		EmployeeID: chi.URLParam(r, "id"),
 	}, nil
+}
+
+func getBestEmployeeRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	return getBestEmployeeRequest{}, nil
 }

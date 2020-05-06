@@ -18,3 +18,10 @@ type EmployeeList struct {
 	Data         []*Employee `json:"data"`
 	TotalRecords int64       `json:"totalRecords"`
 }
+
+type BestEmployee struct {
+	ID          int    `json:"id"`
+	TotalVentas int    `json:"totalVentas"`
+	LastName    string `json:"lastName"`
+	FirstName   string `json:"firstName"`
+}
