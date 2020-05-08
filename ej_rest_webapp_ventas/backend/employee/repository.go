@@ -12,6 +12,7 @@ type Repository interface {
 	GetEmployeeById(param *getEmployeeByIDRequest) (*Employee, error)
 	GetBestEmployee() (*BestEmployee, error)
 	InsertEmployee(params *addEmployeeRequest) (int64, error)
+	UpdateEmployee(params *updateEmployeeRequest) (int64, error)
 }
 
 type repository struct {
@@ -92,7 +93,7 @@ func (r *repository) GetBestEmployee() (*BestEmployee, error) {
 }
 
 func (r *repository) InsertEmployee(params *addEmployeeRequest) (int64, error) {
-	const sql = `insert into employees 
+	const sql = `INSERT INTO employees 
 				(first_name, last_name, company, address, business_phone,
 				email_address, fax_number, home_phone, job_title, mobile_phone)
 				VALUES(?,?,?,?,?,?,?,?,?,?)`
@@ -107,4 +108,20 @@ func (r *repository) InsertEmployee(params *addEmployeeRequest) (int64, error) {
 	id, _ := result.LastInsertId()
 
 	return id, nil
+}
+
+func (r *repository) UpdateEmployee(params *updateEmployeeRequest) (int64, error) {
+	const sql = `UPDATE employees SET 
+				first_name=?, last_name=?, company=?, address=?, business_phone=?,
+				email_address=?, fax_number=?, home_phone=?, job_title=?, mobile_phone=?
+				WHERE id=?`
+
+	update, err := r.db.Prepare(sql)
+	helper.Catch(err)
+
+	_, _err := update.Exec(params.FirstName, params.LastName, params.Company, params.Address, params.BusinessPhone, params.EmailAddress, params.FaxNumber, params.HomePhone, params.JobTitle, params.MobilePhone, params.ID)
+
+	helper.Catch(_err)
+
+	return params.ID, nil
 }
