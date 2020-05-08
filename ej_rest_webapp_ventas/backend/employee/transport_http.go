@@ -28,6 +28,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	updateEmployeeHandler := httptransport.NewServer(makeUpdateEmployeeEndPoint(s), updateEmployeeRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodPut, "/", updateEmployeeHandler)
 
+	deleteEmployeeHandler := httptransport.NewServer(makeDeleteEmployeeEndPoint(s), deleteEmployeeRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodDelete, "/{id}", deleteEmployeeHandler)
+
 	return r
 }
 
@@ -66,4 +69,10 @@ func updateEmployeeRequestDecoder(ctx context.Context, r *http.Request) (interfa
 	helper.Catch(err)
 
 	return request, nil
+}
+
+func deleteEmployeeRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	return deleteEmployeeRequest{
+		EmployeeID: chi.URLParam(r, "id"),
+	}, nil
 }
