@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/zeroidentidad/backend/customer"
 	"github.com/zeroidentidad/backend/database"
 	"github.com/zeroidentidad/backend/employee"
 	"github.com/zeroidentidad/backend/product"
@@ -30,10 +31,17 @@ func main() {
 	)
 	employeeService = employee.NewService(employeeRepository)
 
+	var (
+		customerRepository = customer.NewRepository(dbConn)
+		customerService    customer.Service
+	)
+	customerService = customer.NewService(customerRepository)
+
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Mount("/products", product.MakeHttpHandler(productService))
 	r.Mount("/employees", employee.MakeHttpHandler(employeeService))
+	r.Mount("/customers", customer.MakeHttpHandler(customerService))
 
 	http.ListenAndServe(":3000", r)
 }
