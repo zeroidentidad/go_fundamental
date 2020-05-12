@@ -2,6 +2,7 @@ package order
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -16,6 +17,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	getOrderByIdHandler := httptransport.NewServer(makeGetOrderByIdEndPoint(s), getOrderByIdRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodGet, "/{id}", getOrderByIdHandler)
 
+	getOrdersHandler := httptransport.NewServer(makeGetOrdersEndPoint(s), getOrdersRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodPost, "/paginated", getOrdersHandler)
+
 	return r
 }
 
@@ -26,4 +30,12 @@ func getOrderByIdRequestDecoder(ctx context.Context, r *http.Request) (interface
 	return getOrderByIdRequest{
 		orderId: orderId,
 	}, nil
+}
+
+func getOrdersRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	request := getOrdersRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	helper.Catch(err)
+
+	return request, nil
 }

@@ -2,12 +2,15 @@ package order
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/zeroidentidad/backend/helper"
 )
 
 type Repository interface {
 	GetOrderById(param *getOrderByIdRequest) (*OrderItem, error)
+	GetOrders(params *getOrdersRequest) ([]*OrderItem, error)
+	GetTotalOrders(params *getOrdersRequest) (int64, error)
 }
 
 type repository struct {
@@ -62,4 +65,74 @@ func GetOrderDetail(r *repository, orderId *int64) ([]*OrderDetailItem, error) {
 	}
 
 	return orders, nil
+}
+
+func (r *repository) GetOrders(params *getOrdersRequest) ([]*OrderItem, error) {
+	filter := Filter(params)
+
+	var sql = `SELECT o.id, o.customer_id, o.order_date, o.status_id,
+			os.status_name, CONCAT(c.first_name,' ',c.last_name) AS customer_name 
+			FROM orders o
+			INNER JOIN orders_status os ON o.status_id=os.id 
+			INNER JOIN customers c ON o.customer_id=c.id
+			WHERE 1=1 `
+
+	sql = sql + *filter + "LIMIT ? OFFSET ?"
+
+	results, err := r.db.Query(sql, params.Limit, params.Offset)
+	helper.Catch(err)
+
+	var orders []*OrderItem
+
+	for results.Next() {
+		order := &OrderItem{}
+
+		err := results.Scan(&order.ID, &order.CustomerID, &order.OrderDate, &order.StatusId, &order.StatusName, &order.Customer)
+		helper.Catch(err)
+
+		orderDetail, err := GetOrderDetail(r, &order.ID)
+		helper.Catch(err)
+
+		order.Data = orderDetail
+
+		orders = append(orders, order)
+	}
+
+	return orders, err
+}
+
+func (r *repository) GetTotalOrders(params *getOrdersRequest) (int64, error) {
+	filter := Filter(params)
+
+	var sql = "SELECT COUNT(*) FROM orders o WHERE 1=1 " + *filter
+	row := r.db.QueryRow(sql)
+
+	var total int64
+
+	err := row.Scan(&total)
+	helper.Catch(err)
+
+	return total, nil
+}
+
+func Filter(params *getOrdersRequest) *string {
+	var filter string
+
+	if params.Status != nil {
+		filter += fmt.Sprintf(" AND o.status_id = %v ", params.Status.(float64))
+	}
+
+	if params.DateFrom != nil && params.DateTo == nil {
+		filter += fmt.Sprintf(" AND o.order_date >= '%v'", params.DateFrom.(string))
+	}
+
+	if params.DateFrom == nil && params.DateTo != nil {
+		filter += fmt.Sprintf(" AND o.order_date <= '%v'", params.DateTo.(string))
+	}
+
+	if params.DateFrom != nil && params.DateTo != nil {
+		filter += fmt.Sprintf(" AND o.order_date BETWEEN '%v' AND '%v'", params.DateFrom.(string), params.DateTo.(string))
+	}
+
+	return &filter
 }

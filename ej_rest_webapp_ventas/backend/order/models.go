@@ -1,5 +1,10 @@
 package order
 
+type OrderList struct {
+	Data         []*OrderItem `json:"data"`
+	TotalRecords int64        `json:"totalRecords"`
+}
+
 type OrderItem struct {
 	ID         int64              `json:"orderId"`
 	CustomerID int                `json:"customerId"`
