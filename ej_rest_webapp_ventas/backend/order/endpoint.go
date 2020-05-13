@@ -20,12 +20,14 @@ type getOrdersRequest struct {
 }
 
 type addOrderRequest struct {
+	ID           int64
 	OrderDate    string
 	CustomerID   int
 	OrderDetails []addOrderDetailsRequest
 }
 
 type addOrderDetailsRequest struct {
+	ID        int64
 	OrderId   int64
 	ProductId int64
 	Quantity  int64
@@ -69,4 +71,17 @@ func makeAddOrderEndPoint(s Service) endpoint.Endpoint {
 	}
 
 	return addOrderEndPoint
+}
+
+func makeUpdateOrderEndPoint(s Service) endpoint.Endpoint {
+	updateOrderEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
+		request := req.(addOrderRequest)
+
+		order, err := s.UpdateOrder(&request)
+		helper.Catch(err)
+
+		return order, nil
+	}
+
+	return updateOrderEndPoint
 }

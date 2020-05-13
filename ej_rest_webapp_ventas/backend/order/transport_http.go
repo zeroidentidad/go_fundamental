@@ -23,6 +23,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	addOrderHandler := httptransport.NewServer(makeAddOrderEndPoint(s), addOrderRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodPost, "/", addOrderHandler)
 
+	updateOrderHandler := httptransport.NewServer(makeUpdateOrderEndPoint(s), updateOrderRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodPut, "/", updateOrderHandler)
+
 	return r
 }
 
@@ -44,6 +47,14 @@ func getOrdersRequestDecoder(ctx context.Context, r *http.Request) (interface{},
 }
 
 func addOrderRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	request := addOrderRequest{}
+	err := json.NewDecoder(r.Body).Decode(&request)
+	helper.Catch(err)
+
+	return request, nil
+}
+
+func updateOrderRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
 	request := addOrderRequest{}
 	err := json.NewDecoder(r.Body).Decode(&request)
 	helper.Catch(err)
