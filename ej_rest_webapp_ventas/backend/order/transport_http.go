@@ -26,6 +26,9 @@ func MakeHttpHandler(s Service) http.Handler {
 	updateOrderHandler := httptransport.NewServer(makeUpdateOrderEndPoint(s), updateOrderRequestDecoder, httptransport.EncodeJSONResponse)
 	r.Method(http.MethodPut, "/", updateOrderHandler)
 
+	deleteOrderDetailHandler := httptransport.NewServer(makeDeleteOrderDetailEndPoint(s), deleteOrderDetailRequestDecoder, httptransport.EncodeJSONResponse)
+	r.Method(http.MethodDelete, "/{orderId}/detail/{orderDetailId}", deleteOrderDetailHandler)
+
 	return r
 }
 
@@ -60,4 +63,10 @@ func updateOrderRequestDecoder(ctx context.Context, r *http.Request) (interface{
 	helper.Catch(err)
 
 	return request, nil
+}
+
+func deleteOrderDetailRequestDecoder(ctx context.Context, r *http.Request) (interface{}, error) {
+	return deleteOrderDetailRequest{
+		OrderDetailID: chi.URLParam(r, "orderDetailId"),
+	}, nil
 }
