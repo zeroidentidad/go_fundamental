@@ -16,6 +16,8 @@ type Repository interface {
 	UpdateOrder(params *addOrderRequest) (int64, error)
 	UpdateOrderDetail(params *addOrderDetailsRequest) (int64, error)
 	DeleteOrderDetail(param *deleteOrderDetailRequest) (int64, error)
+	DeleteOrderDetailByOrderId(param *deleteOrderRequest) (int64, error)
+	DeleteOrder(param *deleteOrderRequest) (int64, error)
 }
 
 type repository struct {
@@ -203,6 +205,36 @@ func (r *repository) DeleteOrderDetail(param *deleteOrderDetailRequest) (int64, 
 	helper.Catch(err)
 
 	result, _err := delete.Exec(param.OrderDetailID)
+
+	helper.Catch(_err)
+
+	rows, _ := result.RowsAffected()
+
+	return rows, nil
+}
+
+func (r *repository) DeleteOrderDetailByOrderId(param *deleteOrderRequest) (int64, error) {
+	const sql = `DELETE FROM order_details WHERE order_id=?`
+
+	delete, err := r.db.Prepare(sql)
+	helper.Catch(err)
+
+	result, _err := delete.Exec(param.OrdeID)
+
+	helper.Catch(_err)
+
+	rows, _ := result.RowsAffected()
+
+	return rows, nil
+}
+
+func (r *repository) DeleteOrder(param *deleteOrderRequest) (int64, error) {
+	const sql = `DELETE FROM orders WHERE id=?`
+
+	delete, err := r.db.Prepare(sql)
+	helper.Catch(err)
+
+	result, _err := delete.Exec(param.OrdeID)
 
 	helper.Catch(_err)
 
