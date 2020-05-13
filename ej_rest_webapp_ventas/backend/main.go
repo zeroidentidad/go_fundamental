@@ -6,12 +6,20 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"github.com/zeroidentidad/backend/customer"
 	"github.com/zeroidentidad/backend/database"
+	_ "github.com/zeroidentidad/backend/docs"
 	"github.com/zeroidentidad/backend/employee"
 	"github.com/zeroidentidad/backend/order"
 	"github.com/zeroidentidad/backend/product"
 )
+
+// @title Rest-Go-Chi-Kit API
+// @version 1.0
+// @description Este es un servidor api ventas de ejemplo.
+// @contact.name ZeroIdentidad
+// @contact.url https://zeroidentidad.github.io/chat
 
 var dbConn *sql.DB
 
@@ -50,6 +58,11 @@ func main() {
 	r.Mount("/employees", employee.MakeHttpHandler(employeeService))
 	r.Mount("/customers", customer.MakeHttpHandler(customerService))
 	r.Mount("/orders", order.MakeHttpHandler(orderService))
+
+	// docs swag init
+	r.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("../swagger/doc.json"),
+	))
 
 	http.ListenAndServe(":3000", r)
 }

@@ -1,0 +1,65 @@
+definitions:
+  customer.Customer:
+    properties:
+      address:
+        type: string
+      businessphone:
+        type: string
+      city:
+        type: string
+      company:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+    type: object
+  customer.CustomerList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/customer.Customer'
+        type: array
+      totalRecords:
+        type: integer
+    type: object
+  customer.getCustomersRequest:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+info:
+  contact:
+    name: ZeroIdentidad
+    url: https://zeroidentidad.github.io/chat
+  description: Este es un servidor api ventas de ejemplo.
+  license: {}
+  title: Rest-Go-Chi-Kit API
+  version: "1.0"
+paths:
+  /customers/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/customer.getCustomersRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.CustomerList'
+      summary: Lista de Clientes
+      tags:
+      - Customers
+swagger: "2.0"
