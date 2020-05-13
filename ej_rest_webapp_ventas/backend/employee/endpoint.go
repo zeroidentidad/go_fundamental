@@ -49,6 +49,13 @@ type deleteEmployeeRequest struct {
 	EmployeeID string
 }
 
+// @Summary Lista de Empleados
+// @Tags Employees
+// @Accept json
+// @Produce  json
+// @Param request body employee.getEmployeesRequest true "User Data"
+// @Success 200 {object} employee.EmployeeList "OK"
+// @Router /employees/paginated [post]
 func makeGetEmployeesEndPoint(s Service) endpoint.Endpoint {
 	getEmployeesEndponit := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(getEmployeesRequest)

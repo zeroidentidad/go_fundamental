@@ -32,6 +32,47 @@ definitions:
       offset:
         type: integer
     type: object
+  employee.Employee:
+    properties:
+      address:
+        type: string
+      businessPhone:
+        type: string
+      company:
+        type: string
+      emailAddress:
+        type: string
+      faxNumber:
+        type: string
+      firstName:
+        type: string
+      homePhone:
+        type: string
+      id:
+        type: integer
+      jobTitle:
+        type: string
+      lastName:
+        type: string
+      mobilePhone:
+        type: string
+    type: object
+  employee.EmployeeList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/employee.Employee'
+        type: array
+      totalRecords:
+        type: integer
+    type: object
+  employee.getEmployeesRequest:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
 info:
   contact:
     name: ZeroIdentidad
@@ -62,4 +103,25 @@ paths:
       summary: Lista de Clientes
       tags:
       - Customers
+  /employees/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.getEmployeesRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/employee.EmployeeList'
+      summary: Lista de Empleados
+      tags:
+      - Employees
 swagger: "2.0"
