@@ -8,7 +8,7 @@ import (
 )
 
 type getOrderByIdRequest struct {
-	orderId int64
+	OrderId int64
 }
 
 type getOrdersRequest struct {
@@ -17,6 +17,19 @@ type getOrdersRequest struct {
 	Status   interface{}
 	DateFrom interface{}
 	DateTo   interface{}
+}
+
+type addOrderRequest struct {
+	OrderDate    string
+	CustomerID   int
+	OrderDetails []addOrderDetailsRequest
+}
+
+type addOrderDetailsRequest struct {
+	OrderId   int64
+	ProductId int64
+	Quantity  int64
+	UnitPrice float64
 }
 
 func makeGetOrderByIdEndPoint(s Service) endpoint.Endpoint {
@@ -43,4 +56,17 @@ func makeGetOrdersEndPoint(s Service) endpoint.Endpoint {
 	}
 
 	return getOrdersEndPoint
+}
+
+func makeAddOrderEndPoint(s Service) endpoint.Endpoint {
+	addOrderEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
+		request := req.(addOrderRequest)
+
+		order, err := s.InsertOrder(&request)
+		helper.Catch(err)
+
+		return order, nil
+	}
+
+	return addOrderEndPoint
 }

@@ -11,6 +11,8 @@ type Repository interface {
 	GetOrderById(param *getOrderByIdRequest) (*OrderItem, error)
 	GetOrders(params *getOrdersRequest) ([]*OrderItem, error)
 	GetTotalOrders(params *getOrdersRequest) (int64, error)
+	InsertOrder(params *addOrderRequest) (int64, error)
+	InsertOrderDetail(params *addOrderDetailsRequest) (int64, error)
 }
 
 type repository struct {
@@ -34,11 +36,11 @@ func (r *repository) GetOrderById(param *getOrderByIdRequest) (*OrderItem, error
 
 	order := &OrderItem{}
 
-	row := r.db.QueryRow(sql, param.orderId)
+	row := r.db.QueryRow(sql, param.OrderId)
 	err := row.Scan(&order.ID, &order.CustomerID, &order.OrderDate, &order.StatusId, &order.StatusName, &order.Customer, &order.Company, &order.Address, &order.Phone, &order.City)
 	helper.Catch(err)
 
-	orderDetail, err := GetOrderDetail(r, &param.orderId)
+	orderDetail, err := GetOrderDetail(r, &param.OrderId)
 	helper.Catch(err)
 
 	order.Data = orderDetail
@@ -135,4 +137,32 @@ func Filter(params *getOrdersRequest) *string {
 	}
 
 	return &filter
+}
+
+func (r *repository) InsertOrder(params *addOrderRequest) (int64, error) {
+	const sql = `INSERT INTO orders (customer_id, order_date) VALUES(?,?)`
+
+	insert, err := r.db.Prepare(sql)
+	helper.Catch(err)
+
+	result, _err := insert.Exec(params.CustomerID, params.OrderDate)
+	helper.Catch(_err)
+
+	id, _ := result.LastInsertId()
+
+	return id, nil
+}
+
+func (r *repository) InsertOrderDetail(params *addOrderDetailsRequest) (int64, error) {
+	const sql = `INSERT INTO order_details (order_id, product_id, quantity, unit_price) VALUES(?,?,?,?)`
+
+	insert, err := r.db.Prepare(sql)
+	helper.Catch(err)
+
+	result, _err := insert.Exec(params.OrderId, params.ProductId, params.Quantity, params.UnitPrice)
+	helper.Catch(_err)
+
+	id, _ := result.LastInsertId()
+
+	return id, nil
 }
