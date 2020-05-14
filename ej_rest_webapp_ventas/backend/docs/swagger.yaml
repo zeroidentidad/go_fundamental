@@ -204,6 +204,25 @@ paths:
       tags:
       - Employees
   /employees/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Eliminar Empleado
+      tags:
+      - Employees
     get:
       consumes:
       - application/json

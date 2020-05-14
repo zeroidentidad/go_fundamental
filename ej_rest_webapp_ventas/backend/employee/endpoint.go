@@ -144,6 +144,13 @@ func makeUpdateEmployeeEndPoint(s Service) endpoint.Endpoint {
 	return getUpdateEmployeeEndPoint
 }
 
+// @Summary Eliminar Empleado
+// @Tags Employees
+// @Accept json
+// @Produce  json
+// @Param id path int true "Employee Id"
+// @Success 200 {integer} int "OK"
+// @Router /employees/{id} [delete]
 func makeDeleteEmployeeEndPoint(s Service) endpoint.Endpoint {
 	getDeleteEmployeeEndPoint := func(_ context.Context, req interface{}) (interface{}, error) {
 		request := req.(deleteEmployeeRequest)
