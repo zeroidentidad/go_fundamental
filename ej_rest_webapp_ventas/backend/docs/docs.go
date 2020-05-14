@@ -240,6 +240,39 @@ var doc = `{
                 }
             }
         },
+        "/products/paginated": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Lista de Productos",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product.getProductsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.ProductList"
+                        }
+                    }
+                }
+            }
+        },
         "/products/{id}": {
             "get": {
                 "consumes": [
@@ -251,7 +284,7 @@ var doc = `{
                 "tags": [
                     "Products"
                 ],
-                "summary": "Product by ID",
+                "summary": "Producto by ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -500,6 +533,31 @@ var doc = `{
                 },
                 "standarCost": {
                     "type": "number"
+                }
+            }
+        },
+        "product.ProductList": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/product.Product"
+                    }
+                },
+                "totalRecords": {
+                    "type": "integer"
+                }
+            }
+        },
+        "product.getProductsRequest": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
                 }
             }
         }

@@ -149,6 +149,22 @@ definitions:
       standarCost:
         type: number
     type: object
+  product.ProductList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/product.Product'
+        type: array
+      totalRecords:
+        type: integer
+    type: object
+  product.getProductsRequest:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
 info:
   contact:
     name: ZeroIdentidad
@@ -311,7 +327,28 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/product.Product'
-      summary: Product by ID
+      summary: Producto by ID
+      tags:
+      - Products
+  /products/paginated:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.getProductsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.ProductList'
+      summary: Lista de Productos
       tags:
       - Products
 swagger: "2.0"

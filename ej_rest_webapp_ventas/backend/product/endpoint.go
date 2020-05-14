@@ -41,7 +41,7 @@ type getDeleteProductRequest struct {
 
 type getBestSellersRequest struct{}
 
-// @Summary Product by ID
+// @Summary Producto by ID
 // @Tags Products
 // @Accept json
 // @Produce  json
@@ -61,6 +61,13 @@ func makeGetProductByIdEndPoint(s Service) endpoint.Endpoint {
 	return getProductByIdEndPoint
 }
 
+// @Summary Lista de Productos
+// @Tags Products
+// @Accept json
+// @Produce  json
+// @Param request body product.getProductsRequest true "User Data"
+// @Success 200 {object} product.ProductList "OK"
+// @Router /products/paginated [post]
 func makeGetProductsEndPoint(s Service) endpoint.Endpoint {
 	getProductsEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(getProductsRequest)
