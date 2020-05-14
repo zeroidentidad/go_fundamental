@@ -142,6 +142,13 @@ func makeDeleteOrderDetailEndPoint(s Service) endpoint.Endpoint {
 	return deleteOrderDetailEndPoint
 }
 
+// @Summary Eliminar Orden [cabecera y detalle]
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param id path int true "Order Id"
+// @Success 200 {integer} int "OK"
+// @Router /orders/{id} [delete]
 func makeDeleteOrderEndPoint(s Service) endpoint.Endpoint {
 	deleteOrderEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(deleteOrderRequest)

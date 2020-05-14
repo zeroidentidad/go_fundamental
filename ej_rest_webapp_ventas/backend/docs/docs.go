@@ -366,6 +366,35 @@ var doc = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Eliminar Orden [cabecera y detalle]",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Order Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
             }
         },
         "/orders/{orderId}/detail/{orderDetailId}": {

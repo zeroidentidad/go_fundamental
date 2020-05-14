@@ -492,6 +492,25 @@ paths:
       tags:
       - Orders
   /orders/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Eliminar Orden [cabecera y detalle]
+      tags:
+      - Order
     get:
       consumes:
       - application/json
