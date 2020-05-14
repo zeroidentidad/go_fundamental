@@ -240,6 +240,39 @@ var doc = `{
                 }
             }
         },
+        "/orders/paginated": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Lista de Ordenes",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order.getOrdersRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/order.OrderList"
+                        }
+                    }
+                }
+            }
+        },
         "/orders/{id}": {
             "get": {
                 "consumes": [
@@ -717,6 +750,40 @@ var doc = `{
                 },
                 "statusName": {
                     "type": "string"
+                }
+            }
+        },
+        "order.OrderList": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order.OrderItem"
+                    }
+                },
+                "totalRecords": {
+                    "type": "integer"
+                }
+            }
+        },
+        "order.getOrdersRequest": {
+            "type": "object",
+            "properties": {
+                "dateFrom": {
+                    "type": "object"
+                },
+                "dateTo": {
+                    "type": "object"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "object"
                 }
             }
         },
