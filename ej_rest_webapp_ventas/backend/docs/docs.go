@@ -93,6 +93,37 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/employees/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Empleado by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Employee Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/employee.Employee"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

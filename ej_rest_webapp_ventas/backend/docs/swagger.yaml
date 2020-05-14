@@ -103,6 +103,26 @@ paths:
       summary: Lista de Clientes
       tags:
       - Customers
+  /employees/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/employee.Employee'
+      summary: Empleado by ID
+      tags:
+      - Employees
   /employees/paginated:
     post:
       consumes:

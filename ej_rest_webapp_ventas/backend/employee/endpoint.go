@@ -69,6 +69,13 @@ func makeGetEmployeesEndPoint(s Service) endpoint.Endpoint {
 	return getEmployeesEndponit
 }
 
+// @Summary Empleado by ID
+// @Tags Employees
+// @Accept json
+// @Produce  json
+// @Param id path int true "Employee Id"
+// @Success 200 {object} employee.Employee "ok"
+// @Router /employees/{id} [get]
 func makeGetEmployeeByIdEndPoint(s Service) endpoint.Endpoint {
 	getEmployeeByIdEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(getEmployeeByIDRequest)
