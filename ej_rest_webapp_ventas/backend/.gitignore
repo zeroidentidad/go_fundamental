@@ -20,3 +20,4 @@
 ### Go Patch ###
 /vendor/
 /Godeps/
+/tmp/
