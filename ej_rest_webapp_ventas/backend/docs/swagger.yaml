@@ -471,6 +471,26 @@ paths:
       summary: Insertar Order
       tags:
       - Orders
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/order.addOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Update Order
+      tags:
+      - Orders
   /orders/{id}:
     get:
       consumes:
