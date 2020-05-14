@@ -158,6 +158,21 @@ definitions:
       totalRecords:
         type: integer
     type: object
+  product.getAddProductRequest:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      listPrice:
+        type: string
+      productCode:
+        type: string
+      productName:
+        type: string
+      standarCost:
+        type: string
+    type: object
   product.getProductsRequest:
     properties:
       limit:
@@ -310,6 +325,27 @@ paths:
       summary: Lista de Empleados
       tags:
       - Employees
+  /products/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.getAddProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Insertar Producto
+      tags:
+      - Products
   /products/{id}:
     get:
       consumes:
