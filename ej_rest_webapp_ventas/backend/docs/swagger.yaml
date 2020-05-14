@@ -77,6 +77,29 @@ definitions:
       totalRecords:
         type: integer
     type: object
+  employee.addEmployeeRequest:
+    properties:
+      address:
+        type: string
+      businessPhone:
+        type: string
+      company:
+        type: string
+      emailAddress:
+        type: string
+      faxNumber:
+        type: string
+      firstName:
+        type: string
+      homePhone:
+        type: string
+      jobTitle:
+        type: string
+      lastName:
+        type: string
+      mobilePhone:
+        type: string
+    type: object
   employee.getEmployeesRequest:
     properties:
       limit:
@@ -114,6 +137,27 @@ paths:
       summary: Lista de Clientes
       tags:
       - Customers
+  /employees/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.addEmployeeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: integer
+      summary: Insertar Empleado
+      tags:
+      - Employees
   /employees/{id}:
     get:
       consumes:

@@ -106,6 +106,13 @@ func makeGetBestEmployeeEndPoint(s Service) endpoint.Endpoint {
 	return getBestEmployeeEndPoint
 }
 
+// @Summary Insertar Empleado
+// @Tags Employees
+// @Accept json
+// @Produce  json
+// @Param request body employee.addEmployeeRequest true "User Data"
+// @Success 200 {integer} int "ok"
+// @Router /employees/ [post]
 func makeInsertEmployeeEndPoint(s Service) endpoint.Endpoint {
 	getInsertEmployeeEndPoint := func(_ context.Context, req interface{}) (interface{}, error) {
 		request := req.(addEmployeeRequest)
