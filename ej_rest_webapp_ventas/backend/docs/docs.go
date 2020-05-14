@@ -61,6 +61,28 @@ var doc = `{
                 }
             }
         },
+        "/employees/best": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Mejor Empleado",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/employee.BestEmployee"
+                        }
+                    }
+                }
+            }
+        },
         "/employees/paginated": {
             "post": {
                 "consumes": [
@@ -117,7 +139,7 @@ var doc = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "ok",
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/employee.Employee"
                         }
@@ -174,6 +196,23 @@ var doc = `{
                     "type": "integer"
                 },
                 "offset": {
+                    "type": "integer"
+                }
+            }
+        },
+        "employee.BestEmployee": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "totalVentas": {
                     "type": "integer"
                 }
             }

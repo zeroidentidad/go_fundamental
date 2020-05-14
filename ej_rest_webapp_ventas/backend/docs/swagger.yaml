@@ -32,6 +32,17 @@ definitions:
       offset:
         type: integer
     type: object
+  employee.BestEmployee:
+    properties:
+      firstName:
+        type: string
+      id:
+        type: integer
+      lastName:
+        type: string
+      totalVentas:
+        type: integer
+    type: object
   employee.Employee:
     properties:
       address:
@@ -117,10 +128,24 @@ paths:
       - application/json
       responses:
         "200":
-          description: ok
+          description: OK
           schema:
             $ref: '#/definitions/employee.Employee'
       summary: Empleado by ID
+      tags:
+      - Employees
+  /employees/best:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/employee.BestEmployee'
+      summary: Mejor Empleado
       tags:
       - Employees
   /employees/paginated:

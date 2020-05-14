@@ -74,7 +74,7 @@ func makeGetEmployeesEndPoint(s Service) endpoint.Endpoint {
 // @Accept json
 // @Produce  json
 // @Param id path int true "Employee Id"
-// @Success 200 {object} employee.Employee "ok"
+// @Success 200 {object} employee.Employee "OK"
 // @Router /employees/{id} [get]
 func makeGetEmployeeByIdEndPoint(s Service) endpoint.Endpoint {
 	getEmployeeByIdEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
@@ -89,6 +89,12 @@ func makeGetEmployeeByIdEndPoint(s Service) endpoint.Endpoint {
 	return getEmployeeByIdEndPoint
 }
 
+// @Summary Mejor Empleado
+// @Tags Employees
+// @Accept json
+// @Produce  json
+// @Success 200 {object} employee.BestEmployee "OK"
+// @Router /employees/best [get]
 func makeGetBestEmployeeEndPoint(s Service) endpoint.Endpoint {
 	getBestEmployeeEndPoint := func(_ context.Context, _ interface{}) (interface{}, error) {
 		employee, err := s.GetBestEmployee()
