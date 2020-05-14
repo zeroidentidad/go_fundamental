@@ -143,7 +143,7 @@ func makeDeleteOrderDetailEndPoint(s Service) endpoint.Endpoint {
 }
 
 // @Summary Eliminar Orden [cabecera y detalle]
-// @Tags Order
+// @Tags Orders
 // @Accept json
 // @Produce json
 // @Param id path int true "Order Id"

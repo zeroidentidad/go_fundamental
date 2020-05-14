@@ -375,7 +375,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Order"
+                    "Orders"
                 ],
                 "summary": "Eliminar Orden [cabecera y detalle]",
                 "parameters": [

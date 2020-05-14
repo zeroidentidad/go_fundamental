@@ -510,7 +510,7 @@ paths:
             type: integer
       summary: Eliminar Orden [cabecera y detalle]
       tags:
-      - Order
+      - Orders
     get:
       consumes:
       - application/json
