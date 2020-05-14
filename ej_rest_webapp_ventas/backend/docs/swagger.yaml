@@ -384,6 +384,25 @@ paths:
       tags:
       - Products
   /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Producto Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Eliminar Producto
+      tags:
+      - Products
     get:
       consumes:
       - application/json
