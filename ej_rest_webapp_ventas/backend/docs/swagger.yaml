@@ -183,6 +183,32 @@ definitions:
       totalRecords:
         type: integer
     type: object
+  order.addOrderDetailsRequest:
+    properties:
+      id:
+        type: integer
+      orderId:
+        type: integer
+      productId:
+        type: integer
+      quantity:
+        type: integer
+      unitPrice:
+        type: number
+    type: object
+  order.addOrderRequest:
+    properties:
+      customerID:
+        type: integer
+      id:
+        type: integer
+      orderDate:
+        type: string
+      orderDetails:
+        items:
+          $ref: '#/definitions/order.addOrderDetailsRequest'
+        type: array
+    type: object
   order.getOrdersRequest:
     properties:
       dateFrom:
@@ -424,6 +450,27 @@ paths:
       summary: Lista de Empleados
       tags:
       - Employees
+  /orders/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/order.addOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Insertar Order
+      tags:
+      - Orders
   /orders/{id}:
     get:
       consumes:

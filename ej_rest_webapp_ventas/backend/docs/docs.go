@@ -240,6 +240,39 @@ var doc = `{
                 }
             }
         },
+        "/orders/": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Insertar Order",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order.addOrderRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
         "/orders/paginated": {
             "post": {
                 "consumes": [
@@ -764,6 +797,46 @@ var doc = `{
                 },
                 "totalRecords": {
                     "type": "integer"
+                }
+            }
+        },
+        "order.addOrderDetailsRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "productId": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "unitPrice": {
+                    "type": "number"
+                }
+            }
+        },
+        "order.addOrderRequest": {
+            "type": "object",
+            "properties": {
+                "customerID": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "orderDate": {
+                    "type": "string"
+                },
+                "orderDetails": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order.addOrderDetailsRequest"
+                    }
                 }
             }
         },

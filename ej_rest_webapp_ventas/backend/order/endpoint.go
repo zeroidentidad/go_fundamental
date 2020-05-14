@@ -82,6 +82,13 @@ func makeGetOrdersEndPoint(s Service) endpoint.Endpoint {
 	return getOrdersEndPoint
 }
 
+// @Summary Insertar Order
+// @Tags Orders
+// @Accept json
+// @Produce json
+// @Param request body order.addOrderRequest true "User Data"
+// @Success 200 {integer} int "OK"
+// @Router /orders/ [post]
 func makeAddOrderEndPoint(s Service) endpoint.Endpoint {
 	addOrderEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(addOrderRequest)
