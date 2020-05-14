@@ -107,6 +107,31 @@ definitions:
       offset:
         type: integer
     type: object
+  employee.updateEmployeeRequest:
+    properties:
+      address:
+        type: string
+      businessPhone:
+        type: string
+      company:
+        type: string
+      emailAddress:
+        type: string
+      faxNumber:
+        type: string
+      firstName:
+        type: string
+      homePhone:
+        type: string
+      id:
+        type: integer
+      jobTitle:
+        type: string
+      lastName:
+        type: string
+      mobilePhone:
+        type: string
+    type: object
 info:
   contact:
     name: ZeroIdentidad
@@ -152,10 +177,30 @@ paths:
       - application/json
       responses:
         "200":
-          description: ok
+          description: OK
           schema:
             type: integer
       summary: Insertar Empleado
+      tags:
+      - Employees
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.updateEmployeeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Update Empleado
       tags:
       - Employees
   /employees/{id}:
