@@ -240,6 +240,37 @@ var doc = `{
                 }
             }
         },
+        "/orders/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Order by Id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Order Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/order.OrderItem"
+                        }
+                    }
+                }
+            }
+        },
         "/products/": {
             "put": {
                 "consumes": [
@@ -621,6 +652,70 @@ var doc = `{
                     "type": "string"
                 },
                 "mobilePhone": {
+                    "type": "string"
+                }
+            }
+        },
+        "order.OrderDetailItem": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "order_id": {
+                    "type": "integer"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "product_name": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "number"
+                },
+                "unit_price": {
+                    "type": "number"
+                }
+            }
+        },
+        "order.OrderItem": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "customer": {
+                    "type": "string"
+                },
+                "customerId": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order.OrderDetailItem"
+                    }
+                },
+                "orderDate": {
+                    "type": "string"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "statusId": {
+                    "type": "string"
+                },
+                "statusName": {
                     "type": "string"
                 }
             }

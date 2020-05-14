@@ -42,6 +42,13 @@ type deleteOrderRequest struct {
 	OrdeID string
 }
 
+// @Summary Order by Id
+// @Tags Orders
+// @Accept json
+// @Produce  json
+// @Param id path int true "Order Id"
+// @Success 200 {object} order.OrderItem "OK"
+// @Router /orders/{id} [get]
 func makeGetOrderByIdEndPoint(s Service) endpoint.Endpoint {
 	getOrderByIdEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(getOrderByIdRequest)
