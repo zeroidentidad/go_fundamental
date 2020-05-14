@@ -67,4 +67,5 @@ func main() {
 	http.ListenAndServe(":3000", r)
 }
 
-// live-reload bin watcher: github.com/canthefason/go-watcher
+// opt1: live-reload bin watcher: github.com/canthefason/go-watcher
+// opt2: live-reload bin air: github.com/cosmtrek/air
