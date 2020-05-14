@@ -141,6 +141,12 @@ func makeDeleteProductEndPoint(s Service) endpoint.Endpoint {
 	return deleteProductEndPoint
 }
 
+// @Summary Best Sellers
+// @Tags Products
+// @Accept json
+// @Produce  json
+// @Success 200 {object} product.ProductTopList "OK"
+// @Router /products/bestSellers [get]
 func makeBestSellersEndPoint(s Service) endpoint.Endpoint {
 	getBestSellersEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		productsTop, err := s.GetBestSellers()

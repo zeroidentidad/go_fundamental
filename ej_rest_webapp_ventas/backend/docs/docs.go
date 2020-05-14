@@ -304,6 +304,28 @@ var doc = `{
                 }
             }
         },
+        "/products/bestSellers": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Best Sellers",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.ProductTopList"
+                        }
+                    }
+                }
+            }
+        },
         "/products/paginated": {
             "post": {
                 "consumes": [
@@ -640,6 +662,34 @@ var doc = `{
                 },
                 "totalRecords": {
                     "type": "integer"
+                }
+            }
+        },
+        "product.ProductTop": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "productName": {
+                    "type": "string"
+                },
+                "vendidos": {
+                    "type": "number"
+                }
+            }
+        },
+        "product.ProductTopList": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/product.ProductTop"
+                    }
+                },
+                "totalVentas": {
+                    "type": "number"
                 }
             }
         },

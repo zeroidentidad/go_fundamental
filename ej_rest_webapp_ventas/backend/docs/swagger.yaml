@@ -158,6 +158,24 @@ definitions:
       totalRecords:
         type: integer
     type: object
+  product.ProductTop:
+    properties:
+      id:
+        type: integer
+      productName:
+        type: string
+      vendidos:
+        type: number
+    type: object
+  product.ProductTopList:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/product.ProductTop'
+        type: array
+      totalVentas:
+        type: number
+    type: object
   product.getAddProductRequest:
     properties:
       category:
@@ -420,6 +438,20 @@ paths:
           schema:
             $ref: '#/definitions/product.Product'
       summary: Producto by ID
+      tags:
+      - Products
+  /products/bestSellers:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.ProductTopList'
+      summary: Best Sellers
       tags:
       - Products
   /products/paginated:
