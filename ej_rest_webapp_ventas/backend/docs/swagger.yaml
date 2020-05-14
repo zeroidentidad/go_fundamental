@@ -180,6 +180,23 @@ definitions:
       offset:
         type: integer
     type: object
+  product.getUpdateProductRequest:
+    properties:
+      category:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      listPrice:
+        type: string
+      productCode:
+        type: string
+      productName:
+        type: string
+      standarCost:
+        type: string
+    type: object
 info:
   contact:
     name: ZeroIdentidad
@@ -344,6 +361,26 @@ paths:
           schema:
             type: integer
       summary: Insertar Producto
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.getUpdateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Update Producto
       tags:
       - Products
   /products/{id}:

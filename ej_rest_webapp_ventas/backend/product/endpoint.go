@@ -101,6 +101,13 @@ func makeAddProductEndPoint(s Service) endpoint.Endpoint {
 	return addProductEndPoint
 }
 
+// @Summary Update Producto
+// @Tags Products
+// @Accept json
+// @Produce  json
+// @Param request body product.getUpdateProductRequest true "User Data"
+// @Success 200 {integer} int "OK"
+// @Router /products/ [put]
 func makeUpdateProductEndPoint(s Service) endpoint.Endpoint {
 	updateProductEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(getUpdateProductRequest)
