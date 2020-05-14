@@ -239,6 +239,37 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/products/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Product by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Producto Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.Product"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -443,6 +474,32 @@ var doc = `{
                 },
                 "mobilePhone": {
                     "type": "string"
+                }
+            }
+        },
+        "product.Product": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "listPrice": {
+                    "type": "number"
+                },
+                "productCode": {
+                    "type": "string"
+                },
+                "productName": {
+                    "type": "string"
+                },
+                "standarCost": {
+                    "type": "number"
                 }
             }
         }

@@ -41,6 +41,13 @@ type getDeleteProductRequest struct {
 
 type getBestSellersRequest struct{}
 
+// @Summary Product by ID
+// @Tags Products
+// @Accept json
+// @Produce  json
+// @Param id path int true "Producto Id"
+// @Success 200 {object} product.Product "OK"
+// @Router /products/{id} [get]
 func makeGetProductByIdEndPoint(s Service) endpoint.Endpoint {
 	getProductByIdEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(getProductByIDRequest)
