@@ -351,6 +351,37 @@
                 }
             }
         },
+        "/orders/{orderId}/detail/{orderDetailId}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Eliminar elemento detalle de Orden",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Order Detail Id",
+                        "name": "orderDetailId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
         "/products/": {
             "put": {
                 "consumes": [

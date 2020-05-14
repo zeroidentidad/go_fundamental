@@ -122,6 +122,13 @@ func makeUpdateOrderEndPoint(s Service) endpoint.Endpoint {
 	return updateOrderEndPoint
 }
 
+// @Summary Eliminar elemento detalle de Orden
+// @Tags Orders
+// @Accept json
+// @Produce json
+// @Param orderDetailId path int true "Order Detail Id"
+// @Success 200 {integer} int "OK"
+// @Router /orders/{orderId}/detail/{orderDetailId} [delete]
 func makeDeleteOrderDetailEndPoint(s Service) endpoint.Endpoint {
 	deleteOrderDetailEndPoint := func(ctx context.Context, req interface{}) (interface{}, error) {
 		request := req.(deleteOrderDetailRequest)

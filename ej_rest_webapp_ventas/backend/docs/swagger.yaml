@@ -511,6 +511,26 @@ paths:
       summary: Order by Id
       tags:
       - Orders
+  /orders/{orderId}/detail/{orderDetailId}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order Detail Id
+        in: path
+        name: orderDetailId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Eliminar elemento detalle de Orden
+      tags:
+      - Orders
   /orders/paginated:
     post:
       consumes:
