@@ -10,6 +10,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "src/environments/environment";
 import { metaReducers } from "./state/reducers";
+import { ProductModule } from './product/product.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { metaReducers } from "./state/reducers";
     !environment.production ? StoreDevtoolsModule.instrument():[],
     AppRoutingModule,
     SharedModule,
-    HomeModule
+    HomeModule,
+    ProductModule
   ],
   providers: [],
   bootstrap: [AppComponent]
