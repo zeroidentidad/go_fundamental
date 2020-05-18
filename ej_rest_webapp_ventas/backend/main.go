@@ -11,6 +11,7 @@ import (
 	"github.com/zeroidentidad/backend/database"
 	_ "github.com/zeroidentidad/backend/docs"
 	"github.com/zeroidentidad/backend/employee"
+	"github.com/zeroidentidad/backend/helper"
 	"github.com/zeroidentidad/backend/order"
 	"github.com/zeroidentidad/backend/product"
 )
@@ -54,6 +55,7 @@ func main() {
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+	r.Use(helper.EnableCors().Handler)
 	r.Mount("/products", product.MakeHttpHandler(productService))
 	r.Mount("/employees", employee.MakeHttpHandler(employeeService))
 	r.Mount("/customers", customer.MakeHttpHandler(customerService))
