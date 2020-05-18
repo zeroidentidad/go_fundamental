@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "src/environments/environment";
 import { metaReducers } from "./state/reducers";
 import { ProductModule } from './product/product.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProductModule } from './product/product.module';
     AppRoutingModule,
     SharedModule,
     HomeModule,
-    ProductModule
+    ProductModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
