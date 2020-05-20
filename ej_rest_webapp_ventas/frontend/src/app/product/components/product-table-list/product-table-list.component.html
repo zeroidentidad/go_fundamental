@@ -1,0 +1,24 @@
+<div>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <td scope="col">Código</td>
+                <td scope="col">Nombre</td>
+                <td scope="col">Descripción</td>
+                <td scope="col">Precio de lista</td>
+                <td scope="col">Costo estándar</td>
+                <td scope="col">Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td>{{item.productCode}}</td>
+                <td>{{item.productName}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.listPrice}}</td>
+                <td>{{item.standarCost}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

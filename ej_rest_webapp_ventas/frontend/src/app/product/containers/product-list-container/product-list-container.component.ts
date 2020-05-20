@@ -14,7 +14,7 @@ import {Observable} from "rxjs";
 export class ProductListContainerComponent implements OnInit {
 
   constructor(private store: Store<fromReducer.ProductState>) { }
-  product$: Observable<Product[]>=this.store.select(fromReducer.getProducts)
+  products$: Observable<Product[]>=this.store.select(fromReducer.getProducts)
   totalRecords$: Observable<number>=this.store.select(fromReducer.getTotalRecords)
 
   ngOnInit() {
