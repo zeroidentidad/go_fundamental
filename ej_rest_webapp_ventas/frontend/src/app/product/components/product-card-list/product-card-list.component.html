@@ -1,0 +1,18 @@
+<div class="card-container">
+    <div class="cards" *ngFor="let item of items">
+        <mat-card class="card-child-container">
+            <mat-card-header>
+                <mat-card-title>{{item.productCode}}</mat-card-title>
+                <mat-card-subtitle>Precio lista: {{item.listPrice}}</mat-card-subtitle>
+                <mat-card-subtitle>Costo estándar: {{item.standarCost}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                Nombre: <p class="product-name">{{item.productName}}</p>
+            </mat-card-content>
+            <mat-card-actions class="button-container">
+                <button mat-stroked-button color="primary">EDITAR</button>
+                <button mat-stroked-button color="warn">ELIMINAR</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

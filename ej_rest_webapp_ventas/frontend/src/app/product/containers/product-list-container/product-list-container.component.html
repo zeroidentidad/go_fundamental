@@ -4,7 +4,9 @@
             <mat-tab label="Tabla"> 
                 <app-product-table-list [items]="products$ | async"></app-product-table-list>
             </mat-tab>
-            <mat-tab label="Cards"> Content 2 </mat-tab>
+            <mat-tab label="Cards"> 
+                <app-product-card-list [items]="products$ | async"></app-product-card-list>
+            </mat-tab>
         </mat-tab-group>
     </div>
     <div>
