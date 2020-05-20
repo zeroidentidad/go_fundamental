@@ -16,10 +16,24 @@ export class ProductListContainerComponent implements OnInit {
   constructor(private store: Store<fromReducer.ProductState>) { }
   products$: Observable<Product[]>=this.store.select(fromReducer.getProducts)
   totalRecords$: Observable<number>=this.store.select(fromReducer.getTotalRecords)
+  pageSize = 10;
+  pageSizeOptions: number[] = [10, 20, 30, 50];
+  request: GetProduct;
 
   ngOnInit() {
-    let request = new GetProduct(10,0);
-    this.store.dispatch(new productActions.LoadProducts(request));
+    this.refreshData();
+  }
+
+  refreshData():void{
+    this.request=new GetProduct(this.pageSizeOptions[0],0);
+    this.store.dispatch(new productActions.LoadProducts(this.request));
+  }
+
+  changePage(event: any): void {
+    const offSet = event.pageIndex * event.pageSize;
+    this.pageSize = event.pageSize;
+    this.request=new GetProduct(this.pageSize, offSet);
+    this.store.dispatch(new productActions.LoadProducts(this.request));
   }
 
 }

@@ -10,6 +10,11 @@
         </mat-tab-group>
     </div>
     <div>
-
+        <mat-paginator 
+        [length]="totalRecords$ | async"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="changePage($event)">
+        </mat-paginator>
     </div>
 </div>
