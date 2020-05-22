@@ -17,22 +17,22 @@ type getProductsRequest struct {
 }
 
 type getAddProductRequest struct {
-	Category    string
-	Description string
-	ListPrice   string
-	StandarCost string
-	ProductCode string
-	ProductName string
+	Category     string
+	Description  string
+	ListPrice    string
+	StandardCost string
+	ProductCode  string
+	ProductName  string
 }
 
 type getUpdateProductRequest struct {
-	ID          int64
-	Category    string
-	Description string
-	ListPrice   string
-	StandarCost string
-	ProductCode string
-	ProductName string
+	ID           int64
+	Category     string
+	Description  string
+	ListPrice    string
+	StandardCost string
+	ProductCode  string
+	ProductName  string
 }
 
 type getDeleteProductRequest struct {

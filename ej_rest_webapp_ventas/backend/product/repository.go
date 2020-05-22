@@ -33,7 +33,7 @@ func (r *repository) GetProductById(productId int) (*Product, error) {
 	row := r.db.QueryRow(sql, productId)
 	product := &Product{}
 
-	err := row.Scan(&product.ID, &product.ProductCode, &product.ProductName, &product.Description, &product.StandarCost, &product.ListPrice, &product.Category)
+	err := row.Scan(&product.ID, &product.ProductCode, &product.ProductName, &product.Description, &product.StandardCost, &product.ListPrice, &product.Category)
 
 	helper.Catch(err)
 
@@ -52,7 +52,7 @@ func (r *repository) GetProducts(params *getProductsRequest) ([]*Product, error)
 	var products []*Product
 	for results.Next() {
 		product := &Product{}
-		err = results.Scan(&product.ID, &product.ProductCode, &product.ProductName, &product.Description, &product.StandarCost, &product.ListPrice, &product.Category)
+		err = results.Scan(&product.ID, &product.ProductCode, &product.ProductName, &product.Description, &product.StandardCost, &product.ListPrice, &product.Category)
 
 		if err != nil {
 			panic(err)
@@ -82,7 +82,7 @@ func (r *repository) InsertProduct(params *getAddProductRequest) (int64, error) 
 	insert, err := r.db.Prepare(sql)
 	helper.Catch(err)
 
-	result, _err := insert.Exec(params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandarCost)
+	result, _err := insert.Exec(params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandardCost)
 
 	helper.Catch(_err)
 
@@ -98,7 +98,7 @@ func (r *repository) UpdateProduct(params *getUpdateProductRequest) (int64, erro
 	update, err := r.db.Prepare(sql)
 	helper.Catch(err)
 
-	_, _err := update.Exec(params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandarCost, params.ID)
+	_, _err := update.Exec(params.ProductCode, params.ProductName, params.Category, params.Description, params.ListPrice, params.StandardCost, params.ID)
 
 	helper.Catch(_err)
 

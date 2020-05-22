@@ -3,7 +3,7 @@ export class Product {
     productCode: string;
     productName: string;
     description: string;
-    standarCost: number;
+    standardCost: number;
     listPrice: number;
     category: string;
 }

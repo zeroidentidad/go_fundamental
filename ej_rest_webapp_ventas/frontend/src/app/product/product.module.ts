@@ -12,10 +12,11 @@ import {ProductEffects} from "./state/effects/product.effects";
 import { ProductTableListComponent } from './components/product-table-list/product-table-list.component';
 import { ProductCardListComponent } from './components/product-card-list/product-card-list.component';
 import { ProductEditContainerComponent } from './containers/product-edit-container/product-edit-container.component';
+import { ProductEditComponent } from './components/product-edit/product-edit.component';
 
 
 @NgModule({
-  declarations: [ProductMainContainerComponent, ProductListContainerComponent, ProductTableListComponent, ProductCardListComponent, ProductEditContainerComponent],
+  declarations: [ProductMainContainerComponent, ProductListContainerComponent, ProductTableListComponent, ProductCardListComponent, ProductEditContainerComponent, ProductEditComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
