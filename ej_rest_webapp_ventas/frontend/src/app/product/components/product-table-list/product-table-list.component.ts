@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Product} from "../../models/product/product";
 
 @Component({
@@ -10,10 +10,16 @@ export class ProductTableListComponent implements OnInit {
 
   @Input()
   items: Product[]
+
+  @Output()
+  edit: EventEmitter<number>=new EventEmitter<number>();
   
   constructor() { }
 
   ngOnInit() {
   }
 
+  onEdit(productId:number){
+    this.edit.emit(productId)
+  }
 }

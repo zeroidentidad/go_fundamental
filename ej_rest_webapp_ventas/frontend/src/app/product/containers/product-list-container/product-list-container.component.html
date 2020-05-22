@@ -2,7 +2,7 @@
     <div>
         <mat-tab-group>
             <mat-tab label="Tabla"> 
-                <app-product-table-list [items]="products$ | async"></app-product-table-list>
+                <app-product-table-list [items]="products$ | async" (edit)="onEdit($event)"></app-product-table-list>
             </mat-tab>
             <mat-tab label="Cards"> 
                 <app-product-card-list [items]="products$ | async"></app-product-card-list>
