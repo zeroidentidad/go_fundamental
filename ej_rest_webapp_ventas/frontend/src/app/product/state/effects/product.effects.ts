@@ -37,6 +37,16 @@ export class ProductEffects{
                     return new productActions.UpdateProductCompleted()
                 }
                 )))
-    );    
-
+    ); 
+    
+    @Effect()
+    deleteProduct$=this.actions$.pipe(
+        ofType<productActions.DeleteProduct>(productActions.ProductActionTypes.DeleteProduct),
+        switchMap(action => this.productService.deleteProduct(action.productId)
+            .pipe(
+                map(_ => {
+                    return new productActions.DeleteProductCompleted();
+                })
+            ))
+    );
 }

@@ -37,9 +37,18 @@ export function ProductReducer(state=initialState, action: ProductActions.Action
         case ProductActions.ProductActionTypes.UpdateProduct: {
             return state;
         }
+        
         case ProductActions.ProductActionTypes.UpdateProductCompleted: {
             return state;
-        }            
+        }
+        
+        case ProductActions.ProductActionTypes.DeleteProduct: {
+            return state;
+        }
+
+        case ProductActions.ProductActionTypes.DeleteProductCompleted: {
+            return state;
+        }        
     
         default:
             return state;

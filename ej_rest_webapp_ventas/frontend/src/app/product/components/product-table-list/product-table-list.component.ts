@@ -13,13 +13,20 @@ export class ProductTableListComponent implements OnInit {
 
   @Output()
   edit: EventEmitter<number>=new EventEmitter<number>();
+
+  @Output()
+  delete: EventEmitter<number>=new EventEmitter<number>();
   
   constructor() { }
 
   ngOnInit() {
   }
 
-  onEdit(productId:number){
+  onEdit(productId: number): void{
     this.edit.emit(productId)
+  }
+
+  onDelete(productId: number):void{
+    this.delete.emit(productId)
   }
 }

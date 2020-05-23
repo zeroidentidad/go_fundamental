@@ -28,4 +28,11 @@ export class ProductService {
       map((response: Response) => response)
     )
   }
+
+  deleteProduct(id: number): Observable<Response> {
+    return this.httpClient.delete(`${environment.ApiURL}products/${id}`)
+      .pipe(
+        map((response: Response) => response)
+      );
+  }  
 }
