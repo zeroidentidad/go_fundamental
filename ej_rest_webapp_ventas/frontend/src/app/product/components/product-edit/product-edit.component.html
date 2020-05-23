@@ -9,30 +9,44 @@
                     <mat-form-field class="product-code">
                         <input matInput placeholder="Código producto" formControlName="productCode">
                     </mat-form-field>
+                    <mat-error *ngIf="productEditForm.get('productCode').hasError('required')">Agregar código</mat-error>
                 </div>
                 <div class="product-name-contanier">
                     <mat-form-field class="product-name">
                         <input matInput placeholder="Nombre producto" formControlName="productName">
                     </mat-form-field>
+                    <mat-error *ngIf="productEditForm.get('productName').hasError('required')">Agregar nombre</mat-error>
                 </div>
                 <div class="product-description-contanier">
                     <mat-form-field class="product-description">
                         <input matInput placeholder="Descripción" formControlName="description">
                     </mat-form-field>
+                    <mat-error *ngIf="productEditForm.get('description').hasError('required')">Agregar descripción</mat-error>
                 </div>
                 <div class="standard-cost-contanier">
                     <mat-form-field class="standard-cost">
                         <input type="number" matInput placeholder="Costo estándar" formControlName="standardCost">
                     </mat-form-field>
+                    <mat-error *ngIf="productEditForm.get('standardCost').hasError('required')">Agregar costo</mat-error>
                 </div>
                 <div class="list-price-contanier">
                     <mat-form-field class="list-price">
                         <input type="number" matInput placeholder="Precio de lista" formControlName="listPrice">
                     </mat-form-field>
+                    <mat-error *ngIf="productEditForm.get('listPrice').hasError('required')">Agregar precio</mat-error>
+                </div>
+                <div class="category-container">
+                    <mat-form-field class="category">
+                        <mat-label>Seleccionar categoría</mat-label>
+                        <mat-select formControlName="category">
+                            <mat-option *ngFor="let category of categories" [value]="category.key">{{category.value}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
-            <div>
-
+            <div class="button-container">
+                <button mat-raised-button color="warn" mat-dialog-close>CANCELAR</button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!productEditForm.valid">GUARDAR</button>
             </div>
         </form>
     </div>

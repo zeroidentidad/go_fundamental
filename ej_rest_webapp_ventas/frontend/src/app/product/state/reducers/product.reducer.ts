@@ -32,7 +32,14 @@ export function ProductReducer(state=initialState, action: ProductActions.Action
             return {
                 ...state,
                 product: action.payload
-            }            
+            }  
+            
+        case ProductActions.ProductActionTypes.UpdateProduct: {
+            return state;
+        }
+        case ProductActions.ProductActionTypes.UpdateProductCompleted: {
+            return state;
+        }            
     
         default:
             return state;

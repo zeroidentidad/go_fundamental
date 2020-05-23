@@ -8,6 +8,8 @@ export enum ProductActionTypes {
     LoadProductsCompleted = '[Product] Load ProductsCompleted',
     GetProductById = '[Product] Get Product By Id',
     GetProductByIdCompleted = '[Product] Get Product By Id Complete',
+    UpdateProduct='[Product] Update Product',
+    UpdateProductCompleted='[Product] Update Product Completed',
 
 }
 
@@ -35,4 +37,14 @@ export class GetProductByIdCompleted implements Action {
     constructor(public payload: Product) {}
 }
 
-export type Actions=LoadProducts|LoadProductsCompleted|GetProductById|GetProductByIdCompleted;
+export class UpdateProduct implements Action {
+    readonly type=ProductActionTypes.UpdateProduct;
+    constructor(public request: Product) {}
+}
+export class UpdateProductCompleted implements Action {
+    readonly type=ProductActionTypes.UpdateProductCompleted;
+    constructor() {}
+}
+
+export type Actions=LoadProducts|LoadProductsCompleted|GetProductById|GetProductByIdCompleted|
+    UpdateProduct|UpdateProductCompleted;

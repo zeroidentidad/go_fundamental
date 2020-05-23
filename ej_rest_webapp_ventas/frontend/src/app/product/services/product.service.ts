@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {ProductList} from "../models/product/product-list";
 import {environment} from "src/environments/environment";
 import {Product} from "../models/product/product";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,12 @@ export class ProductService {
 
   getProductById(id:number):Observable<Product>{
     return this.httpClient.get<Product>(`${environment.ApiURL}products/${id}`);
+  }
+
+  updateProduct(product:Product):Observable<Response>{
+    return this.httpClient.put(`${environment.ApiURL}products`, product)
+    .pipe(
+      map((response: Response) => response)
+    )
   }
 }

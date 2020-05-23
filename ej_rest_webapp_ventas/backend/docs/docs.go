@@ -972,7 +972,7 @@ var doc = `{
                 "productName": {
                     "type": "string"
                 },
-                "standarCost": {
+                "standardCost": {
                     "type": "number"
                 }
             }
@@ -1037,7 +1037,7 @@ var doc = `{
                 "productName": {
                     "type": "string"
                 },
-                "standarCost": {
+                "standardCost": {
                     "type": "string"
                 }
             }
@@ -1066,7 +1066,7 @@ var doc = `{
                     "type": "integer"
                 },
                 "listPrice": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "productCode": {
                     "type": "string"
@@ -1074,8 +1074,8 @@ var doc = `{
                 "productName": {
                     "type": "string"
                 },
-                "standarCost": {
-                    "type": "string"
+                "standardCost": {
+                    "type": "number"
                 }
             }
         }

@@ -3,10 +3,11 @@ import {ProductService} from "../../services/product.service";
 import {Actions, Effect, ofType} from "@ngrx/effects";
 import * as productActions from "../actions/product.actions";
 import {switchMap, map} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ProductEffects{
-    constructor(private productService: ProductService, private actions$:Actions){}
+    constructor(private productService: ProductService, private actions$:Actions, private router: Router){}
 
     @Effect()
     getProducts$ = this.actions$.pipe(
@@ -25,5 +26,17 @@ export class ProductEffects{
             map(data => new productActions.GetProductByIdCompleted(data))
         ))        
     )
+
+    @Effect()
+    updateProduct$=this.actions$.pipe(
+        ofType<productActions.UpdateProduct>(productActions.ProductActionTypes.UpdateProduct),
+        switchMap(action => this.productService.updateProduct(action.request)
+            .pipe(
+                map(_ => {
+                    this.router.navigate(['/product/list'])
+                    return new productActions.UpdateProductCompleted()
+                }
+                )))
+    );    
 
 }

@@ -29,8 +29,8 @@ type getUpdateProductRequest struct {
 	ID           int64
 	Category     string
 	Description  string
-	ListPrice    string
-	StandardCost string
+	ListPrice    float32
+	StandardCost float32
 	ProductCode  string
 	ProductName  string
 }

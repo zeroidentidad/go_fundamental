@@ -28,4 +28,9 @@ export class ProductEditContainerComponent implements OnInit {
   ngOnInit() {
   }
 
+  onEdit(product: Product): void {
+    this.store.dispatch(new productActions.UpdateProduct(product))
+    this.dialogRef.close()
+  }
+
 }

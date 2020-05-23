@@ -236,7 +236,7 @@ definitions:
         type: string
       productName:
         type: string
-      standarCost:
+      standardCost:
         type: number
     type: object
   product.ProductList:
@@ -278,7 +278,7 @@ definitions:
         type: string
       productName:
         type: string
-      standarCost:
+      standardCost:
         type: string
     type: object
   product.getProductsRequest:
@@ -297,13 +297,13 @@ definitions:
       id:
         type: integer
       listPrice:
-        type: string
+        type: number
       productCode:
         type: string
       productName:
         type: string
-      standarCost:
-        type: string
+      standardCost:
+        type: number
     type: object
 info:
   contact:
