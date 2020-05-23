@@ -49,4 +49,17 @@ export class ProductEffects{
                 })
             ))
     );
+
+    @Effect()
+    addProduct$=this.actions$.pipe(
+        ofType<productActions.AddProduct>(productActions.ProductActionTypes.AddProduct),
+        switchMap(action => this.productService.addProduct(action.request)
+            .pipe(
+                map(_ => {
+                    this.router.navigate(['/product/list']);
+                    return new productActions.AddProductCompleted();
+                })
+            ))
+    );    
+
 }

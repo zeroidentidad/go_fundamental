@@ -12,6 +12,8 @@ export enum ProductActionTypes {
     UpdateProductCompleted='[Product] Update Product Completed',
     DeleteProduct='[Product] Delete Product',
     DeleteProductCompleted='[Product] Delete Product Completed',
+    AddProduct='[Product] Add Product',
+    AddProductCompleted='[Product] Add Product Completed',
 }
 
 export class LoadProducts implements Action {
@@ -57,5 +59,15 @@ export class DeleteProductCompleted implements Action {
     constructor() {}
 }
 
+export class AddProduct implements Action {
+    readonly type=ProductActionTypes.AddProduct;
+    constructor(public request: Product) {}
+}
+
+export class AddProductCompleted implements Action {
+    readonly type=ProductActionTypes.AddProductCompleted;
+    constructor() {}
+}
+
 export type Actions=LoadProducts|LoadProductsCompleted|GetProductById|GetProductByIdCompleted|
-    UpdateProduct|UpdateProductCompleted|DeleteProduct|DeleteProductCompleted;
+    UpdateProduct|UpdateProductCompleted|DeleteProduct|DeleteProductCompleted|AddProduct|AddProductCompleted;

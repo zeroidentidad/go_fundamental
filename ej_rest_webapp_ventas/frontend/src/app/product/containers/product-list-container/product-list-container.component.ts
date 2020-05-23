@@ -4,12 +4,13 @@ import * as fromReducer from '../../state/reducers'
 import {GetProduct} from "../../models/product/get-product";
 import {Store, ActionsSubject} from "@ngrx/store";
 import {Product} from "../../models/product/product";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {MatDialog} from "@angular/material";
 import {ProductEditContainerComponent} from "../product-edit-container/product-edit-container.component";
 import {ConfirmData} from "src/app/shared/models/confirm-data";
 import {AppConfirmService} from "src/app/shared/components/app-confirm/app-confirm.service";
 import {ofType} from "@ngrx/effects";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-product-list-container',
@@ -18,7 +19,11 @@ import {ofType} from "@ngrx/effects";
 })
 export class ProductListContainerComponent implements OnInit {
 
-  constructor(private store: Store<fromReducer.ProductState>, public dialog: MatDialog, private confirm: AppConfirmService, private actionsSubject$: ActionsSubject) { }
+  constructor(private store: Store<fromReducer.ProductState>, public dialog: MatDialog, private confirm: AppConfirmService, private actionsSubject$: ActionsSubject) {
+    this.triggers();
+   }
+   
+  protected ngUnsubscribe: Subject<any>=new Subject<any>();
   products$: Observable<Product[]>=this.store.select(fromReducer.getProducts)
   totalRecords$: Observable<number>=this.store.select(fromReducer.getTotalRecords)
   pageSize = 10;
@@ -36,6 +41,7 @@ export class ProductListContainerComponent implements OnInit {
 
   triggers(): void {
     this.actionsSubject$
+      .pipe(takeUntil(this.ngUnsubscribe))
       .pipe(ofType(productActions.ProductActionTypes.DeleteProductCompleted))
       .subscribe(_ => this.refreshData())
   }

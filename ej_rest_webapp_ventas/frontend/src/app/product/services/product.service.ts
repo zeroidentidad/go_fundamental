@@ -35,4 +35,12 @@ export class ProductService {
         map((response: Response) => response)
       );
   }  
+
+  addProduct(product: Product): Observable<Response> {
+    return this.httpClient.post(`${environment.ApiURL}products`, product)
+      .pipe(
+        map((response: Response) => response)
+      );
+  }
+
 }
