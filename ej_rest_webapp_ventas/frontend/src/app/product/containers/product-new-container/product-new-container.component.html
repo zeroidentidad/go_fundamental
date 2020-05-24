@@ -33,14 +33,14 @@
             <div class="controls">
                 <div class="standard-cost-container">
                     <mat-form-field class="standard-cost">
-                        <input appDecimalOnly matInput placeholder="Costo estándar" formControlName="standardCost">
+                        <input appDecimalOnly type="number" matInput placeholder="Costo estándar" formControlName="standardCost">
                         <mat-error *ngIf="productForm.get('standardCost').hasError('required')">Agregar costo
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="list-price-container">
                     <mat-form-field class="list-price">
-                        <input appDecimalOnly matInput placeholder="Precio de lista" formControlName="listPrice">
+                        <input appDecimalOnly type="number" matInput placeholder="Precio de lista" formControlName="listPrice">
                         <mat-error *ngIf="productForm.get('listPrice').hasError('required')">Agregar precio
                         </mat-error>
                     </mat-form-field>
