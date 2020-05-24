@@ -5,7 +5,7 @@
                 <app-product-table-list [items]="products$ | async" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-product-table-list>
             </mat-tab>
             <mat-tab label="Cards"> 
-                <app-product-card-list [items]="products$ | async"></app-product-card-list>
+                <app-product-card-list [items]="products$ | async" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-product-card-list>
             </mat-tab>
         </mat-tab-group>
     </div>

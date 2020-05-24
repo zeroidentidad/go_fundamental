@@ -10,8 +10,8 @@
                 Nombre: <p class="product-name">{{item.productName}}</p>
             </mat-card-content>
             <mat-card-actions class="button-container">
-                <button mat-stroked-button color="primary">EDITAR</button>
-                <button mat-stroked-button color="warn">ELIMINAR</button>
+                <button mat-stroked-button color="primary" (click)="onEdit(item.id)">EDITAR</button>
+                <button mat-stroked-button color="warn" (click)="onDelete(item.id)">ELIMINAR</button>
             </mat-card-actions>
         </mat-card>
     </div>
