@@ -60,6 +60,15 @@ export class ProductEffects{
                     return new productActions.AddProductCompleted();
                 })
             ))
-    );    
+    ); 
+
+    @Effect()
+    getBestSellers$=this.actions$.pipe(
+        ofType<productActions.GetBestSellers>(productActions.ProductActionTypes.GetBestSellers),
+        switchMap(action => this.productService.getBestSellers()
+            .pipe(
+                map(data => new productActions.GetBestSellersCompleted(data))
+            ))
+    );       
 
 }

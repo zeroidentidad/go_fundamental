@@ -6,6 +6,7 @@ import {ProductList} from "../models/product/product-list";
 import {environment} from "src/environments/environment";
 import {Product} from "../models/product/product";
 import {map} from "rxjs/operators";
+import {ProductBestSeller} from "../models/product/best-seller";
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,17 @@ export class ProductService {
     return this.httpClient.post(`${environment.ApiURL}products`, product)
       .pipe(
         map((response: Response) => response)
+      );
+  }
+
+  getBestSellers(): Observable<ProductBestSeller[]> {
+    return this.httpClient.get(`${environment.ApiURL}products/bestSellers`)
+      .pipe(
+        map((response: any) => {
+          return response.data.map((product: any) => {
+            return ProductBestSeller.mapFromResponse(product, response.totalVentas)
+          })
+        })
       );
   }
 
