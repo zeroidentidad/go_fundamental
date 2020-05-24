@@ -48,8 +48,8 @@ export class ProductService {
     return this.httpClient.get(`${environment.ApiURL}products/bestSellers`)
       .pipe(
         map((response: any) => {
-          return response.data.map((product: any) => {
-            return ProductBestSeller.mapFromResponse(product, response.totalVentas)
+          return response.data.map((products: any) => {
+            return ProductBestSeller.mapFromResponse(products, response.totalVentas)
           })
         })
       );

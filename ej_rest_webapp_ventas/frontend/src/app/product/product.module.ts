@@ -15,10 +15,11 @@ import { ProductEditContainerComponent } from './containers/product-edit-contain
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductNewContainerComponent } from './containers/product-new-container/product-new-container.component';
 import { BestSellerProductContainerComponent } from './containers/best-seller-product-container/best-seller-product-container.component';
+import { BestSellerProductChartsComponent } from './components/best-seller-product-charts/best-seller-product-charts.component';
 
 
 @NgModule({
-  declarations: [ProductMainContainerComponent, ProductListContainerComponent, ProductTableListComponent, ProductCardListComponent, ProductEditContainerComponent, ProductEditComponent, ProductNewContainerComponent, BestSellerProductContainerComponent],
+  declarations: [ProductMainContainerComponent, ProductListContainerComponent, ProductTableListComponent, ProductCardListComponent, ProductEditContainerComponent, ProductEditComponent, ProductNewContainerComponent, BestSellerProductContainerComponent, BestSellerProductChartsComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,

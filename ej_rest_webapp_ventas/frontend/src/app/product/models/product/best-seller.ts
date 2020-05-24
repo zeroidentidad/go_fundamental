@@ -8,7 +8,8 @@ export class ProductBestSeller {
 
     static mapFromResponse(data: any, totalVendidos: number) {
         return new ProductBestSeller(
-            data.id, data.product_name,
+            data.id, 
+            data.productName,
             data.vendidos, 
             this.getPorcentaje(totalVendidos, data.vendidos)
         );
