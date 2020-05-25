@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import * as employeeActions from '../../state/actions/employee.actions';
+import * as fromReducer from '../../state/reducers';
+import {Store, ActionsSubject} from '@ngrx/store';
+import {GetEmployee} from "../../models/employee/get-employee";
 
 @Component({
   selector: 'app-employee-main-container',
@@ -7,9 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeMainContainerComponent implements OnInit {
 
-  constructor() { }
+  request: GetEmployee;
+  constructor(private store:Store<fromReducer.EmployeeState>) { }
 
   ngOnInit() {
+    this.refreshdata();
   }
+
+  pageSizeOptions: number[]=[5, 10, 25, 50];
+  refreshdata(): void {
+    this.request=new GetEmployee(this.pageSizeOptions[0], 0);
+    this.store.dispatch(new employeeActions.LoadEmployees(this.request))
+  }  
 
 }
