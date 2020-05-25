@@ -19,8 +19,8 @@ type getProductsRequest struct {
 type getAddProductRequest struct {
 	Category     string
 	Description  string
-	ListPrice    string
-	StandardCost string
+	ListPrice    float32
+	StandardCost float32
 	ProductCode  string
 	ProductName  string
 }
