@@ -36,4 +36,14 @@ export class LoadEmployeeByIdCompleted implements Action {
     constructor(public payload: Employee) {}
 }
 
-export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted;
+export class AddEmployee implements Action {
+    readonly type=EmployeeActionTypes.AddEmployee;
+    constructor(public employee: Employee) {}
+}
+
+export class AddEmployeeCompleted implements Action {
+    readonly type=EmployeeActionTypes.AddEmployeeCompleted;
+    constructor() {}
+}
+
+export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted|AddEmployee|AddEmployeeCompleted;

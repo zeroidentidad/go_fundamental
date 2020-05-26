@@ -25,6 +25,15 @@ export class EmployeeEffects {
             .pipe(
                 map(data => new employeeActions.LoadEmployeeByIdCompleted(data))
             ))
-    );    
+    );   
+
+    @Effect()
+    addEmployee$=this.actions$.pipe(
+        ofType<employeeActions.AddEmployee>(employeeActions.EmployeeActionTypes.AddEmployee),
+        switchMap(action => this.employeeService.createEmployee(action.employee)
+            .pipe(
+                map(_ => new employeeActions.AddEmployeeCompleted())
+            ))
+    );     
 
 }
