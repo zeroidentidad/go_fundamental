@@ -1,6 +1,7 @@
 import {Action} from "@ngrx/store";
 import {GetEmployee} from "../../models/employee/get-employee";
 import {EmployeeList} from "../../models/employee/employee-list";
+import {Employee} from "../../models/employee/employee";
 
 export enum EmployeeActionTypes {
     LoadEmployees = '[Employee] Load Employees',
@@ -25,4 +26,14 @@ export class LoadEmployeesCompleted implements Action {
     constructor(public payload: EmployeeList) {}
 }
 
-export type Actions=LoadEmployees|LoadEmployeesCompleted;
+export class LoadEmployeeById implements Action {
+    readonly type=EmployeeActionTypes.LoadEmployeeById;
+    constructor(public employeeId: number) {}
+}
+
+export class LoadEmployeeByIdCompleted implements Action {
+    readonly type=EmployeeActionTypes.LoadEmployeeByIdCompleted;
+    constructor(public payload: Employee) {}
+}
+
+export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted;

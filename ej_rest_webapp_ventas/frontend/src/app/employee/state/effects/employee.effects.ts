@@ -18,4 +18,13 @@ export class EmployeeEffects {
             ))
     );
 
+    @Effect()
+    getEmployeesById$=this.actions$.pipe(
+        ofType<employeeActions.LoadEmployeeById>(employeeActions.EmployeeActionTypes.LoadEmployeeById),
+        switchMap(action => this.employeeService.getEmployeeById(action.employeeId)
+            .pipe(
+                map(data => new employeeActions.LoadEmployeeByIdCompleted(data))
+            ))
+    );    
+
 }

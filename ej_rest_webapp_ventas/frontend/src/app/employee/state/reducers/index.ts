@@ -13,3 +13,4 @@ export const getEmployeeModuleState=createFeatureSelector<EmployeeState>('employ
 export const getEmployeeState=createSelector(getEmployeeModuleState, state => state.employee);
 export const getEmployees=createSelector(getEmployeeState, fromEmployeeReducer.getEmployees);
 export const getTotalRecords=createSelector(getEmployeeState, fromEmployeeReducer.getTotalRecords);
+export const getEmployee=createSelector(getEmployeeState, fromEmployeeReducer.getEmployee);
