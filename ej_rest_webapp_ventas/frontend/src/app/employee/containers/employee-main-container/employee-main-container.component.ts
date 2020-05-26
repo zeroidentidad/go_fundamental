@@ -3,6 +3,8 @@ import * as employeeActions from '../../state/actions/employee.actions';
 import * as fromReducer from '../../state/reducers';
 import {Store, ActionsSubject} from '@ngrx/store';
 import {GetEmployee} from "../../models/employee/get-employee";
+import {Employee} from "../../models/employee/employee";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-employee-main-container',
@@ -13,6 +15,9 @@ export class EmployeeMainContainerComponent implements OnInit {
 
   request: GetEmployee;
   constructor(private store:Store<fromReducer.EmployeeState>) { }
+
+  employees$: Observable<Employee[]> = this.store.select(fromReducer.getEmployees);
+  length$: Observable<number> = this.store.select(fromReducer.getTotalRecords);
 
   ngOnInit() {
     this.refreshdata();
