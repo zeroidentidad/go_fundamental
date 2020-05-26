@@ -9,16 +9,18 @@ import {reducers} from "./state/reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {EmployeeEffects} from "./state/effects/employee.effects";
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { EmployeeDetailContainerComponent } from './containers/employee-detail-container/employee-detail-container.component';
 
 
 @NgModule({
-  declarations: [EmployeeMainContainerComponent, EmployeeListComponent],
+  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
     SharedModule,
     StoreModule.forFeature('employee', reducers),
     EffectsModule.forFeature([EmployeeEffects])
-  ]
+  ],
+  entryComponents: [EmployeeDetailContainerComponent]
 })
 export class EmployeeModule { }

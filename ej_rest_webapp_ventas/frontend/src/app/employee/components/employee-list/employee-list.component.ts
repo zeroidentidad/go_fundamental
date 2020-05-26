@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Employee} from "../../models/employee/employee";
 
 @Component({
@@ -11,13 +11,16 @@ export class EmployeeListComponent implements OnInit {
   @Input()
   employees: Employee[]=[];
 
+  @Output()
+  viewDetails: EventEmitter<any>=new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() {
   }
 
   onViewDetails(event: any): void {
-
+    this.viewDetails.emit(event)
   }
 
   onEdit(event: any): void {

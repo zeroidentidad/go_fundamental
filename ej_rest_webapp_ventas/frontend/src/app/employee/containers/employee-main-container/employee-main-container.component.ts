@@ -5,6 +5,8 @@ import {Store, ActionsSubject} from '@ngrx/store';
 import {GetEmployee} from "../../models/employee/get-employee";
 import {Employee} from "../../models/employee/employee";
 import {Observable} from "rxjs";
+import {MatDialog} from "@angular/material";
+import {EmployeeDetailContainerComponent} from "../employee-detail-container/employee-detail-container.component";
 
 @Component({
   selector: 'app-employee-main-container',
@@ -14,7 +16,7 @@ import {Observable} from "rxjs";
 export class EmployeeMainContainerComponent implements OnInit {
 
   request: GetEmployee;
-  constructor(private store:Store<fromReducer.EmployeeState>) { }
+  constructor(private store: Store<fromReducer.EmployeeState>, private dialog: MatDialog,) { }
 
   employees$: Observable<Employee[]> = this.store.select(fromReducer.getEmployees);
   length$: Observable<number> = this.store.select(fromReducer.getTotalRecords);
@@ -35,5 +37,16 @@ export class EmployeeMainContainerComponent implements OnInit {
     this.request=new GetEmployee(event.pageSize, offSet);
     this.store.dispatch(new employeeActions.LoadEmployees(this.request));
   }  
+
+  viewDetails(event: any): void {
+    const dialogRef=this.dialog.open(EmployeeDetailContainerComponent,
+      {
+        panelClass: 'employee-modal-dialog',
+        data: {employeeId: event.id}
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(_ => this.refreshdata());
+  }
 
 }
