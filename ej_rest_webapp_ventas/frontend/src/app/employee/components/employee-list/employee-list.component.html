@@ -16,7 +16,15 @@
                 <td>{{item.lastName}}</td>
                 <td>{{item.company}}</td>
                 <td>
-                    Botones
+                    <button mat-icon-button matTooltip="Detalles" (click)="onViewDetails(item)">
+                        <mat-icon>description</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Editar" (click)="onEdit(item)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Eliminar" mat-sm-button color="warn" (click)="onDelete(item)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </td>
             </tr>
         </tbody>

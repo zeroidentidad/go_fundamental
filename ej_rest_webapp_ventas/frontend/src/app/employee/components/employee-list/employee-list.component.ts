@@ -16,4 +16,16 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit() {
   }
 
+  onViewDetails(event: any): void {
+
+  }
+
+  onEdit(event: any): void {
+
+  }
+
+  onDelete(event: any): void {
+    
+  }  
+
 }
