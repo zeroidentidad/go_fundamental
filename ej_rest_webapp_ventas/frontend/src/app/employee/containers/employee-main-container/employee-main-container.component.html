@@ -1,5 +1,10 @@
 <div>
     <div>
         <app-employee-list [employees]="employees$ | async"></app-employee-list>
+        <div>
+            <mat-paginator [length]="length$ | async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                (page)="changePage($event)">
+            </mat-paginator>
+        </div>
     </div>
 </div>
