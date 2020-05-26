@@ -10,10 +10,11 @@ import {EffectsModule} from "@ngrx/effects";
 import {EmployeeEffects} from "./state/effects/employee.effects";
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EmployeeDetailContainerComponent } from './containers/employee-detail-container/employee-detail-container.component';
+import { EmployeeDetailComponent } from './components/employee-detail/employee-detail.component';
 
 
 @NgModule({
-  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent],
+  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
