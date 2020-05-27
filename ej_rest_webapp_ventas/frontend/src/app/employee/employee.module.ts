@@ -12,10 +12,11 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { EmployeeDetailContainerComponent } from './containers/employee-detail-container/employee-detail-container.component';
 import { EmployeeDetailComponent } from './components/employee-detail/employee-detail.component';
 import { EmployeeNewContainerComponent } from './containers/employee-new-container/employee-new-container.component';
+import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
 
 
 @NgModule({
-  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent, EmployeeNewContainerComponent],
+  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent, EmployeeNewContainerComponent, EmployeeNewComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,

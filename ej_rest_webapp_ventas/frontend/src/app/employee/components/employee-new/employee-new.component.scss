@@ -1,0 +1,19 @@
+.button-container{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.row-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-container {
+    flex: 1;
+    margin-left: 1%;
+    .mat-input {
+        width: 100%;
+    }
+}

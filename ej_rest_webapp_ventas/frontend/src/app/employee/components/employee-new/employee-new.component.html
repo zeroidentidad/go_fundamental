@@ -1,0 +1,101 @@
+<div>
+    <div>
+        <span mat-dialog-title class="modal-title">Registrar empleado</span>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+        <form [formGroup]="employeeForm" (ngSubmit)="onCreate()">
+            <div class="inputs-container">
+                <div class="row-container">
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Nombre" formControlName="firstName">
+                            <mat-error *ngIf="employeeForm.get('firstName').hasError('required')">
+                                Debe ingresar nombre
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Apellido" formControlName="lastName">
+                            <mat-error *ngIf="employeeForm.get('lastName').hasError('required')">
+                                Debe ingresar apellido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-container">
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Cargo empleo" formControlName="jobTitle">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Negocio" formControlName="company">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-container">
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="E-mail" formControlName="emailAddress">
+                            <mat-error *ngIf="employeeForm.get('emailAddress').hasError('required')">
+                                Ingrese e-mail
+                            </mat-error>
+                            <mat-error *ngIf="employeeForm.get('emailAddress').hasError('email')">
+                                Formato incorrecto
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Dirección" formControlName="address">
+                            <mat-error *ngIf="employeeForm.get('address').hasError('required')">
+                                Ingrese dirección
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-container">
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Numero negocio" formControlName="businessPhone">
+                            <mat-error *ngIf="employeeForm.get('businessPhone').hasError('validatePhone')">
+                                Formato incorrecto
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Numero celular" formControlName="mobilePhone">
+                            <mat-error *ngIf="employeeForm.get('mobilePhone').hasError('validatePhone')">
+                                Formato incorrecto
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row-container">
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Numero fax" formControlName="faxNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-container">
+                        <mat-form-field class="mat-input">
+                            <input matInput placeholder="Numero casa" formControlName="homePhone">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button mat-raised-button color="warn" mat-dialog-close>
+                    CERRAR
+                </button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="!employeeForm.valid">
+                    GUARDAR
+                </button>
+            </div>
+        </form>
+    </mat-dialog-content>
+</div>
