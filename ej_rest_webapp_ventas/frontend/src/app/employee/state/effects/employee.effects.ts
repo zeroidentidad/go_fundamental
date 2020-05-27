@@ -34,6 +34,15 @@ export class EmployeeEffects {
             .pipe(
                 map(_ => new employeeActions.AddEmployeeCompleted())
             ))
-    );     
+    );
+    
+    @Effect()
+    deleteEmployees$=this.actions$.pipe(
+        ofType<employeeActions.DeleteEmployee>(employeeActions.EmployeeActionTypes.DeleteEmployee),
+        switchMap(action => this.employeeService.deleteEmployee(action.employeeId)
+            .pipe(
+                map(_ => new employeeActions.DeleteEmployeeCompleted())
+            ))
+    ); 
 
 }

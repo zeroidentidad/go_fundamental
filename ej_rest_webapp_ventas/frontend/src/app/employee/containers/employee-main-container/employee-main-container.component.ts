@@ -4,10 +4,14 @@ import * as fromReducer from '../../state/reducers';
 import {Store, ActionsSubject} from '@ngrx/store';
 import {GetEmployee} from "../../models/employee/get-employee";
 import {Employee} from "../../models/employee/employee";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {MatDialog} from "@angular/material";
 import {EmployeeDetailContainerComponent} from "../employee-detail-container/employee-detail-container.component";
 import {EmployeeNewContainerComponent} from "../employee-new-container/employee-new-container.component";
+import {ConfirmData} from "src/app/shared/models/confirm-data";
+import {AppConfirmService} from "src/app/shared/components/app-confirm/app-confirm.service";
+import {takeUntil} from "rxjs/operators";
+import {ofType} from "@ngrx/effects";
 
 @Component({
   selector: 'app-employee-main-container',
@@ -17,7 +21,10 @@ import {EmployeeNewContainerComponent} from "../employee-new-container/employee-
 export class EmployeeMainContainerComponent implements OnInit {
 
   request: GetEmployee;
-  constructor(private store: Store<fromReducer.EmployeeState>, private dialog: MatDialog,) { }
+  private ngUnsubscribe: Subject<any>=new Subject<any>();
+  constructor(private store: Store<fromReducer.EmployeeState>, private dialog: MatDialog, private confirm: AppConfirmService, private actionSubject$: ActionsSubject) { 
+    this.triggers();
+   }
 
   employees$: Observable<Employee[]> = this.store.select(fromReducer.getEmployees);
   length$: Observable<number> = this.store.select(fromReducer.getTotalRecords);
@@ -27,6 +34,16 @@ export class EmployeeMainContainerComponent implements OnInit {
   ngOnInit() {
     this.refreshdata();
   }
+
+  triggers(): void {
+    this.actionSubject$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .pipe(ofType(employeeActions.EmployeeActionTypes.DeleteEmployeeCompleted))
+      .subscribe(_ => {
+        this.refreshdata();
+      })
+  }
+
 
   refreshdata(): void {
     this.request=new GetEmployee(this.pageSizeOptions[0], 0);
@@ -58,6 +75,16 @@ export class EmployeeMainContainerComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(_ => this.refreshdata());
+  }  
+
+  onDelete(event: any): void {
+    const confirmData=new ConfirmData('Eliminar empleado', 'Estas seguro de eliminar el empleado?', true);
+    this.confirm.confirm(confirmData)
+      .subscribe(result => {
+        if(result) {
+          this.store.dispatch(new employeeActions.DeleteEmployee(event.id));
+        }
+      })
   }  
 
 }

@@ -43,7 +43,15 @@ export function EmployeeReducer(state=initialState, action: employeeActions.Acti
 
         case employeeActions.EmployeeActionTypes.AddEmployeeCompleted: {
             return state;
-        }            
+        }    
+        
+        case employeeActions.EmployeeActionTypes.DeleteEmployee: {
+            return state;
+        }
+        
+        case employeeActions.EmployeeActionTypes.DeleteEmployeeCompleted: {
+            return state;
+        }        
 
         default:
             return state;

@@ -46,4 +46,13 @@ export class AddEmployeeCompleted implements Action {
     constructor() {}
 }
 
-export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted|AddEmployee|AddEmployeeCompleted;
+export class DeleteEmployee implements Action {
+    readonly type=EmployeeActionTypes.DeleteEmployee;
+    constructor(public employeeId: number) {}
+}
+export class DeleteEmployeeCompleted implements Action {
+    readonly type=EmployeeActionTypes.DeleteEmployeeCompleted;
+    constructor() {}
+}
+
+export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted|AddEmployee|AddEmployeeCompleted|DeleteEmployee|DeleteEmployeeCompleted;
