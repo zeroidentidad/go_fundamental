@@ -45,4 +45,13 @@ export class EmployeeEffects {
             ))
     ); 
 
+    @Effect()
+    getBestEmployee$=this.actions$.pipe(
+        ofType<employeeActions.LoadBestEmployee>(employeeActions.EmployeeActionTypes.LoadBestEmployee),
+        switchMap(_ => this.employeeService.getBestEmployee()
+            .pipe(
+                map(data => new employeeActions.LoadBestEmployeeCompleted(data))
+            ))
+    );
+
 }

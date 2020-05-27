@@ -12,6 +12,7 @@ import {ConfirmData} from "src/app/shared/models/confirm-data";
 import {AppConfirmService} from "src/app/shared/components/app-confirm/app-confirm.service";
 import {takeUntil} from "rxjs/operators";
 import {ofType} from "@ngrx/effects";
+import {BestEmployee} from "../../models/employee/best-employee";
 
 @Component({
   selector: 'app-employee-main-container',
@@ -27,6 +28,7 @@ export class EmployeeMainContainerComponent implements OnInit {
    }
 
   employees$: Observable<Employee[]> = this.store.select(fromReducer.getEmployees);
+  bestEmploye$: Observable<BestEmployee> = this.store.select(fromReducer.getBestEmployee);
   length$: Observable<number> = this.store.select(fromReducer.getTotalRecords);
   pageSize=5;
   pageSizeOptions: number[]=[5, 10, 25, 50];
@@ -47,7 +49,8 @@ export class EmployeeMainContainerComponent implements OnInit {
 
   refreshdata(): void {
     this.request=new GetEmployee(this.pageSizeOptions[0], 0);
-    this.store.dispatch(new employeeActions.LoadEmployees(this.request))
+    this.store.dispatch(new employeeActions.LoadEmployees(this.request));
+    this.store.dispatch(new employeeActions.LoadBestEmployee());
   } 
   
   changePage(event: any): void {

@@ -2,6 +2,7 @@ import {Action} from "@ngrx/store";
 import {GetEmployee} from "../../models/employee/get-employee";
 import {EmployeeList} from "../../models/employee/employee-list";
 import {Employee} from "../../models/employee/employee";
+import {BestEmployee} from "../../models/employee/best-employee";
 
 export enum EmployeeActionTypes {
     LoadEmployees = '[Employee] Load Employees',
@@ -55,4 +56,14 @@ export class DeleteEmployeeCompleted implements Action {
     constructor() {}
 }
 
-export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted|AddEmployee|AddEmployeeCompleted|DeleteEmployee|DeleteEmployeeCompleted;
+export class LoadBestEmployee implements Action {
+    readonly type=EmployeeActionTypes.LoadBestEmployee;
+    constructor() {}
+}
+
+export class LoadBestEmployeeCompleted implements Action {
+    readonly type=EmployeeActionTypes.LoadBestEmployeeCompleted;
+    constructor(public payload: BestEmployee) {}
+}
+
+export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted|AddEmployee|AddEmployeeCompleted|DeleteEmployee|DeleteEmployeeCompleted|LoadBestEmployee|LoadBestEmployeeCompleted;
