@@ -28,7 +28,7 @@ export class EmployeeMainContainerComponent implements OnInit {
    }
 
   employees$: Observable<Employee[]> = this.store.select(fromReducer.getEmployees);
-  bestEmploye$: Observable<BestEmployee> = this.store.select(fromReducer.getBestEmployee);
+  bestEmployee$: Observable<BestEmployee> = this.store.select(fromReducer.getBestEmployee);
   length$: Observable<number> = this.store.select(fromReducer.getTotalRecords);
   pageSize=5;
   pageSizeOptions: number[]=[5, 10, 25, 50];

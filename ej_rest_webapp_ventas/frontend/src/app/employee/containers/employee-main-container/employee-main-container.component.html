@@ -5,6 +5,9 @@
         </button>
     </div>
     <div>
+        <app-best-employee [employee]="bestEmployee$ | async"></app-best-employee>
+    </div>
+    <div>
         <app-employee-list [employees]="employees$ | async" (viewDetails)="viewDetails($event)" (delete)="onDelete($event)"></app-employee-list>
         <div>
             <mat-paginator [length]="length$ | async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"

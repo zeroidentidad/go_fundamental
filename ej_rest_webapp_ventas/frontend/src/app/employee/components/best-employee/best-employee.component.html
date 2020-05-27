@@ -1,0 +1,21 @@
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <u>El mejor empleado</u>
+            </mat-panel-title>
+            <mat-panel-description>
+               <b>ID:</b>&nbsp;{{employee.id}}&nbsp;&nbsp;<b>Nombre:</b>&nbsp;{{employee.firstName}} {{employee.lastName}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="employee-details">
+            <div class="card">
+                <img class="card-img-top" src="https://www.gravatar.com/avatar/49e2f90a63a9f7b69666912810d651b1.jpg?d=identicon" alt="Foto">
+            </div>
+            <div>
+                Total Ventas : {{employee.totalVentas}}
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

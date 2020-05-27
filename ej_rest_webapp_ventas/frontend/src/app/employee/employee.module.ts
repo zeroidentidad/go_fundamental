@@ -13,10 +13,11 @@ import { EmployeeDetailContainerComponent } from './containers/employee-detail-c
 import { EmployeeDetailComponent } from './components/employee-detail/employee-detail.component';
 import { EmployeeNewContainerComponent } from './containers/employee-new-container/employee-new-container.component';
 import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
+import { BestEmployeeComponent } from './components/best-employee/best-employee.component';
 
 
 @NgModule({
-  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent, EmployeeNewContainerComponent, EmployeeNewComponent],
+  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent, EmployeeNewContainerComponent, EmployeeNewComponent, BestEmployeeComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
