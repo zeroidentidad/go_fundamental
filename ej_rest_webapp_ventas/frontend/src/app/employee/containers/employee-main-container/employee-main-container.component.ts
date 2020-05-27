@@ -7,6 +7,7 @@ import {Employee} from "../../models/employee/employee";
 import {Observable} from "rxjs";
 import {MatDialog} from "@angular/material";
 import {EmployeeDetailContainerComponent} from "../employee-detail-container/employee-detail-container.component";
+import {EmployeeNewContainerComponent} from "../employee-new-container/employee-new-container.component";
 
 @Component({
   selector: 'app-employee-main-container',
@@ -48,5 +49,15 @@ export class EmployeeMainContainerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(_ => this.refreshdata());
   }
+
+  onAdd(): void {
+    const dialogRef=this.dialog.open(EmployeeNewContainerComponent,
+      {
+        panelClass: 'employee-modal-dialog'
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(_ => this.refreshdata());
+  }  
 
 }

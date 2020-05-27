@@ -1,5 +1,10 @@
 <div>
     <div>
+        <button (click)="onAdd()" mat-mini-fab color="primary" matTooltip="Nuevo empleado">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div>
         <app-employee-list [employees]="employees$ | async" (viewDetails)="viewDetails($event)"></app-employee-list>
         <div>
             <mat-paginator [length]="length$ | async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"

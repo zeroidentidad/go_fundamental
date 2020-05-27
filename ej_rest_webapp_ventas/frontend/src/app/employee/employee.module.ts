@@ -11,10 +11,11 @@ import {EmployeeEffects} from "./state/effects/employee.effects";
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EmployeeDetailContainerComponent } from './containers/employee-detail-container/employee-detail-container.component';
 import { EmployeeDetailComponent } from './components/employee-detail/employee-detail.component';
+import { EmployeeNewContainerComponent } from './containers/employee-new-container/employee-new-container.component';
 
 
 @NgModule({
-  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent],
+  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent, EmployeeNewContainerComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
@@ -22,6 +23,6 @@ import { EmployeeDetailComponent } from './components/employee-detail/employee-d
     StoreModule.forFeature('employee', reducers),
     EffectsModule.forFeature([EmployeeEffects])
   ],
-  entryComponents: [EmployeeDetailContainerComponent]
+  entryComponents: [EmployeeDetailContainerComponent, EmployeeNewContainerComponent]
 })
 export class EmployeeModule { }
