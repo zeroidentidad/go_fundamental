@@ -3,11 +3,11 @@ import {Injectable} from '@angular/core';
 import {EmployeeService} from '../../services/employee.service';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {switchMap, map} from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class EmployeeEffects {
-    constructor(private employeeService: EmployeeService,
-        private actions$: Actions) {}
+    constructor(private employeeService: EmployeeService, private actions$: Actions, private router: Router) {}
 
     @Effect()
     getEmployees$=this.actions$.pipe(
@@ -53,5 +53,17 @@ export class EmployeeEffects {
                 map(data => new employeeActions.LoadBestEmployeeCompleted(data))
             ))
     );
+
+    @Effect()
+    updateEmployee$=this.actions$.pipe(
+        ofType<employeeActions.UpdateEmployee>(employeeActions.EmployeeActionTypes.UpdateEmployee),
+        switchMap(action => this.employeeService.updateEmployee(action.request)
+            .pipe(
+                map(_ => {
+                    this.router.navigate(['/employee'])
+                    return new employeeActions.UpdateEmployeeCompleted()
+                }
+                )))
+    );    
 
 }

@@ -13,6 +13,7 @@ import {AppConfirmService} from "src/app/shared/components/app-confirm/app-confi
 import {takeUntil} from "rxjs/operators";
 import {ofType} from "@ngrx/effects";
 import {BestEmployee} from "../../models/employee/best-employee";
+import {EmployeeEditContainerComponent} from "../employee-edit-container/employee-edit-container.component";
 
 @Component({
   selector: 'app-employee-main-container',
@@ -34,7 +35,7 @@ export class EmployeeMainContainerComponent implements OnInit {
   pageSizeOptions: number[]=[5, 10, 25, 50];
  
   ngOnInit() {
-    this.refreshdata();
+    this.refreshData();
   }
 
   triggers(): void {
@@ -42,12 +43,12 @@ export class EmployeeMainContainerComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe))
       .pipe(ofType(employeeActions.EmployeeActionTypes.DeleteEmployeeCompleted))
       .subscribe(_ => {
-        this.refreshdata();
+        this.refreshData();
       })
   }
 
 
-  refreshdata(): void {
+  refreshData(): void {
     this.request=new GetEmployee(this.pageSizeOptions[0], 0);
     this.store.dispatch(new employeeActions.LoadEmployees(this.request));
     this.store.dispatch(new employeeActions.LoadBestEmployee());
@@ -67,7 +68,7 @@ export class EmployeeMainContainerComponent implements OnInit {
       }
     );
 
-    dialogRef.afterClosed().subscribe(_ => this.refreshdata());
+    dialogRef.afterClosed().subscribe(_ => this.refreshData());
   }
 
   onAdd(): void {
@@ -77,7 +78,7 @@ export class EmployeeMainContainerComponent implements OnInit {
       }
     );
 
-    dialogRef.afterClosed().subscribe(_ => this.refreshdata());
+    dialogRef.afterClosed().subscribe(_ => this.refreshData());
   }  
 
   onDelete(event: any): void {
@@ -88,6 +89,17 @@ export class EmployeeMainContainerComponent implements OnInit {
           this.store.dispatch(new employeeActions.DeleteEmployee(event.id));
         }
       })
-  }  
+  } 
+
+  onEdit(employeeId: number): void {
+    const dialogRef=this.dialog.open(EmployeeEditContainerComponent, {
+      panelClass: 'employee-modal-dialog',
+      data: {employeeId: employeeId}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshData();
+    });
+  }   
 
 }

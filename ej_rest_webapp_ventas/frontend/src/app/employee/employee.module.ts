@@ -14,10 +14,12 @@ import { EmployeeDetailComponent } from './components/employee-detail/employee-d
 import { EmployeeNewContainerComponent } from './containers/employee-new-container/employee-new-container.component';
 import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
 import { BestEmployeeComponent } from './components/best-employee/best-employee.component';
+import { EmployeeEditContainerComponent } from './containers/employee-edit-container/employee-edit-container.component';
+import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
 
 
 @NgModule({
-  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent, EmployeeNewContainerComponent, EmployeeNewComponent, BestEmployeeComponent],
+  declarations: [EmployeeMainContainerComponent, EmployeeListComponent, EmployeeDetailContainerComponent, EmployeeDetailComponent, EmployeeNewContainerComponent, EmployeeNewComponent, BestEmployeeComponent, EmployeeEditContainerComponent, EmployeeEditComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
@@ -25,6 +27,6 @@ import { BestEmployeeComponent } from './components/best-employee/best-employee.
     StoreModule.forFeature('employee', reducers),
     EffectsModule.forFeature([EmployeeEffects])
   ],
-  entryComponents: [EmployeeDetailContainerComponent, EmployeeNewContainerComponent]
+  entryComponents: [EmployeeDetailContainerComponent, EmployeeNewContainerComponent, EmployeeEditContainerComponent]
 })
 export class EmployeeModule { }

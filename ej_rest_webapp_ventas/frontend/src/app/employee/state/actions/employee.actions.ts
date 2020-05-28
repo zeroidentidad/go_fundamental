@@ -14,7 +14,9 @@ export enum EmployeeActionTypes {
     DeleteEmployee = '[Employee] Delete Employee',
     DeleteEmployeeCompleted = '[Employee] Delete Employee Completed',
     LoadBestEmployee = '[Employee] Load Best Employee',
-    LoadBestEmployeeCompleted = '[Employee] Load Best Employee Completed'
+    LoadBestEmployeeCompleted = '[Employee] Load Best Employee Completed',
+    UpdateEmployee='[Employee] Update Employee',
+    UpdateEmployeeCompleted='[Employee] Update Employee Completed'    
 }
 
 export class LoadEmployees implements Action {
@@ -66,4 +68,14 @@ export class LoadBestEmployeeCompleted implements Action {
     constructor(public payload: BestEmployee) {}
 }
 
-export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted|AddEmployee|AddEmployeeCompleted|DeleteEmployee|DeleteEmployeeCompleted|LoadBestEmployee|LoadBestEmployeeCompleted;
+export class UpdateEmployee implements Action {
+    readonly type=EmployeeActionTypes.UpdateEmployee;
+    constructor(public request: Employee) {}
+}
+
+export class UpdateEmployeeCompleted implements Action {
+    readonly type=EmployeeActionTypes.UpdateEmployeeCompleted;
+    constructor() {}
+}
+
+export type Actions=LoadEmployees|LoadEmployeesCompleted|LoadEmployeeById|LoadEmployeeByIdCompleted|AddEmployee|AddEmployeeCompleted|DeleteEmployee|DeleteEmployeeCompleted|LoadBestEmployee|LoadBestEmployeeCompleted|UpdateEmployee|UpdateEmployeeCompleted;

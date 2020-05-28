@@ -47,6 +47,7 @@ export class UpdateProduct implements Action {
     readonly type=ProductActionTypes.UpdateProduct;
     constructor(public request: Product) {}
 }
+
 export class UpdateProductCompleted implements Action {
     readonly type=ProductActionTypes.UpdateProductCompleted;
     constructor() {}

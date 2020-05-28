@@ -64,6 +64,14 @@ export function EmployeeReducer(state=initialState, action: employeeActions.Acti
                 ...state,
                 bestEmployee: action.payload
             };
+        }
+        
+        case employeeActions.EmployeeActionTypes.UpdateEmployee: {
+            return state;
+        }
+
+        case employeeActions.EmployeeActionTypes.UpdateEmployeeCompleted: {
+            return state;
         }        
 
         default:
