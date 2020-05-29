@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { OrderRoutingModule } from './order-routing.module';
 import { OrderMainContainerComponent } from './containers/order-main-container/order-main-container.component';
 import {SharedModule} from "../shared/shared.module";
+import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
+import {reducers} from './state/reducers';
 
 
 @NgModule({
@@ -11,7 +14,9 @@ import {SharedModule} from "../shared/shared.module";
   imports: [
     CommonModule,
     OrderRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('order', reducers),
+    EffectsModule.forFeature([])
   ]
 })
 export class OrderModule { }
