@@ -14,3 +14,5 @@ export const getOrderModuleState=createFeatureSelector<OrderState>('order');
 /// Order State
 export const getOrderState=createSelector(getOrderModuleState, state => state.order);
 export const getQuery=createSelector(getOrderState, fromOrderReducer.getQuery);
+export const getOrders=createSelector(getOrderState, fromOrderReducer.getOrders);
+export const getTotalRecords=createSelector(getOrderState, fromOrderReducer.getTotalOrderRecords);

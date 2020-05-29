@@ -7,6 +7,7 @@ import {SharedModule} from "../shared/shared.module";
 import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {reducers} from './state/reducers';
+import {OrderEffects} from "./state/effects/order.effects";
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import {reducers} from './state/reducers';
     OrderRoutingModule,
     SharedModule,
     StoreModule.forFeature('order', reducers),
-    EffectsModule.forFeature([])
+    EffectsModule.forFeature([OrderEffects])
   ]
 })
 export class OrderModule { }
