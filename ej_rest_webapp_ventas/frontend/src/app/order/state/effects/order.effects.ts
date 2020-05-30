@@ -18,10 +18,17 @@ export class OrderEffects {
         ofType<orderActions.LoadOrders>(orderActions.OrderActionTypes.LoadOrders),
         withLatestFrom(this.store.select(fromRoot.getQuery)),
         switchMap(([action, query]) => {
-            let orderRequest=action.request;
-            /*orderRequest.status=(query.status ? query.status:null);
+            /*let orderRequest=action.request;
+            orderRequest.status=(query.status ? query.status:null);
             orderRequest.dateFrom=query.dateFrom ? moment(query.dateFrom).format("YYYY/MM/DD"):null;
             orderRequest.dateTo=query.dateTo ? moment(query.dateTo).format("YYYY/MM/DD"):null;*/
+            
+            let orderRequest={
+                ...action.request,
+                status: (query.status? query.status:null),
+                dateFrom: query.dateFrom? moment(query.dateFrom).format("YYYY/MM/DD"):null,
+                dateTo: query.dateTo? moment(query.dateTo).format("YYYY/MM/DD"):null
+            }            
 
             return this.orderService.getOrders(orderRequest)
                 .pipe(

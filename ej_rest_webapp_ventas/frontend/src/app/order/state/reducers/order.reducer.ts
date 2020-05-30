@@ -11,7 +11,7 @@ export interface State {
 const initialState: State={
     query: new SearchOrderCriteria(),
     orders: [],
-    totalRecords: 0,
+    totalRecords: 0
 }
 
 export function OrderReducer(state=initialState, action: orderActions.Actions): State { 

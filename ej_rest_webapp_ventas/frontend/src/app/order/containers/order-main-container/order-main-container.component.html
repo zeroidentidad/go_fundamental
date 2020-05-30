@@ -1,5 +1,10 @@
-<div>
-    <div>
+<div class="order-container">
+
+    <div class="search-container">
+
+    </div>
+
+    <div class="result-container">
         <app-table-view #tableView [items]="orders$ | async" [columns]="this.columns" [detailTemplate]="detailTemplate"></app-table-view>
         
         <div>
@@ -56,4 +61,5 @@
             </div>
         </ng-template>
     </div>
+
 </div>

@@ -6,6 +6,9 @@ import {GetOrder} from "../../models/order/get-order";
 import {Observable} from "rxjs";
 import {OrderListItem} from "../../models/order/order-list-item";
 import {TableViewComponent} from "src/app/shared/components/table-view/table-view.component";
+import {FormGroup, FormBuilder} from "@angular/forms";
+import {SearchOrderCriteria} from "../../models/order/search-order-criteria";
+import {Status} from "../../models/order/status";
 
 @Component({
   selector: 'app-order-main-container',
@@ -30,13 +33,17 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
   @ViewChild("accionesCellTemplate", {static: false})
   private accionesCellTemplate: TemplateRef<any>;
 
-  @ViewChild("tableView", {static: false})
-  private tableView: TableViewComponent;
-
   @ViewChild("orderIdCellTemplate", {static: false})
   private orderIdCellTemplate: TemplateRef<any>;
 
-  constructor(private store: Store<fromReducer.OrderState>,) { 
+  @ViewChild("tableView", {static: false})
+  private tableView: TableViewComponent;
+
+  searchForm: FormGroup;
+  statusList: Status[]=this.getStatus()
+
+  constructor(private store: Store<fromReducer.OrderState>, private fb: FormBuilder,) { 
+    this.buildSearchForm();
     this.refreshData();
   }
 
@@ -124,5 +131,34 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new orderActions.LoadOrders(this.request));
   }
   
+  buildSearchForm(): void {
+    this.searchForm=this.fb.group({
+      dateFrom: ['', []],
+      dateTo: ['', []],
+      status: ['', []],
+    });
+  }
+
+  search() {
+    if(this.searchForm.valid) {
+      if(this.searchForm.dirty) {
+        let searchCriteria: SearchOrderCriteria;
+        const newSearchCriteria={...searchCriteria, ...this.searchForm.value};
+        this.store.dispatch(new orderActions.UpdateOrderSearchCriteria(newSearchCriteria));
+        this.refreshData();
+      }
+    } else {
+      console.log("nada ingreso algo...")
+    }
+  } 
+  
+  getStatus(): Status[] {
+    return [
+      Status.CreateInstance(0, "Nuevo"),
+      Status.CreateInstance(1, "Pagado"),
+      Status.CreateInstance(2, "Enviado"),
+      Status.CreateInstance(3, "Cerrado")
+    ];
+  }  
 
 }
