@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as orderActions from '../../state/actions/order.actions';
 import * as fromReducer from '../../state/reducers';
@@ -11,7 +11,7 @@ import {OrderListItem} from "../../models/order/order-list-item";
   templateUrl: './order-main-container.component.html',
   styleUrls: ['./order-main-container.component.scss']
 })
-export class OrderMainContainerComponent implements OnInit {
+export class OrderMainContainerComponent implements OnInit, AfterViewInit {
 
   orders$: Observable<OrderListItem[]>=this.store.select(fromReducer.getOrders);
   length$: Observable<number>=this.store.select(fromReducer.getTotalRecords);  
@@ -22,11 +22,17 @@ export class OrderMainContainerComponent implements OnInit {
 
   columns: object[]=[];
 
+  @ViewChild("orderDateCellTemplate", {static: false})
+  private orderDateCellTemplate: TemplateRef<any>;
+
   constructor(private store: Store<fromReducer.OrderState>,) { 
     this.refreshData();
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
     this.columns=this.getColumns();
   }
 
@@ -39,29 +45,28 @@ export class OrderMainContainerComponent implements OnInit {
     return [
       {
         name: "Id",
-        prop: "orderId",
-        flexGrow: 1
+        prop: "orderId"
       },
       {
         name: "Cliente",
-        prop: "customer",
-        flexGrow: 1
+        prop: "customer"
       },
       {
         name: "Telefono",
-        prop: "phone",
-        flexGrow: 1
+        prop: "phone"
       },
       {
         name: "Dirección",
-        prop: "address",
-        flexGrow: 1
+        prop: "address"
       },
       {
         name: "Ciudad",
-        prop: "city",
-        flexGrow: 1
+        prop: "city"
       },
+      {
+        name: "Fecha",
+        cellTemplate: this.orderDateCellTemplate
+      }
     ];
   }  
 

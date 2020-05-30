@@ -1,3 +1,9 @@
 <div>
-    <app-table-view [items]="orders$ | async" [columns]="this.columns"></app-table-view>
+    <div>
+        <app-table-view [items]="orders$ | async" [columns]="this.columns"></app-table-view>
+
+        <ng-template #orderDateCellTemplate let-row="row" ngx-datatable-cell-template>
+            {{row.orderDate | date : 'mediumDate' }}
+        </ng-template>
+    </div>
 </div>

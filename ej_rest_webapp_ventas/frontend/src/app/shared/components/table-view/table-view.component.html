@@ -1,8 +1,8 @@
-<div class="table-results-base" [ngStyle]="{ 'min-height': minTableHeight+'px' }">
+<div [ngStyle]="{ 'min-height': minTableHeight+'px' }">
     <div *ngIf="items && items.length > 0">
         <ngx-datatable #myTable class='material ngx-table' [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="50" [rows]='items'>
 
-            <ngx-datatable-column *ngFor='let column of tableColumns' [name]="column.name" [prop]="column.prop" [flexGrow]="column.flexGrow" [cellTemplate]="column.cellTemplate">
+            <ngx-datatable-column *ngFor='let column of tableColumns' [name]="column.name" [prop]="column.prop" [cellTemplate]="column.cellTemplate">
             </ngx-datatable-column>
 
         </ngx-datatable>
