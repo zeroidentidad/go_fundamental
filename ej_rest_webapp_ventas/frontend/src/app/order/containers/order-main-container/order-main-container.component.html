@@ -1,6 +1,19 @@
 <div>
     <div>
-        <app-table-view [items]="orders$ | async" [columns]="this.columns"></app-table-view>
+        <app-table-view #tableView [items]="orders$ | async" [columns]="this.columns" [detailTemplate]="detailTemplate"></app-table-view>
+
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template #orderIdCellTemplate>
+            <div class="order-id">
+                <div>
+                    <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+                        title="Expandir/Colapsar" (click)="toggleExpandRow(row)">
+                    </a>
+                </div>
+                <div>
+                    {{ row.orderId }}
+                </div>
+            </div>
+        </ng-template>
 
         <ng-template #orderDateCellTemplate let-row="row" ngx-datatable-cell-template>
             {{row.orderDate | date : 'mediumDate' }}
@@ -13,6 +26,29 @@
             <button mat-icon-button (click)="onViewDetail(row.orderId)">
                 <mat-icon>edit</mat-icon>
             </button>
+        </ng-template>
+
+        <ng-template #detailTemplate let-row="row">
+            <div>
+                <div><strong>Detalle</strong></div>
+                <div>
+                    <app-table-view #detailTableView [items]="row.data.data" [columns]="this.detailColumns"
+                        [minTableHeight]="0"></app-table-view>
+                </div>
+                <div>
+                    <mat-list>
+                        <mat-list-item> 
+                            Total Venta: {{row.data.totalValorVenta | currency:"USD"}}
+                        </mat-list-item>
+                        <mat-list-item>
+                            IVA: {{row.data.impuestoGeneralVentas | currency:"USD"}}
+                        </mat-list-item>
+                        <mat-list-item>
+                            Importe Total: {{row.data.importeTotal | currency:"USD"}}
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
         </ng-template>
     </div>
 </div>

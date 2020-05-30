@@ -28,7 +28,7 @@ export class OrderListDetail {
         
         orderDetail.data=products;
         orderDetail.totalValorVenta=Number(products.reduce((sum, item) => sum+(item.quantity*item.unit_price), 0).toFixed(2));
-        orderDetail.impuestoGeneralVentas=Number((0.18*orderDetail.totalValorVenta).toFixed(2));
+        orderDetail.impuestoGeneralVentas=Number((0.16*orderDetail.totalValorVenta).toFixed(2));
         orderDetail.importeTotal=orderDetail.totalValorVenta+orderDetail.impuestoGeneralVentas;
         return orderDetail;
     }

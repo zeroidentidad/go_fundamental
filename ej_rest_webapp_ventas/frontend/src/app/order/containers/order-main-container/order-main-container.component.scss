@@ -1,0 +1,16 @@
+.order-id{
+    display: flex;
+    font-weight: bold;
+}
+
+.order-container{
+    display: flex;
+    flex-direction: row;
+    .search-container{
+        width: 15%;
+        display: flex;
+    }
+    .result-container{
+        width: 85%;
+    }
+}
