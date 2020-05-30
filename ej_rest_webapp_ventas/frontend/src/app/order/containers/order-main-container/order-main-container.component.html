@@ -5,5 +5,14 @@
         <ng-template #orderDateCellTemplate let-row="row" ngx-datatable-cell-template>
             {{row.orderDate | date : 'mediumDate' }}
         </ng-template>
+
+        <ng-template #accionesCellTemplate let-row="row" ngx-datatable-cell-template>
+            <button mat-icon-button (click)="onRemoveOrder(row.orderId)">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onViewDetail(row.orderId)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </ng-template>
     </div>
 </div>

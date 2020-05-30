@@ -25,6 +25,9 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
   @ViewChild("orderDateCellTemplate", {static: false})
   private orderDateCellTemplate: TemplateRef<any>;
 
+  @ViewChild("accionesCellTemplate", {static: false})
+  private accionesCellTemplate: TemplateRef<any>;
+
   constructor(private store: Store<fromReducer.OrderState>,) { 
     this.refreshData();
   }
@@ -66,6 +69,10 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
       {
         name: "Fecha",
         cellTemplate: this.orderDateCellTemplate
+      },
+      {
+        name: "Acciones",
+        cellTemplate: this.accionesCellTemplate
       }
     ];
   }  
