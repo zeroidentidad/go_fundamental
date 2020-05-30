@@ -57,31 +57,38 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
     return [
       {
         name: "Id",
-        cellTemplate: this.orderIdCellTemplate
+        cellTemplate: this.orderIdCellTemplate,
+        flexGrow: 1
       },
       {
         name: "Cliente",
-        prop: "customer"
+        prop: "customer",
+        flexGrow: 1
       },
       {
         name: "Telefono",
-        prop: "phone"
+        prop: "phone",
+        flexGrow: 1
       },
       {
         name: "Dirección",
-        prop: "address"
+        prop: "address",
+        flexGrow: 1
       },
       {
         name: "Ciudad",
-        prop: "city"
+        prop: "city",
+        flexGrow: 1
       },
       {
         name: "Fecha",
-        cellTemplate: this.orderDateCellTemplate
+        cellTemplate: this.orderDateCellTemplate,
+        flexGrow: 1
       },
       {
         name: "Acciones",
-        cellTemplate: this.accionesCellTemplate
+        cellTemplate: this.accionesCellTemplate,
+        flexGrow: 1
       }
     ];
   }  
