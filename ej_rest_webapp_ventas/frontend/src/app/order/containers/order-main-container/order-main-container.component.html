@@ -1,7 +1,33 @@
 <div class="order-container">
 
     <div class="search-container">
-
+        <form [formGroup]="searchForm" (submit)="search()">
+            <div class="date-from">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dateFrom" placeholder="Fecha desde" formControlName="dateFrom">
+                    <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+                    <mat-datepicker #dateFrom></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="date-to">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="dateTo" placeholder="Fecha hasta" formControlName="dateTo">
+                    <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+                    <mat-datepicker #dateTo></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="status">
+                <mat-form-field>
+                    <mat-label>Seleccionar estatus</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let status of statusList" [value]="status.StatusId">{{status.StatusName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button type="submit" [disabled]="!searchForm.valid || !searchForm.dirty" color="primary">BUSCAR</button>
+            </div>
+        </form>
     </div>
 
     <div class="result-container">

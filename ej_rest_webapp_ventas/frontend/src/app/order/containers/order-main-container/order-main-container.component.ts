@@ -93,6 +93,11 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
         flexGrow: 1
       },
       {
+        name: "Estado",
+        prop: "statusName",
+        flexGrow: 1
+      },
+      {
         name: "Acciones",
         cellTemplate: this.accionesCellTemplate,
         flexGrow: 1
