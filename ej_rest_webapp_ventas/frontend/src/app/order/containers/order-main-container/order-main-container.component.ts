@@ -20,11 +20,14 @@ export class OrderMainContainerComponent implements OnInit {
   pageSize=10;
   pageSizeOptions: number[]=[10, 20, 50, 100];
 
+  columns: object[]=[];
+
   constructor(private store: Store<fromReducer.OrderState>,) { 
     this.refreshData();
   }
 
   ngOnInit() {
+    this.columns=this.getColumns();
   }
 
   refreshData(): void {
@@ -32,5 +35,34 @@ export class OrderMainContainerComponent implements OnInit {
     this.store.dispatch(new orderActions.LoadOrders(this.request));
   }
 
+  getColumns(): object[] {
+    return [
+      {
+        name: "Id",
+        prop: "orderId",
+        flexGrow: 1
+      },
+      {
+        name: "Cliente",
+        prop: "customer",
+        flexGrow: 1
+      },
+      {
+        name: "Telefono",
+        prop: "phone",
+        flexGrow: 1
+      },
+      {
+        name: "Dirección",
+        prop: "address",
+        flexGrow: 1
+      },
+      {
+        name: "Ciudad",
+        prop: "city",
+        flexGrow: 1
+      },
+    ];
+  }  
 
 }

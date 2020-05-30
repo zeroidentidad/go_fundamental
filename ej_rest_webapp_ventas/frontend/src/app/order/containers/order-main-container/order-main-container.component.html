@@ -1,1 +1,3 @@
-<p>order-main-container works!</p>
+<div>
+    <app-table-view [items]="orders$ | async" [columns]="this.columns"></app-table-view>
+</div>
