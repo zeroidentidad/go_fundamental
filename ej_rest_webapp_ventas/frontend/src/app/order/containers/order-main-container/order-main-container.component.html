@@ -1,6 +1,11 @@
 <div>
     <div>
         <app-table-view #tableView [items]="orders$ | async" [columns]="this.columns" [detailTemplate]="detailTemplate"></app-table-view>
+        
+        <div>
+            <mat-paginator *ngIf="(length$ | async) > 0" [length]="length$ | async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)">
+            </mat-paginator>
+        </div>
 
         <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template #orderIdCellTemplate>
             <div class="order-id">

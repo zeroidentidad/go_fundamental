@@ -115,6 +115,14 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
         flexGrow: 0.5
       }
     ];
-  }  
+  }
+
+  changePage(event: any): void {
+    const offSet=event.pageIndex*event.pageSize;
+    this.pageSize=event.pageSize;
+    this.request=new GetOrder(event.pageSize, offSet);
+    this.store.dispatch(new orderActions.LoadOrders(this.request));
+  }
+  
 
 }
