@@ -5,6 +5,13 @@
             <ngx-datatable-column *ngFor='let column of tableColumns' [name]="column.name" [prop]="column.prop" [cellTemplate]="column.cellTemplate">
             </ngx-datatable-column>
 
+            <ngx-datatable-row-detail #myDetailRow>
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                    <ng-container [ngTemplateOutlet]="detailTemplate" [ngTemplateOutletContext]="{row:row}">
+                    </ng-container>
+                </ng-template>
+            </ngx-datatable-row-detail>
+
         </ngx-datatable>
     </div>
     <div *ngIf="items.length === 0">

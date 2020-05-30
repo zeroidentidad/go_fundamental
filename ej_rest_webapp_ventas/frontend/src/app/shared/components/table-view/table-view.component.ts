@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-table-view',
@@ -10,6 +10,10 @@ export class TableViewComponent implements OnInit, OnChanges {
   @Input() items: any[]=[];
   @Input() columns: any[]=[];
   @Input() minTableHeight: number=500;
+  @Input() detailTemplate: TemplateRef<any>;
+
+  @ViewChild("myTable", {static: false})
+  table: any;
 
   tableColumns: any[]=[];
   constructor() { }
@@ -20,6 +24,10 @@ export class TableViewComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.tableColumns=this.columns;
+  }
+
+  toogleExpandRow(row: any) {
+    this.table.rowDetail.toggleExpandRow(row);
   }
 
 }
