@@ -9,16 +9,18 @@ import {EffectsModule} from "@ngrx/effects";
 import {reducers} from './state/reducers';
 import {OrderEffects} from "./state/effects/order.effects";
 import { OrderManageContainerComponent } from './containers/order-manage-container/order-manage-container.component';
+import { CustomerPopupContainerComponent } from './containers/customer-popup-container/customer-popup-container.component';
 
 
 @NgModule({
-  declarations: [OrderMainContainerComponent, OrderManageContainerComponent],
+  declarations: [OrderMainContainerComponent, OrderManageContainerComponent, CustomerPopupContainerComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
     SharedModule,
     StoreModule.forFeature('order', reducers),
     EffectsModule.forFeature([OrderEffects])
-  ]
+  ],
+  entryComponents: [CustomerPopupContainerComponent]
 })
 export class OrderModule { }

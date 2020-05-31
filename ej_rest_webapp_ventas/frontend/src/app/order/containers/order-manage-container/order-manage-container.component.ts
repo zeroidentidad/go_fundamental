@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MatDialog} from "@angular/material";
+import {CustomerPopupContainerComponent} from "../customer-popup-container/customer-popup-container.component";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -9,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class OrderManageContainerComponent implements OnInit {
 
   orderForm: FormGroup;
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private dialog: MatDialog) { 
     this.buildNewForm();
   }
 
@@ -29,7 +31,13 @@ export class OrderManageContainerComponent implements OnInit {
   }
 
   openCustomerPopup(){
+    const dialogRef = this.dialog.open(CustomerPopupContainerComponent, {
+      panelClass: ''
+    })
     
+    dialogRef.afterClosed().subscribe(_=>{
+      console.log('cerrado');
+    })
   }
 
 }
