@@ -8,10 +8,11 @@ import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {reducers} from './state/reducers';
 import {OrderEffects} from "./state/effects/order.effects";
+import { OrderManageContainerComponent } from './containers/order-manage-container/order-manage-container.component';
 
 
 @NgModule({
-  declarations: [OrderMainContainerComponent],
+  declarations: [OrderMainContainerComponent, OrderManageContainerComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
