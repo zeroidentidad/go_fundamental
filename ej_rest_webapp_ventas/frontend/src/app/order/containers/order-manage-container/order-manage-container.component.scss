@@ -1,0 +1,58 @@
+.new-customer-container{
+    
+    .container-title{
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .customer-first-row{
+        display: flex;
+        .customer{
+            display: flex;
+            flex: 1;
+
+        }
+        .company{
+            flex: 1;
+            .company-field{
+                width: 90%;
+            }
+        }
+        .fecha{
+            flex: 1;
+            .fecha-field{
+                width: 90%;
+            }
+        }
+    }
+
+    .customer-second-row{
+        display: flex;
+        .address{
+            flex: 2;
+            .address-field{
+                width: 90%;
+            }
+        }
+        .phone{
+            flex: 1;
+            .phone-field{
+                width: 90%;
+            }
+        }
+        .city{
+            flex: 1;
+            .city-field{
+                width: 90%;
+            }
+        }
+    }
+}
+
+.button-container{
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+}

@@ -1,1 +1,66 @@
-<p>order-manage-container works!</p>
+<form [formGroup]="orderForm">
+    <div class="new-customer-container">
+        <div class="container-title">
+            ORDEN DE VENTA
+        </div>
+        <div>
+            <div class="customer-first-row">
+                <div class="customer">
+                    <mat-form-field class="customer-field">
+                        <input matInput placeholder="Cliente" formControlName="name">
+                        <mat-error *ngIf="orderForm.get('name').hasError('required')">
+                            Debe ingresar un nombre
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-icon-button (click)="openCustomerPopup()">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+
+                <div class="company">
+                    <mat-form-field class="company-field">
+                        <input matInput placeholder="Negocio" formControlName="company">
+                        <mat-error *ngIf="orderForm.get('company').hasError('required')">
+                            Debe ingresar alguna empresa
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="fecha">
+                    <mat-form-field class="fecha-field">
+                        <input matInput [matDatepicker]="datepicker" placeholder="Fecha" formControlName="fecha">
+                        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datepicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="customer-second-row">
+                <div class="address">
+                    <mat-form-field class="address-field">
+                        <input matInput placeholder="Dirección" formControlName="address">
+                        <mat-error *ngIf="orderForm.get('address').hasError('required')">
+                            Debe ingresar alguna dirección
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="phone">
+                    <mat-form-field class="phone-field">
+                        <input matInput placeholder="Telefono" formControlName="phone">
+                        <mat-error *ngIf="orderForm.get('phone').hasError('required')">
+                            Debe ingresar numero de contacto
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="city">
+                    <mat-form-field class="city-field">
+                        <input matInput placeholder="Ciudad" formControlName="city">
+                        <mat-error *ngIf="orderForm.get('city').hasError('required')">
+                            Debe ingresar la ciudad.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
