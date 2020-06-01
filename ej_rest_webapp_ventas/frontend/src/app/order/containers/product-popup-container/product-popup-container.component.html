@@ -1,1 +1,7 @@
-<p>product-popup-container works!</p>
+<div>
+    Product list
+</div>
+<div>
+    <mat-paginator [length]="length$ | async" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="changePage($event)">
+    </mat-paginator>
+</div>
