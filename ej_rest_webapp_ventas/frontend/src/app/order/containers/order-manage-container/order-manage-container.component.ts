@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material";
 import {CustomerPopupContainerComponent} from "../customer-popup-container/customer-popup-container.component";
 import {Customer} from "../../models/customer/customer";
+import {ProductPopupContainerComponent} from "../product-popup-container/product-popup-container.component";
+import {Product} from "../../models/product/product";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -51,7 +53,13 @@ export class OrderManageContainerComponent implements OnInit {
   }
 
   openProductPopup(){
-
+    const dialogRef=this.dialog.open(ProductPopupContainerComponent, {
+      panelClass: ''
+    });
+    dialogRef.afterClosed()
+      .subscribe((response: Product) => {
+        console.log(response);
+      });
   }
 
 }

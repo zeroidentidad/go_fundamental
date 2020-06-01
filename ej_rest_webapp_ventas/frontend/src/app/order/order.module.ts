@@ -13,10 +13,11 @@ import { CustomerPopupContainerComponent } from './containers/customer-popup-con
 import {CustomerEffects} from "./state/effects/customer.effects";
 import { CustomerPopupComponent } from './components/customer-popup/customer-popup.component';
 import {ProductEffects} from "./state/effects/product.effects";
+import { ProductPopupContainerComponent } from './containers/product-popup-container/product-popup-container.component';
 
 
 @NgModule({
-  declarations: [OrderMainContainerComponent, OrderManageContainerComponent, CustomerPopupContainerComponent, CustomerPopupComponent],
+  declarations: [OrderMainContainerComponent, OrderManageContainerComponent, CustomerPopupContainerComponent, CustomerPopupComponent, ProductPopupContainerComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
@@ -24,6 +25,6 @@ import {ProductEffects} from "./state/effects/product.effects";
     StoreModule.forFeature('order', reducers),
     EffectsModule.forFeature([OrderEffects, CustomerEffects, ProductEffects])
   ],
-  entryComponents: [CustomerPopupContainerComponent]
+  entryComponents: [CustomerPopupContainerComponent, ProductPopupContainerComponent]
 })
 export class OrderModule { }
