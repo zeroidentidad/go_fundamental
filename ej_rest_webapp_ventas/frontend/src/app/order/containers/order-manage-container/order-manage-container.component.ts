@@ -50,4 +50,8 @@ export class OrderManageContainerComponent implements OnInit {
     })
   }
 
+  openProductPopup(){
+
+  }
+
 }
