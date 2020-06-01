@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {GetCustomers} from '../../models/customer/gest-customers';
+import {GetCustomers} from '../../models/customer/get-customers';
 import {CustomerList} from '../../models/customer/customer-list';
 
 export enum CustomerActionTypes {

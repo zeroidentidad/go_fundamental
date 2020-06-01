@@ -10,6 +10,7 @@ import {reducers} from './state/reducers';
 import {OrderEffects} from "./state/effects/order.effects";
 import { OrderManageContainerComponent } from './containers/order-manage-container/order-manage-container.component';
 import { CustomerPopupContainerComponent } from './containers/customer-popup-container/customer-popup-container.component';
+import {CustomerEffects} from "./state/effects/customer.effects";
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { CustomerPopupContainerComponent } from './containers/customer-popup-con
     OrderRoutingModule,
     SharedModule,
     StoreModule.forFeature('order', reducers),
-    EffectsModule.forFeature([OrderEffects])
+    EffectsModule.forFeature([OrderEffects, CustomerEffects])
   ],
   entryComponents: [CustomerPopupContainerComponent]
 })
