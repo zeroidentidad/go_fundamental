@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material";
 import {CustomerPopupContainerComponent} from "../customer-popup-container/customer-popup-container.component";
+import {Customer} from "../../models/customer/customer";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -35,8 +36,17 @@ export class OrderManageContainerComponent implements OnInit {
       panelClass: ''
     })
     
-    dialogRef.afterClosed().subscribe(_=>{
-      console.log('cerrado');
+    dialogRef.afterClosed().subscribe((response: Customer)=>{
+      if (response) {
+        this.orderForm.patchValue({
+          id: response.id,
+          name: response.name,
+          company: response.company,
+          address: response.address,
+          phone: response.businessphone,
+          city: response.city,
+        });        
+      }
     })
   }
 

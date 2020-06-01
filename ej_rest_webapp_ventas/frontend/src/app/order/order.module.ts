@@ -11,10 +11,11 @@ import {OrderEffects} from "./state/effects/order.effects";
 import { OrderManageContainerComponent } from './containers/order-manage-container/order-manage-container.component';
 import { CustomerPopupContainerComponent } from './containers/customer-popup-container/customer-popup-container.component';
 import {CustomerEffects} from "./state/effects/customer.effects";
+import { CustomerPopupComponent } from './components/customer-popup/customer-popup.component';
 
 
 @NgModule({
-  declarations: [OrderMainContainerComponent, OrderManageContainerComponent, CustomerPopupContainerComponent],
+  declarations: [OrderMainContainerComponent, OrderManageContainerComponent, CustomerPopupContainerComponent, CustomerPopupComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
