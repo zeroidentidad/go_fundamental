@@ -1,0 +1,33 @@
+<div>
+    <div>
+        <div>
+            <span mat-dialog-title class="modal-title">Seleccionar producto</span>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of products">
+                    <td>{{item.productName}}</td>
+                    <td>{{item.standardCost}}</td>
+                    <td>
+                        <mat-radio-button (change)="onSelect($event,item)" value="2"></mat-radio-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="button-container">
+        <button mat-flat-button mat-dialog-close color="warn">CANCELAR</button>
+        <button mat-flat-button color="primary" (click)="selectRow()">SELECCIONAR</button>
+    </div>
+</div>
