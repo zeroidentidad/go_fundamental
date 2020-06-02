@@ -6,6 +6,7 @@ import {Customer} from "../../models/customer/customer";
 import {ProductPopupContainerComponent} from "../product-popup-container/product-popup-container.component";
 import {Product} from "../../models/product/product";
 import {PreOrderProduct} from "../../models/pre-order/pre-order-product";
+import {PreOrderFooter} from "../../models/pre-order/pre-order-footer";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -16,6 +17,7 @@ export class OrderManageContainerComponent implements OnInit {
 
   orderForm: FormGroup;
   orderProductList: PreOrderProduct[]=[];
+  preOrderFooter: PreOrderFooter=PreOrderFooter.createEmptyInstance();
   constructor(private fb: FormBuilder, private dialog: MatDialog) { 
     this.buildNewForm();
   }
@@ -68,6 +70,8 @@ export class OrderManageContainerComponent implements OnInit {
     const product=new PreOrderProduct(0, item.id, item.description, item.productName, item.standardCost, 1);
     this.orderProductList.push(product);
     this.orderProductList=[...this.orderProductList];
+
+    this.preOrderFooter=new PreOrderFooter(this.orderProductList);
   }  
 
   UpdateQuantity(event: any): any {

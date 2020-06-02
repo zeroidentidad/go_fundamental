@@ -71,5 +71,14 @@
             <app-order-detail-table [items]="orderProductList" (updateQuantity)="UpdateQuantity($event)" (deleteProductOrder)="onDeleteProductOrder($event)">
             </app-order-detail-table>
         </div>
+        <div class="order-footer" *ngIf="orderProductList.length > 0">
+            <mat-list>
+                <mat-list-item> 
+                    -<b>Total Venta:</b> &nbsp;{{preOrderFooter.TotalValorVenta | currency:"USD"}} &nbsp;
+                    -<b>IVA:</b> &nbsp;{{preOrderFooter.ImpuestoGeneralVentas | currency:"USD"}} &nbsp;
+                    -<b>Importe Total:</b> &nbsp;{{preOrderFooter.ImporteTotal | currency:"USD"}}
+                </mat-list-item>
+            </mat-list>
+        </div>
     </div>
 </form>
