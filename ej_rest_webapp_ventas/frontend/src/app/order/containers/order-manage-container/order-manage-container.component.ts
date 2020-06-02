@@ -12,6 +12,7 @@ import * as moment from "moment";
 import {Store} from "@ngrx/store";
 import * as orderActions from '../../state/actions/order.actions';
 import * as fromReducer from '../../state/reducers';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -25,7 +26,7 @@ export class OrderManageContainerComponent implements OnInit {
   orderProductList: PreOrderProduct[]=[];
   preOrderFooter: PreOrderFooter=PreOrderFooter.createEmptyInstance();
   preOrder: PreOrder = PreOrder.createEmptyInstance();
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private store: Store<fromReducer.OrderState>,) { 
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private store: Store<fromReducer.OrderState>, private router: Router,) { 
     this.buildNewForm();
   }
 
@@ -109,6 +110,10 @@ export class OrderManageContainerComponent implements OnInit {
       //Actualizar
     }
 
+  }
+
+  onCancel(): void {
+    this.router.navigate(['order']);
   }
 
 }
