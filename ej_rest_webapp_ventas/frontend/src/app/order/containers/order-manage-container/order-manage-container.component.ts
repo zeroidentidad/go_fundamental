@@ -75,7 +75,14 @@ export class OrderManageContainerComponent implements OnInit {
   }  
 
   UpdateQuantity(event: any): any {
+    const productToUpdate={...this.orderProductList[event.index]};
+    productToUpdate.Quantity=Number(event.newValue);
+    productToUpdate.TotalValue=Number((productToUpdate.Quantity*productToUpdate.UnitPrice).toFixed(2));
 
+    this.orderProductList[event.index]=productToUpdate;
+    this.orderProductList=[...this.orderProductList];
+
+    this.preOrderFooter=new PreOrderFooter(this.orderProductList);
   }
 
   onDeleteProductOrder(orderDetailId: any) {
