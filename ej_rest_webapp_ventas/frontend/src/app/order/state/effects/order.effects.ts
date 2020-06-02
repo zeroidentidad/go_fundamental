@@ -45,6 +45,14 @@ export class OrderEffects {
                 })
             ))
     );
-   
+
+    @Effect()
+    getOrdersById$=this.actions$.pipe(
+        ofType<orderActions.LoadOrderById>(orderActions.OrderActionTypes.LoadOrderById),
+        switchMap(action => this.orderService.getOrderById(action.orderId)
+            .pipe(
+                map(data => new orderActions.LoadOrderByIdCompleted(data))
+            ))
+    );
                
 }

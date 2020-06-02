@@ -9,6 +9,7 @@ import {TableViewComponent} from "src/app/shared/components/table-view/table-vie
 import {FormGroup, FormBuilder} from "@angular/forms";
 import {SearchOrderCriteria} from "../../models/order/search-order-criteria";
 import {Status} from "../../models/order/status";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order-main-container',
@@ -42,7 +43,7 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
   searchForm: FormGroup;
   statusList: Status[]=this.getStatus()
 
-  constructor(private store: Store<fromReducer.OrderState>, private fb: FormBuilder,) { 
+  constructor(private store: Store<fromReducer.OrderState>, private fb: FormBuilder, private router: Router) { 
     this.buildSearchForm();
     this.refreshData();
   }
@@ -165,5 +166,9 @@ export class OrderMainContainerComponent implements OnInit, AfterViewInit {
       Status.CreateInstance(3, "Cerrado")
     ];
   }  
+
+  onViewDetail(orderId: number) {
+    this.router.navigate(['order/detail/', orderId])
+  }
 
 }

@@ -3,6 +3,7 @@ import {SearchOrderCriteria} from "../../models/order/search-order-criteria";
 import {GetOrder} from "../../models/order/get-order";
 import {OrderList} from "../../models/order/order-list";
 import {PreOrder} from "../../models/pre-order/pre-order";
+import {OrderListItem} from "../../models/order/order-list-item";
 
 
 export enum OrderActionTypes {
@@ -10,7 +11,9 @@ export enum OrderActionTypes {
     LoadOrders='[Order] Load Orders',
     LoadOrdersCompleted='[Order] Load Orders Completed',
     AddOrder='[Order] Add Order',
-    AddOrderCompleted='[Order] Add Order Completed',    
+    AddOrderCompleted='[Order] Add Order Completed',
+    LoadOrderById='[Order] Load Order By Id',
+    LoadOrderByIdCompleted='[Order] Load Order By Id Completed',    
 }
 
 export class UpdateOrderSearchCriteria implements Action {
@@ -38,4 +41,14 @@ export class AddOrderCompleted implements Action {
     constructor(public orderId: number) {}
 }
 
-export type Actions=UpdateOrderSearchCriteria|LoadOrders|LoadOrdersCompleted|AddOrder|AddOrderCompleted;
+export class LoadOrderById implements Action {
+    readonly type=OrderActionTypes.LoadOrderById;
+    constructor(public orderId: number) {}
+}
+
+export class LoadOrderByIdCompleted implements Action {
+    readonly type=OrderActionTypes.LoadOrderByIdCompleted;
+    constructor(public payload: OrderListItem) {}
+}
+
+export type Actions=UpdateOrderSearchCriteria|LoadOrders|LoadOrdersCompleted|AddOrder|AddOrderCompleted|LoadOrderById|LoadOrderByIdCompleted;

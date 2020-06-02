@@ -45,4 +45,15 @@ export class OrderService {
       );
   }
 
+  getOrderById(id: number): Observable<OrderListItem> {
+    return this.httpClient.get<OrderListItem>(`${environment.ApiURL}orders/${id}`)
+      .pipe(
+        map((response: any) => {
+          let orderListItem: OrderListItem=new OrderListItem();
+          orderListItem=OrderListItem.mapFromResponse(response);
+          return orderListItem;
+        })
+      );
+  }
+
 }

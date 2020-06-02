@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'manage',
     component: OrderManageContainerComponent
+  },
+  {
+    path: 'detail/:id',
+    component: OrderManageContainerComponent
   }
 ];
 

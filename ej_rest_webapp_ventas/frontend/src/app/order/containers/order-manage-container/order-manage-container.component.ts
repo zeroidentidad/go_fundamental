@@ -9,10 +9,12 @@ import {PreOrderProduct} from "../../models/pre-order/pre-order-product";
 import {PreOrderFooter} from "../../models/pre-order/pre-order-footer";
 import {PreOrder, PreOrderDetail} from "../../models/pre-order/pre-order";
 import * as moment from "moment";
-import {Store} from "@ngrx/store";
+import {Store, ActionsSubject} from "@ngrx/store";
 import * as orderActions from '../../state/actions/order.actions';
 import * as fromReducer from '../../state/reducers';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
+import {ofType} from "@ngrx/effects";
+import {OrderListItem} from "../../models/order/order-list-item";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -26,12 +28,28 @@ export class OrderManageContainerComponent implements OnInit {
   orderProductList: PreOrderProduct[]=[];
   preOrderFooter: PreOrderFooter=PreOrderFooter.createEmptyInstance();
   preOrder: PreOrder = PreOrder.createEmptyInstance();
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private store: Store<fromReducer.OrderState>, private router: Router,) { 
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private store: Store<fromReducer.OrderState>, private router: Router, private activateRouter: ActivatedRoute, private actionsSubject$: ActionsSubject,) { 
     this.buildNewForm();
+    this.triggers();
   }
 
   ngOnInit() {
+    this.activateRouter.params
+      .subscribe((params: any) => {
+        if(params.id) {
+          this.store.dispatch(new orderActions.LoadOrderById(params.id));
+        }
+      })
   }
+
+  triggers() {
+    this.actionsSubject$
+      .pipe(ofType(orderActions.OrderActionTypes.LoadOrderByIdCompleted))
+      .subscribe((response: any) => {
+        this.buildEditForm(response.payload)
+      });
+  }
+
 
   buildNewForm() {
     this.orderForm=this.fb.group({
@@ -43,6 +61,31 @@ export class OrderManageContainerComponent implements OnInit {
       phone: ['', [Validators.required]],
       city: ['', [Validators.required]]
     });
+  }
+
+  buildEditForm(orderItem: OrderListItem): void {
+    this.orderId=orderItem.orderId;
+    this.orderForm=this.fb.group({
+      id: [orderItem.customerId, [Validators.required]],
+      name: [orderItem.customer, [Validators.required]],
+      company: [orderItem.company, [Validators.required]],
+      fecha: [new Date(orderItem.orderDate), [Validators.required]],
+      address: [orderItem.address, [Validators.required]],
+      phone: [orderItem.phone, [Validators.required]],
+      city: [orderItem.city, [Validators.required]]
+    });
+
+    const orderDetailEdit=orderItem.data.data;
+    if(orderDetailEdit) {
+      for(let index=0;index<orderDetailEdit.length;index++) {
+        const element=orderDetailEdit[index];
+        const product=new PreOrderProduct(element.id, element.product_id, element.product_name,
+          element.product_name, element.unit_price, element.quantity);
+        this.orderProductList.push(product);
+        this.orderProductList=[...this.orderProductList];
+        this.preOrderFooter=new PreOrderFooter(this.orderProductList);
+      }
+    }
   }
 
   openCustomerPopup(){
