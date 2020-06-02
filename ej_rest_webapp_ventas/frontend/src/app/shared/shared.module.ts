@@ -22,7 +22,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
     HighchartsChartModule,
     NgxDatatableModule
   ],
-  exports: [NavBarComponent, MaterialModule, FormsModule, ReactiveFormsModule, AppConfirmComponent, DecimalOnlyDirective, HighchartsChartModule, TableViewComponent],
+  exports: [NavBarComponent, MaterialModule, FormsModule, ReactiveFormsModule, AppConfirmComponent, DecimalOnlyDirective, HighchartsChartModule, TableViewComponent, NgxDatatableModule],
   entryComponents: [AppConfirmComponent],
   providers: [AppConfirmService]
 })

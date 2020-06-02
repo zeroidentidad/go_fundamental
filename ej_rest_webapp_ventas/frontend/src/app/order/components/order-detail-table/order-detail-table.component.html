@@ -1,1 +1,48 @@
-<p>order-detail-table works!</p>
+<div>
+    <ngx-datatable #orderTable [footerHeight]="50" class="material" [headerHeight]="50" [columnMode]="'force'" [limit]="5" [rowHeight]="50" [rows]="items">
+
+        <ngx-datatable-column name="Nombre" prop="Name">
+            <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Descripción" prop="Description">
+            <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+        
+        <ngx-datatable-column name="Precio" prop="UnitPrice">
+            <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Cantidad" prop="Quantity">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                <span title="Doble clic para editar" (dblclick)="editing[rowIndex + '-cantidad'] = true"
+                    *ngIf="!editing[rowIndex + '-cantidad']">
+                    {{value}}
+                </span>
+                <input class="cantidad" autofocus (blur)="onUpdateQuantity($event, 'cantidad', rowIndex)"
+                    *ngIf="editing[rowIndex+ '-cantidad']" type="number" [value]="value" />
+            </ng-template>
+        </ngx-datatable-column>
+    
+        <ngx-datatable-column name="Total" prop="TotalValue">
+            <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+            </ng-template>
+        </ngx-datatable-column>
+        
+        <ngx-datatable-column name="Acciones" prop="Id">
+            <ng-template ngx-datatable-cell-template let-value="value">
+                <button mat-icon-button (click)="onRemoveItem(value)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </ng-template>
+        </ngx-datatable-column>
+
+    </ngx-datatable>
+</div>

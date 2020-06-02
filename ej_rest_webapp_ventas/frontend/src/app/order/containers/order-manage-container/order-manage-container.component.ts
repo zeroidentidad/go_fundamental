@@ -5,6 +5,7 @@ import {CustomerPopupContainerComponent} from "../customer-popup-container/custo
 import {Customer} from "../../models/customer/customer";
 import {ProductPopupContainerComponent} from "../product-popup-container/product-popup-container.component";
 import {Product} from "../../models/product/product";
+import {PreOrderProduct} from "../../models/pre-order/pre-order-product";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -14,6 +15,7 @@ import {Product} from "../../models/product/product";
 export class OrderManageContainerComponent implements OnInit {
 
   orderForm: FormGroup;
+  orderProductList: PreOrderProduct[]=[];
   constructor(private fb: FormBuilder, private dialog: MatDialog) { 
     this.buildNewForm();
   }
@@ -58,12 +60,22 @@ export class OrderManageContainerComponent implements OnInit {
     });
     dialogRef.afterClosed()
       .subscribe((response: Product) => {
-        console.log(response);
+        this.AddProductToList(response);
       });
   }
 
   AddProductToList(item: Product): void {
-    console.log('prro :v')
+    const product=new PreOrderProduct(0, item.id, item.description, item.productName, item.standardCost, 1);
+    this.orderProductList.push(product);
+    this.orderProductList=[...this.orderProductList];
+  }  
+
+  UpdateQuantity(event: any): any {
+
+  }
+
+  onDeleteProductOrder(orderDetailId: any) {
+
   }  
 
 }

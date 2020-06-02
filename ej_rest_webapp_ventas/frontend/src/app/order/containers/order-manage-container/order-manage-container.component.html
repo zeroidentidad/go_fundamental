@@ -63,12 +63,13 @@
             </div>
         </div>
         <div>
-            
-        </div>
-        <div>
             <button (click)="openProductPopup()" mat-mini-fab color="primary" matTooltip="Agregar producto">
                 <mat-icon>add</mat-icon>
             </button>
+        </div>
+        <div>
+            <app-order-detail-table [items]="orderProductList" (updateQuantity)="UpdateQuantity($event)" (deleteProductOrder)="onDeleteProductOrder($event)">
+            </app-order-detail-table>
         </div>
     </div>
 </form>
