@@ -80,5 +80,10 @@
                 </mat-list-item>
             </mat-list>
         </div>
+        <div class="button-container" *ngIf="orderProductList.length > 0">
+            <button mat-flat-button color="warn" (click)="onCancel()">CANCELAR</button>
+            &nbsp;
+            <button mat-flat-button color="primary" (click)="onSave()">GUARDAR</button>
+        </div>
     </div>
 </form>
