@@ -35,7 +35,15 @@ export function OrderReducer(state=initialState, action: orderActions.Actions): 
                 orders: action.payload.data,
                 totalRecords: action.payload.totalRecords
             }
-        }        
+        }
+
+        case orderActions.OrderActionTypes.AddOrder: {
+            return state;
+        }
+
+        case orderActions.OrderActionTypes.AddOrderCompleted: {
+            return state;
+        }                
     
         default:
             return state;

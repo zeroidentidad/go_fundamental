@@ -7,6 +7,11 @@ import {ProductPopupContainerComponent} from "../product-popup-container/product
 import {Product} from "../../models/product/product";
 import {PreOrderProduct} from "../../models/pre-order/pre-order-product";
 import {PreOrderFooter} from "../../models/pre-order/pre-order-footer";
+import {PreOrder, PreOrderDetail} from "../../models/pre-order/pre-order";
+import * as moment from "moment";
+import {Store} from "@ngrx/store";
+import * as orderActions from '../../state/actions/order.actions';
+import * as fromReducer from '../../state/reducers';
 
 @Component({
   selector: 'app-order-manage-container',
@@ -15,10 +20,12 @@ import {PreOrderFooter} from "../../models/pre-order/pre-order-footer";
 })
 export class OrderManageContainerComponent implements OnInit {
 
+  orderId: number=0;
   orderForm: FormGroup;
   orderProductList: PreOrderProduct[]=[];
   preOrderFooter: PreOrderFooter=PreOrderFooter.createEmptyInstance();
-  constructor(private fb: FormBuilder, private dialog: MatDialog) { 
+  preOrder: PreOrder = PreOrder.createEmptyInstance();
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private store: Store<fromReducer.OrderState>,) { 
     this.buildNewForm();
   }
 
@@ -88,5 +95,20 @@ export class OrderManageContainerComponent implements OnInit {
   onDeleteProductOrder(orderDetailId: any) {
 
   }  
+
+  onSave(){
+    const customer=this.orderForm.value; // props: id, fecha
+    this.preOrder.Id=this.orderId;
+    this.preOrder.CustomerId=customer.id;
+    this.preOrder.OrderDate=moment(customer.fecha).format("YYYY/MM/DD");
+    this.preOrder.OrderDetails=PreOrderDetail.mapOrderDetail(this.orderProductList);
+
+    if(this.orderId===0) {
+      this.store.dispatch(new orderActions.AddOrder(this.preOrder));
+    } else {
+      //Actualizar
+    }
+
+  }
 
 }

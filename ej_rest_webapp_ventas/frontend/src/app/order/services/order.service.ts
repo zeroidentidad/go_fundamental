@@ -6,6 +6,7 @@ import {OrderList} from "../models/order/order-list";
 import {environment} from "src/environments/environment";
 import {map} from "rxjs/operators";
 import {OrderListItem} from "../models/order/order-list-item";
+import {PreOrder} from "../models/pre-order/pre-order";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,13 @@ export class OrderService {
           orderList.totalRecords = response.totalRecords;
           return orderList;
         })
+      );
+  }
+
+  addOrder(request: PreOrder): Observable<number> {
+    return this.httpClient.post(`${environment.ApiURL}orders`, request)
+      .pipe(
+        map((response: number) => response)
       );
   }
 

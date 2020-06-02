@@ -6,10 +6,11 @@ import * as fromRoot from './../reducers';
 import * as orderActions from '../actions/order.actions';
 import {withLatestFrom, switchMap, map} from "rxjs/operators";
 import * as moment from 'moment';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class OrderEffects {
-    constructor(private actions$: Actions, private orderService: OrderService, private store: Store<fromRoot.OrderState>,){
+    constructor(private actions$: Actions, private orderService: OrderService, private store: Store<fromRoot.OrderState>, private router: Router){
 
     }
 
@@ -32,5 +33,18 @@ export class OrderEffects {
         })
     );
     
+
+    @Effect()
+    addOrder$=this.actions$.pipe(
+        ofType<orderActions.AddOrder>(orderActions.OrderActionTypes.AddOrder),
+        switchMap(action => this.orderService.addOrder(action.request)
+            .pipe(
+                map(response => {
+                    this.router.navigate(['/order']);
+                    return new orderActions.AddOrderCompleted(response);
+                })
+            ))
+    );
+   
                
 }
