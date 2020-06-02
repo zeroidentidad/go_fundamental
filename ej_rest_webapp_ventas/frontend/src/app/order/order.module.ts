@@ -15,10 +15,11 @@ import { CustomerPopupComponent } from './components/customer-popup/customer-pop
 import {ProductEffects} from "./state/effects/product.effects";
 import { ProductPopupContainerComponent } from './containers/product-popup-container/product-popup-container.component';
 import { ProductPopupComponent } from './components/product-popup/product-popup.component';
+import { OrderDetailTableComponent } from './components/order-detail-table/order-detail-table.component';
 
 
 @NgModule({
-  declarations: [OrderMainContainerComponent, OrderManageContainerComponent, CustomerPopupContainerComponent, CustomerPopupComponent, ProductPopupContainerComponent, ProductPopupComponent],
+  declarations: [OrderMainContainerComponent, OrderManageContainerComponent, CustomerPopupContainerComponent, CustomerPopupComponent, ProductPopupContainerComponent, ProductPopupComponent, OrderDetailTableComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,

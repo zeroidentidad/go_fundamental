@@ -62,4 +62,8 @@ export class OrderManageContainerComponent implements OnInit {
       });
   }
 
+  AddProductToList(item: Product): void {
+    console.log('prro :v')
+  }  
+
 }
