@@ -21,6 +21,7 @@ export class OrderListDetail {
             product.id=element.id;
             product.product_id=element.product_id;
             product.product_name=element.product_name;
+            product.description=element.description;
             product.quantity=element.quantity;
             product.unit_price=element.unit_price;
             products.push(product);

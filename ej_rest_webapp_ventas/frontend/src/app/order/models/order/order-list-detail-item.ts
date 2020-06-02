@@ -3,6 +3,7 @@ export class OrderListDetailItem {
     order_id: number;
     product_id: number;
     product_name: string;
+    description: string;
     quantity: number;
     unit_price: number;
 }

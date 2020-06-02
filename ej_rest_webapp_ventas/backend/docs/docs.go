@@ -816,6 +816,9 @@ var doc = `{
         "order.OrderDetailItem": {
             "type": "object",
             "properties": {
+                "description": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1029,7 +1032,7 @@ var doc = `{
                     "type": "string"
                 },
                 "listPrice": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "productCode": {
                     "type": "string"
@@ -1038,7 +1041,7 @@ var doc = `{
                     "type": "string"
                 },
                 "standardCost": {
-                    "type": "string"
+                    "type": "number"
                 }
             }
         },

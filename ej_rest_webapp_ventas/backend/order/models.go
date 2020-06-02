@@ -26,4 +26,5 @@ type OrderDetailItem struct {
 	Quantity    float64 `json:"quantity"`
 	UnitPrice   float64 `json:"unit_price"`
 	ProductName string  `json:"product_name"`
+	Description string  `json:"description"`
 }

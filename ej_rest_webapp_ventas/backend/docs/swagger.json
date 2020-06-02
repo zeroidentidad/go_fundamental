@@ -799,6 +799,9 @@
         "order.OrderDetailItem": {
             "type": "object",
             "properties": {
+                "description": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1012,7 +1015,7 @@
                     "type": "string"
                 },
                 "listPrice": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "productCode": {
                     "type": "string"
@@ -1021,7 +1024,7 @@
                     "type": "string"
                 },
                 "standardCost": {
-                    "type": "string"
+                    "type": "number"
                 }
             }
         },

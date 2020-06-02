@@ -79,7 +79,7 @@ export class OrderManageContainerComponent implements OnInit {
     if(orderDetailEdit) {
       for(let index=0;index<orderDetailEdit.length;index++) {
         const element=orderDetailEdit[index];
-        const product=new PreOrderProduct(element.id, element.product_id, element.product_name,
+        const product=new PreOrderProduct(element.id, element.product_id, element.description,
           element.product_name, element.unit_price, element.quantity);
         this.orderProductList.push(product);
         this.orderProductList=[...this.orderProductList];

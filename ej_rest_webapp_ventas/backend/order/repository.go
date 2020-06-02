@@ -55,7 +55,7 @@ func (r *repository) GetOrderById(param *getOrderByIdRequest) (*OrderItem, error
 
 func GetOrderDetail(r *repository, orderId *int64) ([]*OrderDetailItem, error) {
 	const sql = `SELECT od.order_id, od.id, od.quantity, od.unit_price, 
-				p.product_name, od.product_id FROM order_details od
+				p.product_name, od.product_id, COALESCE(p.description,'') FROM order_details od
 				INNER JOIN products p ON od.product_id=p.id
 				WHERE od.order_id=?`
 
@@ -65,7 +65,7 @@ func GetOrderDetail(r *repository, orderId *int64) ([]*OrderDetailItem, error) {
 	var orders []*OrderDetailItem
 	for results.Next() {
 		orderDetailItem := &OrderDetailItem{}
-		err := results.Scan(&orderDetailItem.OrderId, &orderDetailItem.ID, &orderDetailItem.Quantity, &orderDetailItem.UnitPrice, &orderDetailItem.ProductName, &orderDetailItem.ProductId)
+		err := results.Scan(&orderDetailItem.OrderId, &orderDetailItem.ID, &orderDetailItem.Quantity, &orderDetailItem.UnitPrice, &orderDetailItem.ProductName, &orderDetailItem.ProductId, &orderDetailItem.Description)
 		helper.Catch(err)
 
 		orders = append(orders, orderDetailItem)
