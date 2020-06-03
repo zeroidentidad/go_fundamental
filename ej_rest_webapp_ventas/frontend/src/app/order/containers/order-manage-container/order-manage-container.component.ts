@@ -15,6 +15,8 @@ import * as fromReducer from '../../state/reducers';
 import {Router, ActivatedRoute} from "@angular/router";
 import {ofType} from "@ngrx/effects";
 import {OrderListItem} from "../../models/order/order-list-item";
+import {AppConfirmService} from "src/app/shared/components/app-confirm/app-confirm.service";
+import {ConfirmData} from "src/app/shared/models/confirm-data";
 
 @Component({
   selector: 'app-order-manage-container',
@@ -28,7 +30,7 @@ export class OrderManageContainerComponent implements OnInit {
   orderProductList: PreOrderProduct[]=[];
   preOrderFooter: PreOrderFooter=PreOrderFooter.createEmptyInstance();
   preOrder: PreOrder = PreOrder.createEmptyInstance();
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private store: Store<fromReducer.OrderState>, private router: Router, private activateRouter: ActivatedRoute, private actionsSubject$: ActionsSubject,) { 
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private store: Store<fromReducer.OrderState>, private router: Router, private activateRouter: ActivatedRoute, private actionsSubject$: ActionsSubject, private confirmService: AppConfirmService) { 
     this.buildNewForm();
     this.triggers();
   }
@@ -48,8 +50,18 @@ export class OrderManageContainerComponent implements OnInit {
       .subscribe((response: any) => {
         this.buildEditForm(response.payload)
       });
-  }
 
+    this.actionsSubject$.
+      pipe(ofType(orderActions.OrderActionTypes.DeleteOrderDetailCompleted))
+      .subscribe(_ => {
+        this.activateRouter.params.subscribe(params => {
+          this.orderProductList=[];
+          if(params.id) {
+            this.store.dispatch(new orderActions.LoadOrderById(params.id));
+          }
+        });
+      });      
+  }
 
   buildNewForm() {
     this.orderForm=this.fb.group({
@@ -137,7 +149,18 @@ export class OrderManageContainerComponent implements OnInit {
   }
 
   onDeleteProductOrder(orderDetailId: any) {
+    const confirmData=new ConfirmData(
+      'Eliminar producto',
+      'Estas seguro de eliminar el producto?',
+      true
+    );
 
+    this.confirmService.confirm(confirmData)
+      .subscribe(result => {
+        if(result) {
+          this.store.dispatch(new orderActions.DeleteOrderDetail(this.orderId, orderDetailId));
+        }
+      });
   }  
 
   onSave(){

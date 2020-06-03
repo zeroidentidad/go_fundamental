@@ -15,7 +15,9 @@ export enum OrderActionTypes {
     LoadOrderById='[Order] Load Order By Id',
     LoadOrderByIdCompleted='[Order] Load Order By Id Completed',
     UpdateOrder='[Order] Update Order',
-    UpdateOrderCompleted='[Order] Update Order Completed',        
+    UpdateOrderCompleted='[Order] Update Order Completed',
+    DeleteOrderDetail='[Order] Delete Order Detail',
+    DeleteOrderDetailCompleted='[Order] Delete Order Detail Completed',        
 }
 
 export class UpdateOrderSearchCriteria implements Action {
@@ -62,4 +64,14 @@ export class UpdateOrderCompleted implements Action {
     constructor() {}
 }
 
-export type Actions=UpdateOrderSearchCriteria|LoadOrders|LoadOrdersCompleted|AddOrder|AddOrderCompleted|LoadOrderById|LoadOrderByIdCompleted|UpdateOrder|UpdateOrderCompleted;
+export class DeleteOrderDetail implements Action {
+    readonly type=OrderActionTypes.DeleteOrderDetail;
+    constructor(public orderId: number, public orderDetailId: number) {}
+}
+
+export class DeleteOrderDetailCompleted implements Action {
+    readonly type=OrderActionTypes.DeleteOrderDetailCompleted;
+    constructor() {}
+}
+
+export type Actions=UpdateOrderSearchCriteria|LoadOrders|LoadOrdersCompleted|AddOrder|AddOrderCompleted|LoadOrderById|LoadOrderByIdCompleted|UpdateOrder|UpdateOrderCompleted|DeleteOrderDetail|DeleteOrderDetailCompleted;
