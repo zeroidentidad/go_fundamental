@@ -68,6 +68,13 @@ export class OrderService {
       .pipe(
         map((response: Response) => response)
       );
+  }
+  
+  deleteOrder(orderId: number): Observable<Response> {
+    return this.httpClient.delete(`${environment.ApiURL}orders/${orderId}`)
+      .pipe(
+        map((response: Response) => response)
+      );
   }  
 
 }

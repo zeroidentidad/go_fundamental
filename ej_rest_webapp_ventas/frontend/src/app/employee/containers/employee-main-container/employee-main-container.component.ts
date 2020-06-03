@@ -47,7 +47,6 @@ export class EmployeeMainContainerComponent implements OnInit {
       })
   }
 
-
   refreshData(): void {
     this.request=new GetEmployee(this.pageSizeOptions[0], 0);
     this.store.dispatch(new employeeActions.LoadEmployees(this.request));

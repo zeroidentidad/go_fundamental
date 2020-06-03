@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import {Customer} from "../../models/customer/customer";
 import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-customer-popup',
   templateUrl: './customer-popup.component.html',
-  styleUrls: ['./customer-popup.component.scss']
+  styleUrls: ['./customer-popup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomerPopupComponent implements OnInit {
 

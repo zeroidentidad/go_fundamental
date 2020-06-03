@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import {PreOrderProduct} from "../../models/pre-order/pre-order-product";
 
 @Component({
   selector: 'app-order-detail-table',
   templateUrl: './order-detail-table.component.html',
-  styleUrls: ['./order-detail-table.component.scss']
+  styleUrls: ['./order-detail-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderDetailTableComponent implements OnInit {
 

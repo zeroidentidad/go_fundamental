@@ -76,4 +76,13 @@ export class OrderEffects {
             ))
     );    
 
+    @Effect()
+    deleteOrder$=this.actions$.pipe(
+        ofType<orderActions.DeleteOrder>(orderActions.OrderActionTypes.DeleteOrder),
+        switchMap(action => this.orderService.deleteOrder(action.orderId)
+            .pipe(
+                map(_ => new orderActions.DeleteOrderCompleted())
+            ))
+    );
+
 }

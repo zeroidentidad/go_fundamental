@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import {Product} from "../../models/product/product";
 import {MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-product-popup',
   templateUrl: './product-popup.component.html',
-  styleUrls: ['./product-popup.component.scss']
+  styleUrls: ['./product-popup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductPopupComponent implements OnInit {
 
