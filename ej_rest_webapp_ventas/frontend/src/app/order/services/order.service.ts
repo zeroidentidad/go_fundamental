@@ -56,4 +56,11 @@ export class OrderService {
       );
   }
 
+  updateOrder(request: PreOrder): Observable<Response> {
+    return this.httpClient.put(`${environment.ApiURL}orders`, request)
+      .pipe(
+        map((response: Response) => response)
+      );
+  }  
+
 }

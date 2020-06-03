@@ -56,6 +56,14 @@ export function OrderReducer(state=initialState, action: orderActions.Actions): 
                 ...state,
                 orderListItem: action.payload
             };
+        }   
+        
+        case orderActions.OrderActionTypes.UpdateOrder: {
+            return state;
+        }
+
+        case orderActions.OrderActionTypes.UpdateOrderCompleted: {
+            return state;
         }        
     
         default:

@@ -54,5 +54,17 @@ export class OrderEffects {
                 map(data => new orderActions.LoadOrderByIdCompleted(data))
             ))
     );
-               
+
+    @Effect()
+    updateOrder$=this.actions$.pipe(
+        ofType<orderActions.UpdateOrder>(orderActions.OrderActionTypes.UpdateOrder),
+        switchMap(action => this.orderService.updateOrder(action.request)
+            .pipe(
+                map(_ => {
+                    this.router.navigate(['/order']);
+                    return new orderActions.UpdateOrderCompleted();
+                })
+            ))
+    );    
+
 }

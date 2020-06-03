@@ -13,7 +13,9 @@ export enum OrderActionTypes {
     AddOrder='[Order] Add Order',
     AddOrderCompleted='[Order] Add Order Completed',
     LoadOrderById='[Order] Load Order By Id',
-    LoadOrderByIdCompleted='[Order] Load Order By Id Completed',    
+    LoadOrderByIdCompleted='[Order] Load Order By Id Completed',
+    UpdateOrder='[Order] Update Order',
+    UpdateOrderCompleted='[Order] Update Order Completed',        
 }
 
 export class UpdateOrderSearchCriteria implements Action {
@@ -51,4 +53,13 @@ export class LoadOrderByIdCompleted implements Action {
     constructor(public payload: OrderListItem) {}
 }
 
-export type Actions=UpdateOrderSearchCriteria|LoadOrders|LoadOrdersCompleted|AddOrder|AddOrderCompleted|LoadOrderById|LoadOrderByIdCompleted;
+export class UpdateOrder implements Action {
+    readonly type=OrderActionTypes.UpdateOrder;
+    constructor(public request: PreOrder) {}
+}
+export class UpdateOrderCompleted implements Action {
+    readonly type=OrderActionTypes.UpdateOrderCompleted;
+    constructor() {}
+}
+
+export type Actions=UpdateOrderSearchCriteria|LoadOrders|LoadOrdersCompleted|AddOrder|AddOrderCompleted|LoadOrderById|LoadOrderByIdCompleted|UpdateOrder|UpdateOrderCompleted;

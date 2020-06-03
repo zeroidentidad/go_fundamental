@@ -150,7 +150,7 @@ export class OrderManageContainerComponent implements OnInit {
     if(this.orderId===0) {
       this.store.dispatch(new orderActions.AddOrder(this.preOrder));
     } else {
-      //Actualizar
+      this.store.dispatch(new orderActions.UpdateOrder(this.preOrder));
     }
 
   }
