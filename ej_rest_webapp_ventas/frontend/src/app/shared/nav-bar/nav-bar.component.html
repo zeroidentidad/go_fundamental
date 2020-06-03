@@ -5,7 +5,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="/home">Inicio <span class="sr-only">(current)</span></a>
             </li>
@@ -21,6 +21,19 @@
                     <a class="dropdown-item" routerLink="/order">Lista</a>
                     <a class="dropdown-item" routerLink="/order/manage">Nuevo</a>
                 </div>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="isAuthenticated">User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-link-cursor" (click)="onLogout()" *ngIf="isAuthenticated">
+                <span class="fas fa-user"></span>Salir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-link-cursor" (click)="onLogin()" *ngIf="!isAuthenticated">
+                <span class="fas fa-sign-in-alt"></span>Ingresar</a>
             </li>
         </ul>
     </div>

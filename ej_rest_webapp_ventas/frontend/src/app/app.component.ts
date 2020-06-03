@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'webng';
+
+  isAuthenticated=true;
+
+  login() {
+  }
+
+  logout() {
+  }  
 }
