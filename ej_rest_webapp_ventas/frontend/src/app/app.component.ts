@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from "./auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'webng';
 
-  isAuthenticated=true;
+  constructor(public auth: AuthService) {}
 
   login() {
+    this.auth.login();
   }
 
   logout() {
+    this.auth.logout();
   }  
 }

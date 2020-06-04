@@ -20,9 +20,11 @@ export class NavBarComponent implements OnInit {
   }
 
   onLogin() {
+    this.login.emit();
   }
 
   onLogout() {
+    this.logout.emit();
   }
 
 }

@@ -13,10 +13,13 @@ import { metaReducers } from "./state/reducers";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import { CallbackComponent } from './auth/callback/callback.component';
+import {AuthService} from "./auth/auth.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
