@@ -9,6 +9,8 @@ export class NavBarComponent implements OnInit {
 
   @Input()
   isAuthenticated: boolean;
+  @Input()
+  userProfile: any;
   @Output()
   login: EventEmitter<any>=new EventEmitter<any>();
   @Output()

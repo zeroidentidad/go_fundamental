@@ -1,5 +1,5 @@
 <div class="container-fluid h-100">
-    <app-nav-bar [isAuthenticated]="auth.loggedIn" (login)="login()" (logout)="logout()"></app-nav-bar>
+    <app-nav-bar [isAuthenticated]="auth.loggedIn" [userProfile]="auth.userProfile$ | async" (login)="login()" (logout)="logout()"></app-nav-bar>
     <div class="general-container h-100">
         <router-outlet></router-outlet>
     </div>

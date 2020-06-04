@@ -23,17 +23,15 @@
                 </div>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="navbar-nav navbar-right">
             <li class="nav-item">
-                <a class="nav-link" *ngIf="isAuthenticated">User</a>
+                <a class="nav-link" *ngIf="isAuthenticated">{{userProfile?.email}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-link-cursor" (click)="onLogout()" *ngIf="isAuthenticated">
-                <span class="fas fa-user"></span>Salir</a>
+                <a class="nav-link" (click)="onLogout()" *ngIf="isAuthenticated">Salir</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link nav-link-cursor" (click)="onLogin()" *ngIf="!isAuthenticated">
-                <span class="fas fa-sign-in-alt"></span>Ingresar</a>
+                <a class="nav-link" (click)="onLogin()" *ngIf="!isAuthenticated">Ingresar</a>
             </li>
         </ul>
     </div>
