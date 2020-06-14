@@ -36,7 +36,7 @@ func Registry(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, status, err := db.InsertUser()
+	_, status, err := db.InsertUser(user)
 	if err != nil {
 		http.Error(w, "Ocurrió error al intentar realizar registro: "+err.Error(), http.StatusBadRequest)
 		return
