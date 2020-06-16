@@ -12,7 +12,7 @@ import (
 func main() {
 	config.GetIPs()
 	config.PortHttp(true)
-	http.Handle("/", http.FileServer(http.Dir(filepath.Dir(config.GetDir()))))
+	http.Handle("/", config.NoCache(http.FileServer(http.Dir(filepath.Dir(config.GetDir())))))
 	config.UrlExample()
 	fmt.Println("\nCtrl+C para salir o cerrar ventana...")
 	log.Fatal(http.ListenAndServe(":"+config.PortHttp(false), nil))
