@@ -4,15 +4,16 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"path/filepath"
 
 	"github.com/zeroidentidad/servfiles/config"
 )
 
-var confObj, portString = *config.GetConfiguration(), fmt.Sprintf("%s", confObj.HttpPort)
-
 func main() {
-	http.Handle("/", http.FileServer(http.Dir(".")))
 	config.GetIPs()
-	fmt.Println("---------------------\nPuerto config: " + portString + "\n---------------------")
-	log.Fatal(http.ListenAndServe(":"+portString, nil))
+	config.PortHttp(true)
+	http.Handle("/", http.FileServer(http.Dir(filepath.Dir(config.GetDir()))))
+	config.UrlExample()
+	fmt.Println("\nCtrl+C para salir o cerrar ventana...")
+	log.Fatal(http.ListenAndServe(":"+config.PortHttp(false), nil))
 }

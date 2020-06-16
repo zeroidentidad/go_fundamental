@@ -12,7 +12,9 @@ func GetIPs() {
 	}
 
 	fmt.Println("> Host: " + GetHostame())
-	fmt.Println("---------------------\nIPs LAN de localhost:\n---------------------")
+	fmt.Println("------------------------------------------")
+	fmt.Println("IPs LAN de localhost:")
+	fmt.Println("------------------------------------------")
 
 	for _, i := range ifaces {
 		addrs, err := i.Addrs()

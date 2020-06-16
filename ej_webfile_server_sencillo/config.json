@@ -1,3 +1,4 @@
 {
-    "HttpPort": "1234"
+    "HttpPort": "1234",
+    "DirShared": "../"
 }

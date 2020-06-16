@@ -1,5 +1,6 @@
 package models
 
 type Config struct {
-	HttpPort string
+	HttpPort  string
+	DirShared string
 }
