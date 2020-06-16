@@ -18,7 +18,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		//fmt.Println(addrs)
+		fmt.Println(addrs)
 		for _, addr := range addrs {
 			switch v := addr.(type) {
 			case *net.IPAddr:
