@@ -1,4 +1,2 @@
-
 - ej_rest_webapp_social
-
 - ejercicios_go_cookbook
