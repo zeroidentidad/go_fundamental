@@ -1,16 +1,20 @@
 package jwt
 
 import (
+	"fmt"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/zeroidentidad/twittor/config"
 	"github.com/zeroidentidad/twittor/models"
 )
+
+var confObj, SecretKey = *config.GetConfiguration(), fmt.Sprintf("%s", confObj.SecretKey)
 
 /*GenerateJWT genera datos encriptados con JWT */
 func GenerateJWT(user models.User) (string, error) {
 
-	secretKey := []byte("madafakasxd")
+	secretKey := []byte(SecretKey)
 
 	payload := jwt.MapClaims{
 		"email":            user.Email,

@@ -1,4 +1,5 @@
 {
     "DBUrl": "mongodb://localhost:27017/mongo_tw_mongodb_1",
-    "HttpPort": "8080"
+    "HttpPort": "8080",
+    "SecretKey": "madafakasxd"
 }

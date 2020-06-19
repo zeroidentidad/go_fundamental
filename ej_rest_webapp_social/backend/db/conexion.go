@@ -12,8 +12,7 @@ import (
 
 var MongoConn = connectDB()
 
-var confObj = *config.GetConfiguration()
-var connString = fmt.Sprintf("%s", confObj.DBUrl)
+var confObj, connString = *config.GetConfiguration(), fmt.Sprintf("%s", confObj.DBUrl)
 
 var clientOptions = options.Client().ApplyURI(connString)
 
