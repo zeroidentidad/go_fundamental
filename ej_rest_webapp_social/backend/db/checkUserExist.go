@@ -1,16 +1,13 @@
 package db
 
 import (
-	"context"
-	"time"
-
 	"github.com/zeroidentidad/twittor/models"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 /*CheckUserExist recibe e-mail y verifica si ya existe en DB */
 func CheckUserExist(email string) (models.User, bool, string) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, cancel := Timeout()
 	defer cancel()
 
 	db := MongoConn.Database("twittor")

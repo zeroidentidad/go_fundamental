@@ -8,7 +8,8 @@ import (
 
 /*InsertTweet guarda el Tweet en DB */
 func InsertTweet(tweet models.SaveTweet) (string, bool, error) {
-	ctx := Timeout()
+	ctx, cancel := Timeout()
+	defer cancel()
 
 	db := MongoConn.Database("twittor")
 	col := db.Collection("tweet")

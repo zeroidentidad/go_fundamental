@@ -1,9 +1,6 @@
 package db
 
 import (
-	"context"
-	"time"
-
 	"github.com/zeroidentidad/twittor/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -11,7 +8,7 @@ import (
 
 /*SearchProfile busca un perfil en la BD*/
 func SearchProfile(ID string) (models.User, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*15)
+	ctx, cancel := Timeout()
 	defer cancel()
 
 	db := MongoConn.Database("twittor")

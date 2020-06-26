@@ -1,16 +1,13 @@
 package db
 
 import (
-	"context"
-	"time"
-
 	"github.com/zeroidentidad/twittor/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 /*InsertUser para insertar los datos del usuario en DB*/
 func InsertUser(user models.User) (string, bool, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, cancel := Timeout()
 	defer cancel()
 
 	db := MongoConn.Database("twittor")

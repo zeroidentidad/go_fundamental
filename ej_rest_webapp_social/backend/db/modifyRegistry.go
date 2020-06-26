@@ -1,9 +1,6 @@
 package db
 
 import (
-	"context"
-	"time"
-
 	"github.com/zeroidentidad/twittor/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -11,7 +8,7 @@ import (
 
 /*ModifyRegistry permite modificar el perfil del usuario */
 func ModifyRegistry(user models.User, ID string) (bool, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, cancel := Timeout()
 	defer cancel()
 
 	db := MongoConn.Database("twittor")
@@ -38,7 +35,7 @@ func ModifyRegistry(user models.User, ID string) (bool, error) {
 		registro["ubicacion"] = user.Ubicacion
 	}
 	if len(user.SitioWeb) > 0 {
-		registro["sitioWeb"] = user.SitioWeb
+		registro["sitioweb"] = user.SitioWeb
 	}
 
 	updtString := bson.M{

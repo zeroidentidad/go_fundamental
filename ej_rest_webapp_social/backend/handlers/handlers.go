@@ -23,6 +23,7 @@ func Handlers() {
 	router.HandleFunc("/login", middlewares.CheckConnectionDB(routes.Login)).Methods(http.MethodPost)
 	router.HandleFunc("/verperfil", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.ViewProfile))).Methods(http.MethodGet)
 	router.HandleFunc("/modificarperfil", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.ModifyProfile))).Methods(http.MethodPut)
+	router.HandleFunc("/tweet", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.SendTweet))).Methods(http.MethodPost)
 
 	PORT := os.Getenv("PORT")
 

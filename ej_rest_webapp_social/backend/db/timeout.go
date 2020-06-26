@@ -5,9 +5,7 @@ import (
 	"time"
 )
 
-func Timeout() context.Context {
+func Timeout() (context.Context, context.CancelFunc) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-
-	return ctx
+	return ctx, cancel
 }
