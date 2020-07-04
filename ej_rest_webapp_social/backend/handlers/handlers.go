@@ -26,6 +26,12 @@ func Handlers() {
 	router.HandleFunc("/tweet", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.SendTweet))).Methods(http.MethodPost)
 	router.HandleFunc("/vertweets", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.ViewTweets))).Methods(http.MethodGet)
 	router.HandleFunc("/eliminartweet", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.RemoveTweet))).Methods(http.MethodDelete)
+	// Avatars image
+	router.HandleFunc("/subiravatar", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.UploadAvatar))).Methods(http.MethodPost)
+	router.HandleFunc("/obteneravatar", middlewares.CheckConnectionDB(routes.FindAvatar)).Methods(http.MethodGet)
+	// Banners image
+	router.HandleFunc("/subirbanner", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.UploadBanner))).Methods(http.MethodPost)
+	router.HandleFunc("/obtenerbanner", middlewares.CheckConnectionDB(routes.FindBanner)).Methods(http.MethodGet)
 
 	PORT := os.Getenv("PORT")
 
