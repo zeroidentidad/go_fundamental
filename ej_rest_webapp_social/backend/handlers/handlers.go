@@ -36,6 +36,7 @@ func Handlers() {
 	router.HandleFunc("/obtenerbanner", middlewares.CheckConnectionDB(routes.FindBanner)).Methods(http.MethodGet)
 	// Relaciones users
 	router.HandleFunc("/relacionar", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.SetRelation))).Methods(http.MethodPost)
+	router.HandleFunc("/desrelacionar", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.RemoveRelation))).Methods(http.MethodDelete)
 
 	PORT := os.Getenv("PORT")
 
