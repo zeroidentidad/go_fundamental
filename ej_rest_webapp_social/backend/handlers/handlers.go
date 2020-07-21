@@ -38,6 +38,7 @@ func Handlers() {
 	router.HandleFunc("/relacionar", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.SetRelation))).Methods(http.MethodPost)
 	router.HandleFunc("/desrelacionar", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.RemoveRelation))).Methods(http.MethodDelete)
 	router.HandleFunc("/checkrelacion", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.GetRelation))).Methods(http.MethodGet)
+	router.HandleFunc("/listausuarios", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.ListUsers))).Methods(http.MethodGet)
 
 	PORT := os.Getenv("PORT")
 
