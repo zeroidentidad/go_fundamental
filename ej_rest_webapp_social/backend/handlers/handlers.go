@@ -39,6 +39,7 @@ func Handlers() {
 	router.HandleFunc("/desrelacionar", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.RemoveRelation))).Methods(http.MethodDelete)
 	router.HandleFunc("/checkrelacion", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.GetRelation))).Methods(http.MethodGet)
 	router.HandleFunc("/listausuarios", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.ListUsers))).Methods(http.MethodGet)
+	router.HandleFunc("/vertweetsfollowers", middlewares.CheckConnectionDB(middlewares.ValidateJWT(routes.ViewTweetsFollowers))).Methods(http.MethodGet)
 
 	PORT := os.Getenv("PORT")
 
