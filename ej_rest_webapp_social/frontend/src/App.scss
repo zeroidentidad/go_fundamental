@@ -1,8 +1,10 @@
+@import "./scss/index.scss";
+
 .App {
   text-align: center;
 
 .App-header {
-  background-color: #282c34;
+  background-color: $primary;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
