@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import SignIn from './pages/SignIn';
 
 function App() {
 
-  const [user, setUser]=useState(null);
+  const [user, setUser]=useState('zero');
 
   return (
     <div>
-      {user? (<h1>Logueado</h1>):(<h1>No logueado</h1>)}
+      {user? <SignIn/>:<h1>No logueado</h1>}
     </div>
   )
 
