@@ -9,15 +9,23 @@ import BasicModal from "../../components/Modales/BasicModal";
 
 export default function SignIn () {
     
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const [contentModal, setContentModal] = useState(null);
+
+    const openModal = content => {
+        setShowModal(true);
+        setContentModal(content);
+    };    
 
     return (
         <>
             <Container className="signin-signup" fluid>
                 <Row>
                     <LeftComponent />
-                    <RightComponent />
+                    <RightComponent 
+                    openModal={openModal}
+                    setShowModal={setShowModal}
+                    />
                 </Row>
             </Container>
 
@@ -51,6 +59,7 @@ function LeftComponent() {
 }
 
 function RightComponent(props) {
+    const { openModal, setShowModal } = props;
 
     return (
         <Col className="signin-signup__right" xs={6}>
@@ -60,13 +69,13 @@ function RightComponent(props) {
                 <h3>Únete a Twittab ahora</h3>
                 <Button
                     variant="primary"
-                    onClick={() => alert('kepedo')}
+                    onClick={() => openModal(<h2>Form registro</h2>)}
                 >
                     Regístrate
                 </Button>
                 <Button
                     variant="outline-primary"
-                    onClick={() => alert('kepedo')}
+                    onClick={() => openModal(<h2>Form iniciar sesión</h2>)}
                 >
                     Iniciar sesión
                 </Button>
