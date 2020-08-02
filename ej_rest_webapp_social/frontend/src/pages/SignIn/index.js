@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faUsers, faComment } from "@fortawesome/free-solid-svg-icons";
 import LogoTwittab from "../../assets/png/logo.png";
 import LogoWhiteTwittab from "../../assets/png/logo-white.png";
 import "./index.scss";
+import BasicModal from "../../components/Modales/BasicModal";
 
 export default function SignIn () {
+    
+    const [showModal, setShowModal] = useState(true);
+    const [contentModal, setContentModal] = useState(null);
+
     return (
         <>
             <Container className="signin-signup" fluid>
@@ -15,6 +20,10 @@ export default function SignIn () {
                     <RightComponent />
                 </Row>
             </Container>
+
+            <BasicModal show={showModal} setShow={setShowModal}>
+                {contentModal}
+            </BasicModal>
         </>
     )
 }
