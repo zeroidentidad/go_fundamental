@@ -6,6 +6,7 @@ import LogoTwittab from "../../assets/png/logo.png";
 import LogoWhiteTwittab from "../../assets/png/logo-white.png";
 import "./index.scss";
 import BasicModal from "../../components/Modales/BasicModal";
+import SignUpForm from "../../components/SignUpForm";
 
 export default function SignIn () {
     
@@ -69,7 +70,7 @@ function RightComponent(props) {
                 <h3>Únete a Twittab ahora</h3>
                 <Button
                     variant="primary"
-                    onClick={() => openModal(<h2>Form registro</h2>)}
+                    onClick={() => openModal(<SignUpForm setShowModal={setShowModal} />)}
                 >
                     Regístrate
                 </Button>
