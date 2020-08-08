@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Form, Button, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { values, size } from "lodash";
 
 import "./SignUpForm.scss";
 
@@ -10,8 +12,13 @@ export default function SignUpForm(props) {
   const onSubmit = e => {
     e.preventDefault();
     
-    setShowModal(false);
-    console.log(formData);
+      let validCount=0;
+      values(formData).some(value => {
+          value&&validCount++;
+          return null;
+      });
+
+      console.log(validCount);
   };
   
   const onChange = e => {
