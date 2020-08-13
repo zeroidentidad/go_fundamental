@@ -1,0 +1,6 @@
+# github.com/apex/log v1.8.0
+## explicit
+github.com/apex/log
+github.com/apex/log/handlers/text
+# github.com/pkg/errors v0.8.1
+github.com/pkg/errors
