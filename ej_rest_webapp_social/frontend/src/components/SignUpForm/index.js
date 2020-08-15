@@ -3,12 +3,14 @@ import { Row, Col, Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { values, size } from "lodash";
 import { isEmailValid } from "../../utils/validations";
+import { signUpApi } from "../../api/auth";
 
 import "./SignUpForm.scss";
 
 export default function SignUpForm(props) {
   const { setShowModal } = props;
   const [formData, setFormData] = useState(initialFormValue());
+  const [signUpLoading, setSignUpLoading] = useState(false);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -31,6 +33,8 @@ export default function SignUpForm(props) {
         } else if (size(formData.password)<6) {
           toast.warning("La contraseña debe tener al menos 6 caracteres");
         } else {
+          setSignUpLoading(true);
+          signUpApi(formData)
           toast.success("Ok");
         }
         
@@ -96,7 +100,7 @@ export default function SignUpForm(props) {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Registrarme
+          {!signUpLoading ? "Registrarme" : <Spinner animation="border" />}
         </Button>
       </Form>
     </div>
