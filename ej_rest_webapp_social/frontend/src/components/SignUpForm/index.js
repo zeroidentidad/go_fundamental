@@ -35,7 +35,21 @@ export default function SignUpForm(props) {
         } else {
           setSignUpLoading(true);
           signUpApi(formData)
-          toast.success("Ok");
+          .then(response => {
+            if (response.code) {
+              toast.warning(response.message);
+            } else {
+              toast.success("El registro ha sido correcto");
+              setShowModal(false);
+              setFormData(initialFormValue());
+            }
+          })
+          .catch(() => {
+            toast.error("Error de servidor, intentar más tarde!");
+          })
+          .finally(() => {
+            setSignUpLoading(false);
+          });
         }
         
       }
@@ -108,9 +122,9 @@ export default function SignUpForm(props) {
 }
 
 const initialFormValue = () => ({
-    nombre: "",
-    apellidos: "",
     email: "",
     password: "",
+    nombre: "",
+    apellidos: "",
     repeatPassword: ""
 });
