@@ -7,9 +7,10 @@ import LogoWhiteTwittab from "../../assets/png/logo-white.png";
 import "./index.scss";
 import BasicModal from "../../components/Modales/BasicModal";
 import SignUpForm from "../../components/SignUpForm";
+import SignInForm from "../../components/SignInForm";
 
-export default function SignIn () {
-    
+export default function SignIn (props) {
+    const {setRefreshCheckLogin} = props;
     const [showModal, setShowModal] = useState(false);
     const [contentModal, setContentModal] = useState(null);
 
@@ -26,6 +27,7 @@ export default function SignIn () {
                     <RightComponent 
                     openModal={openModal}
                     setShowModal={setShowModal}
+                        setRefreshCheckLogin={setRefreshCheckLogin}
                     />
                 </Row>
             </Container>
@@ -60,7 +62,7 @@ function LeftComponent() {
 }
 
 function RightComponent(props) {
-    const { openModal, setShowModal } = props;
+    const { openModal, setShowModal, setRefreshCheckLogin } = props;
 
     return (
         <Col className="signin-signup__right" xs={6}>
@@ -76,7 +78,7 @@ function RightComponent(props) {
                 </Button>
                 <Button
                     variant="outline-primary"
-                    onClick={() => openModal(<h2>Form iniciar sesión</h2>)}
+                    onClick={() => openModal(<SignInForm setRefreshCheckLogin={setRefreshCheckLogin} />)}
                 >
                     Iniciar sesión
                 </Button>
