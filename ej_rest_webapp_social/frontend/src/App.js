@@ -3,6 +3,7 @@ import SignIn from './pages/SignIn';
 import { ToastContainer } from "react-toastify";
 import { AuthContext } from './context';
 import { isUserLoggedApi } from "./api/auth";
+import Routing from "./routes/Routing";
 
 function App() {
   const [user, setUser]=useState(null);
@@ -20,7 +21,11 @@ function App() {
 
   return (
     <AuthContext.Provider value={user}>
-      {user? <h1>Logueado</h1>:<SignIn setRefreshCheckLogin={setRefreshCheckLogin}/>}
+      {
+      user?
+      <Routing setRefreshCheckLogin={setRefreshCheckLogin}/>:
+      <SignIn setRefreshCheckLogin={setRefreshCheckLogin}/>
+      }
       <ToastContainer
         position="top-right"
         autoClose={5000}
