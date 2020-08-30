@@ -4,7 +4,7 @@ import {BasicLayout} from "../../layout"
 
 export default function Home() {
     return (
-    <BasicLayout>
+    <BasicLayout className="home">
         <h1>En home</h1>
     </BasicLayout>
     )
