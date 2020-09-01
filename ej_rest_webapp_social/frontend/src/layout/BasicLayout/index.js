@@ -11,7 +11,7 @@ export default function BasicLayout(props) {
         <Container className={`basic-layout ${className}`}>
             <Row>
                 <Col xs={3} className="basic-layout__menu">
-                    <h1>Menu</h1>
+                    <LeftMenu setRefreshCheckLogin={setRefreshCheckLogin}/>
                 </Col>
                 <Col xs={9} className="basic-layout__content">
                     {children}
