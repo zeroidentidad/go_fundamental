@@ -1,4 +1,11 @@
 - ej_rest_webapp_social
 - ejercicios_go_cookbook
 
--> zerverus
+-> zerverus:
+
+https://semaphoreci.com/community/tutorials/building-and-testing-a-rest-api-in-go-with-gorilla-mux-and-postgresql
+
+
+https://dev.to/orlmonteverde/api-rest-con-go-golang-y-postgresql-m0o
+https://dev.to/orlmonteverde/api-rest-con-go-golang-y-postgresql-parte-2-137l
+...
