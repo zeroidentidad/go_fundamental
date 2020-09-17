@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Home.scss";
-import BasicLayout from "../../layout"
+import {BasicLayout} from "../../layout"
 
 export default function Home(props) {
     const { setRefreshCheckLogin }=props;

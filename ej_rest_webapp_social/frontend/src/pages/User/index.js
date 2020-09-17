@@ -1,4 +1,6 @@
 import React from 'react';
+import {Button, Spinner} from "react-bootstrap";
+import {BasicLayout} from "../../layout";
 
 import "./User.scss";
 
