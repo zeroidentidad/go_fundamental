@@ -6,8 +6,13 @@ import "./User.scss";
 
 export default function User() {
     return (
-        <div>
-            <h2>User</h2>
-        </div>
+        <BasicLayout className="user">
+            <div className="user__title">
+                <h2>UserName</h2>
+            </div>
+            <div>Banner</div>
+            <div>User Info</div>
+            <div className="user__tweets">List Tweets</div>
+        </BasicLayout>
     )
 }
