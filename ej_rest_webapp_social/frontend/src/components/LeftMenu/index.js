@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser, faUsers, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { logoutApi } from "../../api/auth";
+import { useAuth } from "../../hooks/useAuth";
+
 import LogoWhite from "../../assets/png/logo-white.png";
 
 import "./LeftMenu.scss";
 
 export default function LeftMenu(props) {
     const { setRefreshCheckLogin }=props;
+    const user = useAuth();
 
     const logout=() => {
         logoutApi();
@@ -26,7 +29,7 @@ export default function LeftMenu(props) {
             <Link to="/users">
                 <FontAwesomeIcon icon={faUsers} /> Usuarios
             </Link>
-            <Link to={`/profile`}>
+            <Link to={`/${user?._id}`}>
                 <FontAwesomeIcon icon={faUser} /> Perfil
             </Link>
             <Link to="" onClick={logout}>
