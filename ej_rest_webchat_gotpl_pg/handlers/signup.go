@@ -8,17 +8,17 @@ import (
 )
 
 // GET /signup
-// Show the signup page
+// mostrar página de registro
 func Signup(writer http.ResponseWriter, request *http.Request) {
 	helper.GenerateHTML(writer, nil, "login.layout", "public.navbar", "signup")
 }
 
 // POST /signup
-// Create the user account
+// crear cuenta de usuario
 func SignupAccount(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
 	if err != nil {
-		utils.Danger(err, "Cannot parse form")
+		utils.Danger(err, "No se puede procesar formulario")
 	}
 	user := db.User{
 		Name:     request.PostFormValue("name"),
@@ -26,7 +26,7 @@ func SignupAccount(writer http.ResponseWriter, request *http.Request) {
 		Password: request.PostFormValue("password"),
 	}
 	if err := user.Create(); err != nil {
-		utils.Danger(err, "Cannot create user")
+		utils.Danger(err, "No se puede crear usuario")
 	}
 	http.Redirect(writer, request, "/login", 302)
 }

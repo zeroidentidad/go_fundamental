@@ -18,7 +18,7 @@ type Configuration struct {
 var Config Configuration
 var logger *log.Logger
 
-// Convenience function for printing to stdout
+// para imprimir en salida estándar
 func P(a ...interface{}) {
 	fmt.Println(a...)
 }
@@ -27,7 +27,7 @@ func init() {
 	loadConfig()
 	file, err := os.OpenFile("webchat.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalln("Failed to open log file", err)
+		log.Fatalln("No se pudo abrir archivo de logs", err)
 	}
 	logger = log.New(file, "INFO ", log.Ldate|log.Ltime|log.Lshortfile)
 }
@@ -35,12 +35,12 @@ func init() {
 func loadConfig() {
 	file, err := os.Open("config.json")
 	if err != nil {
-		log.Fatalln("Cannot open config file", err)
+		log.Fatalln("No se puede abrir archivo de configuración", err)
 	}
 	decoder := json.NewDecoder(file)
 	Config = Configuration{}
 	err = decoder.Decode(&Config)
 	if err != nil {
-		log.Fatalln("Cannot get configuration from file", err)
+		log.Fatalln("No se puede obtener configuración del archivo", err)
 	}
 }

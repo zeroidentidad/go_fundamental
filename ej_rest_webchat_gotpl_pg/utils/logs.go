@@ -1,6 +1,6 @@
 package utils
 
-// for logging
+// logging
 func Info(args ...interface{}) {
 	logger.SetPrefix("INFO ")
 	logger.Println(args...)
@@ -18,5 +18,5 @@ func Warning(args ...interface{}) {
 
 // version
 func Version() string {
-	return "0.1"
+	return "0.2"
 }

@@ -10,13 +10,13 @@ import (
 	"webchat/db"
 )
 
-// Convenience function to redirect to the error message page
+// para redirigir a la página del mensaje de error
 func ErrorMessage(writer http.ResponseWriter, request *http.Request, msg string) {
 	url := []string{"/err?msg=", msg}
 	http.Redirect(writer, request, strings.Join(url, ""), 302)
 }
 
-// Checks if the user is logged in and has a session, if not err is not nil
+// comprobar si el usuario está conectado y tiene una sesión, si no, err
 func Session(writer http.ResponseWriter, request *http.Request) (sess db.Session, err error) {
 	cookie, err := request.Cookie("_cookie")
 	if err == nil {
@@ -29,7 +29,7 @@ func Session(writer http.ResponseWriter, request *http.Request) (sess db.Session
 	return
 }
 
-// parse HTML templates pass in a list of file names, and get a template
+// analizar plantillas HTML, pasar lista de nombres de archivo y obtener plantilla
 func ParseTemplateFiles(filenames ...string) (t *template.Template) {
 	var files []string
 	t = template.New("layout")
@@ -37,6 +37,7 @@ func ParseTemplateFiles(filenames ...string) (t *template.Template) {
 		files = append(files, fmt.Sprintf("templates/%s.html", file))
 	}
 	t = template.Must(t.ParseFiles(files...))
+
 	return
 }
 

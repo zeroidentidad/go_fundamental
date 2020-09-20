@@ -7,22 +7,22 @@ import (
 )
 
 // POST /authenticate
-// Authenticate the user given the email and password
+// autenticar usuario dado el correo electrónico y la contraseña
 func Authenticate(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
 	if err != nil {
-		utils.Danger(err, "Cannot parse form")
+		utils.Danger(err, "No se puede procesar formulario")
 	}
 
 	user, err := db.UserByEmail(request.PostFormValue("email"))
 	if err != nil {
-		utils.Danger(err, "Cannot find user")
+		utils.Danger(err, "No se puede encontrar al usuario")
 	}
 
 	if user.Password == db.Encrypt(request.PostFormValue("password")) {
 		session, err := user.CreateSession()
 		if err != nil {
-			utils.Danger(err, "Cannot create session")
+			utils.Danger(err, "No se puede crear sesión")
 		}
 		cookie := http.Cookie{
 			Name:     "_cookie",

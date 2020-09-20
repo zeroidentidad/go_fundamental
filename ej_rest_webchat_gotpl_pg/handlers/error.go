@@ -6,7 +6,7 @@ import (
 )
 
 // GET /err?msg=
-// shows the error message page
+// mostrar página del mensaje de error
 func Err(writer http.ResponseWriter, request *http.Request) {
 	vals := request.URL.Query()
 	_, err := helper.Session(writer, request)

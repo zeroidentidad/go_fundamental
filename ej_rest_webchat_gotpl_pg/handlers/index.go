@@ -10,7 +10,7 @@ import (
 func Index(writer http.ResponseWriter, request *http.Request) {
 	threads, err := db.Threads()
 	if err != nil {
-		helper.ErrorMessage(writer, request, "Cannot get threads")
+		helper.ErrorMessage(writer, request, "No se pueden obtener hilos")
 	} else {
 		_, err := helper.Session(writer, request)
 		if err != nil {
