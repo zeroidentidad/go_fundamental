@@ -27,7 +27,7 @@ func createUUID() (uuid string) {
 	u := new([16]byte)
 	_, err := rand.Read(u[:])
 	if err != nil {
-		log.Fatalln("Cannot generate UUID", err)
+		log.Fatalln("No se puede generar UUID", err)
 	}
 
 	// 0x40 es una variante reservada de RFC 4122
