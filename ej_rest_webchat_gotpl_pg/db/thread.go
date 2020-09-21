@@ -13,7 +13,7 @@ func (post *Post) CreatedAtDate() string {
 
 // obtener la cantidad de publicaciones en un hilo
 func (thread *Thread) NumReplies() (count int) {
-	rows, err := Db.Query("SELECT count(*) FROM posts where thread_id = $1", thread.Id)
+	rows, err := Db.Query("SELECT * FROM pkg_threads__numReplies($1)", thread.Id)
 	if err != nil {
 		return
 	}
@@ -30,7 +30,7 @@ func (thread *Thread) NumReplies() (count int) {
 
 // obtener publicaciones en un hilo
 func (thread *Thread) Posts() (posts []Post, err error) {
-	rows, err := Db.Query("SELECT id, uuid, body, user_id, thread_id, created_at FROM posts where thread_id = $1", thread.Id)
+	rows, err := Db.Query("SELECT * FROM pkg_threads__getPosts($1)", thread.Id)
 	if err != nil {
 		return
 	}
@@ -49,7 +49,7 @@ func (thread *Thread) Posts() (posts []Post, err error) {
 
 // crear un hilo nuevo
 func (user *User) CreateThread(topic string) (conv Thread, err error) {
-	statement := "insert into threads (uuid, topic, user_id, created_at) values ($1, $2, $3, $4) returning id, uuid, topic, user_id, created_at"
+	statement := "SELECT * FROM pkg_threads__createThread($1, $2, $3, $4) AS t(i INTEGER, u VARCHAR, t TEXT, us INTEGER, c TIMESTAMP)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
@@ -64,7 +64,7 @@ func (user *User) CreateThread(topic string) (conv Thread, err error) {
 
 // crear una nueva publicación en un hilo
 func (user *User) CreatePost(conv Thread, body string) (post Post, err error) {
-	statement := "insert into posts (uuid, body, user_id, thread_id, created_at) values ($1, $2, $3, $4, $5) returning id, uuid, body, user_id, thread_id, created_at"
+	statement := "SELECT * FROM pkg_threads__createPost($1, $2, $3, $4, $5) AS p(i INTEGER, u VARCHAR, b TEXT, us INTEGER, th INTEGER, c TIMESTAMP)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
@@ -79,7 +79,7 @@ func (user *User) CreatePost(conv Thread, body string) (post Post, err error) {
 
 // obtener todos los hilos de la base de datos y devolverlos
 func Threads() (threads []Thread, err error) {
-	rows, err := Db.Query("SELECT id, uuid, topic, user_id, created_at FROM threads ORDER BY created_at DESC")
+	rows, err := Db.Query("SELECT * FROM pkg_threads__allThreads()")
 	if err != nil {
 		return
 	}
@@ -99,7 +99,7 @@ func Threads() (threads []Thread, err error) {
 // obtener un hilo por UUID
 func ThreadByUUID(uuid string) (conv Thread, err error) {
 	conv = Thread{}
-	err = Db.QueryRow("SELECT id, uuid, topic, user_id, created_at FROM threads WHERE uuid = $1", uuid).Scan(&conv.Id, &conv.Uuid, &conv.Topic, &conv.UserId, &conv.CreatedAt)
+	err = Db.QueryRow("SELECT * FROM pkg_threads__getThreadByUUID($1);", uuid).Scan(&conv.Id, &conv.Uuid, &conv.Topic, &conv.UserId, &conv.CreatedAt)
 
 	return
 }
@@ -107,7 +107,7 @@ func ThreadByUUID(uuid string) (conv Thread, err error) {
 // obtener el usuario que inició el hilo.
 func (thread *Thread) User() (user User) {
 	user = User{}
-	_ = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = $1", thread.UserId).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	_ = Db.QueryRow("SELECT * FROM pkg_threads__getUser($1)", thread.UserId).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
 
 	return
 }
@@ -115,7 +115,7 @@ func (thread *Thread) User() (user User) {
 // obtener el usuario que escribió la publicación
 func (post *Post) User() (user User) {
 	user = User{}
-	_ = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = $1", post.UserId).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	_ = Db.QueryRow("SELECT * FROM pkg_threads__getUser($1)", post.UserId).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
 
 	return
 }

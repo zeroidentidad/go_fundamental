@@ -1,2 +1,2 @@
 WARNING 2020/09/20 18:13:24 logs.go:16: <nil> No se pudo obtener la cookie
-WARNING 2020/09/20 18:53:46 logs.go:16: <nil> No se pudo obtener la cookie
+ERROR 2020/09/20 21:37:55 logs.go:11: sql: expected 1 destination arguments in Scan, not 5 No se puede crear hilo
