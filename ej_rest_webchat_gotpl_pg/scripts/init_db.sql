@@ -1,3 +1,19 @@
+-->> CONEXION CON POSTGRES/SUPERUSER para definir:
+
+-- USUARIO DB:
+CREATE USER webchat PASSWORD 'x1234567' LOGIN SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION; -- superuser por si exts
+
+-- TABLESPACE (opcional): 
+CREATE TABLESPACE ts_webchat OWNER webchat LOCATION E'C:\\tablespaces\\webchat'; -- previamente crear carpeta en disco
+
+-- CREACIÓN DE LA BASE DE DATOS
+CREATE DATABASE gowebchat OWNER = webchat TABLESPACE = ts_webchat;
+
+----------------------------------------------------------------------------------
+
+-->> CONEXION CON USUARIO 'webchat' para crear las tablas 
+  -- y las funciones (pgsql_threads.sql, pgsql_users.sql):
+
 
 create table users (
   id         serial primary key,

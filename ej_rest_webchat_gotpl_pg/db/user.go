@@ -4,14 +4,14 @@ import (
 	"time"
 )
 
-// Nota pg on funcs:
+// Nota pg funcs:
 // Postgres no devuelve automáticamente el último ID de inserción,
 // porque sería asumir que siempre se esta usando una secuencia.
 // Se necesita usar keyword RETURNING en la inserción para obtener esta info.
 
 // crear una nueva sesión para un usuario existente
 func (user User) CreateSession() (session Session, err error) {
-	statement := "insert into sessions (uuid, email, user_id, created_at) values ($1, $2, $3, $4) returning id, uuid, email, user_id, created_at"
+	statement := `SELECT * FROM pkg_users__createSession($1, $2, $3, $4) AS s(i INTEGER, u VARCHAR, e VARCHAR, us INTEGER, c TIMESTAMP)`
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
@@ -27,14 +27,14 @@ func (user User) CreateSession() (session Session, err error) {
 // obtener la sesión para un usuario existente
 func (user *User) Session() (session Session, err error) {
 	session = Session{}
-	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE user_id = $1", user.Id).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
+	err = Db.QueryRow(`SELECT * FROM pkg_users__getSession($1)`, user.Id).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
 
 	return
 }
 
 // verificar si la sesión es válida en la base de datos
 func (session *Session) Check() (valid bool, err error) {
-	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = $1", session.Uuid).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
+	err = Db.QueryRow(`SELECT * FROM pkg_users__checkSession($1)`, session.Uuid).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
 	if err != nil {
 		valid = false
 		return
@@ -48,7 +48,7 @@ func (session *Session) Check() (valid bool, err error) {
 
 // eliminar sesión de la base de datos
 func (session *Session) DeleteByUUID() (err error) {
-	statement := "delete from sessions where uuid = $1"
+	statement := `SELECT pkg_users__deleteByUUID($1)`
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
@@ -63,7 +63,7 @@ func (session *Session) DeleteByUUID() (err error) {
 // obtener el usuario de la sesión
 func (session *Session) User() (user User, err error) {
 	user = User{}
-	err = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = $1", session.UserId).
+	err = Db.QueryRow(`SELECT * FROM pkg_users__getUserByID($1)`, session.UserId).
 		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
 
 	return
@@ -71,7 +71,7 @@ func (session *Session) User() (user User, err error) {
 
 // eliminar todas las sesiones de la base de datos
 func SessionDeleteAll() (err error) {
-	statement := "delete from sessions"
+	statement := `DELETE FROM sessions`
 	_, err = Db.Exec(statement)
 
 	return
@@ -79,7 +79,7 @@ func SessionDeleteAll() (err error) {
 
 // crear un nuevo usuario, guardar información del usuario en la base de datos
 func (user *User) Create() (err error) {
-	statement := "insert into users (uuid, name, email, password, created_at) values ($1, $2, $3, $4, $5) returning id, uuid, created_at"
+	statement := `SELECT * FROM pkg_users__createUser($1, $2, $3, $4, $5) AS u(i INTEGER, u VARCHAR, c TIMESTAMP)`
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
@@ -94,7 +94,7 @@ func (user *User) Create() (err error) {
 
 // eliminar usuario de la base de datos
 func (user *User) Delete() (err error) {
-	statement := "delete from users where id = $1"
+	statement := `SELECT pkg_users__deleteUser($1)`
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
@@ -108,7 +108,7 @@ func (user *User) Delete() (err error) {
 
 // actualizar información del usuario en la base de datos
 func (user *User) Update() (err error) {
-	statement := "update users set name = $2, email = $3 where id = $1"
+	statement := `SELECT pkg_users__updateUser($1, $2, $3)`
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
@@ -122,7 +122,7 @@ func (user *User) Update() (err error) {
 
 // eliminar todos los usuarios de la base de datos
 func UserDeleteAll() (err error) {
-	statement := "delete from users"
+	statement := `DELETE FROM users`
 	_, err = Db.Exec(statement)
 
 	return
@@ -130,7 +130,7 @@ func UserDeleteAll() (err error) {
 
 // obtener todos los usuarios en la base de datos y devolverlos
 func Users() (users []User, err error) {
-	rows, err := Db.Query("SELECT id, uuid, name, email, password, created_at FROM users")
+	rows, err := Db.Query(`SELECT * FROM pkg_users__allUsers()`)
 	if err != nil {
 		return
 	}
@@ -150,7 +150,7 @@ func Users() (users []User, err error) {
 // obtener un usuario dado el correo electrónico
 func UserByEmail(email string) (user User, err error) {
 	user = User{}
-	err = Db.QueryRow("SELECT id, uuid, name, email, password, created_at FROM users WHERE email = $1", email).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
+	err = Db.QueryRow(`SELECT * FROM pkg_users__getUserByEmail($1)`, email).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
 
 	return
 }
@@ -158,7 +158,7 @@ func UserByEmail(email string) (user User, err error) {
 // obtener un solo usuario dado el UUID
 func UserByUUID(uuid string) (user User, err error) {
 	user = User{}
-	err = Db.QueryRow("SELECT id, uuid, name, email, password, created_at FROM users WHERE uuid = $1", uuid).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
+	err = Db.QueryRow(`SELECT * FROM pkg_users__getUserByUUID($1)`, uuid).Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
 
 	return
 }
