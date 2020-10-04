@@ -32,7 +32,7 @@ export default function LeftMenu(props) {
             <Link to={`/${user?._id}`}>
                 <FontAwesomeIcon icon={faUser} /> Perfil
             </Link>
-            <Link to="" onClick={logout}>
+            <Link to="/" onClick={logout}>
                 <FontAwesomeIcon icon={faPowerOff} /> Cerrar sesión
             </Link>
 

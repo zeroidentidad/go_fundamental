@@ -27,7 +27,7 @@ export default function SignIn (props) {
                     <RightComponent 
                     openModal={openModal}
                     setShowModal={setShowModal}
-                        setRefreshCheckLogin={setRefreshCheckLogin}
+                    setRefreshCheckLogin={setRefreshCheckLogin}
                     />
                 </Row>
             </Container>
