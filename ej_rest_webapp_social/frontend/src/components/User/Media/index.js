@@ -18,7 +18,7 @@ export default function Media(props) {
                     )}
 
                     {loggedUser._id!==user.id&&
-                    <Button onClick={onFollow}>Seguir</Button>
+                    <Button onClick={() => alert('seguir')}>Seguir</Button>
                     }
                 </div>
             )}            
