@@ -38,12 +38,12 @@ func broadcaster() {
 	}
 }
 
-func handlerConexion(conexion net.Conn) {
+func handlerConexion(conexion net.Conn, nombre string) {
 	canal := make(chan string)
 	go clientWriter(conexion, canal)
 
 	hostname := conexion.RemoteAddr().String()
-	canal <- "Tú eres: " + hostname
+	canal <- nombre + " desde: " + hostname
 
 	mensajes <- hostname + " se ha conectado"
 	entrantes <- canal
@@ -78,7 +78,10 @@ func main() {
 			log.Print(err)
 			continue
 		}
-		go handlerConexion(conexion)
+		var nombre string
+		fmt.Print("Nombre: ")
+		fmt.Scanln(&nombre)
+		go handlerConexion(conexion, nombre)
 	}
 
 }
