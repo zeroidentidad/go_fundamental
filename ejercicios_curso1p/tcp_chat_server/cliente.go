@@ -7,8 +7,7 @@ import (
 	"os"
 )
 
-func main(){
-
+func main() {
 	conexion, err := net.Dial("tcp", "localhost:8000")
 	if err != nil {
 		log.Fatal(err)
@@ -17,23 +16,23 @@ func main(){
 	//variable que ignores errores
 	done := make(chan struct{})
 
-	// funcion de entrada y salida paquete "io"
-	go func(){
+	// funcion anonima entrada y salida paquete "io"
+	go func() {
 		io.Copy(os.Stdout, conexion)
 		log.Println("Finalizado")
-		// Avisar a goroutine principal
+		// avisar a goroutine principal
 		done <- struct{}{}
 	}()
 
 	mustCopy(conexion, os.Stdin)
 	conexion.Close()
-	// esperar que la goroutine del background  termine
+	// esperar que goroutine de conexion al servidor termine
 	<-done
 
 }
 
-func mustCopy(dst io.Writer, src io.Reader){
-	if _, err := io.Copy(dst, src); err!=nil{
+func mustCopy(dst io.Writer, src io.Reader) {
+	if _, err := io.Copy(dst, src); err != nil {
 		log.Fatal(err)
 	}
 }
