@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from "moment";
+import localization from "moment/locale/es";
 import { Location, Link, DateBirth } from "../../../utils/icons";
 
 import "./InfoUser.scss";
@@ -19,6 +21,24 @@ export default function InfoUser(props) {
                     <p>
                         <Location />
                         {user.ubicacion}
+                    </p>
+                )}
+                {user?.sitioweb&&(
+                    <a
+                        href={user.sitioweb}
+                        alt={user.sitioweb}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <Link /> {user.sitioweb}
+                    </a>
+                )}
+                {user?.fechaNacimiento&&(
+                    <p>
+                        <DateBirth />
+                        {moment(user.fechaNacimiento)
+                        .locale("es", localization)
+                        .format("LL")}
                     </p>
                 )}
             </div>
