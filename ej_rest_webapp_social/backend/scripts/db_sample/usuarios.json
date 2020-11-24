@@ -1,0 +1,41 @@
+{
+    "_id" : ObjectId("5ee7bef8c4f4e91cad342705"),
+    "nombre" : "Jesus",
+    "apellidos" : "Ferrer",
+    "fechaNacimiento" : Date(-62135596800000),
+    "email" : "zero@mail.com",
+    "password" : "$2a$08$NNupmixz9weg90N2CpbenumRsDUauotK6ce4Uzk5rMVVLCCNGloN2",
+    "avatar" : "5ee7bef8c4f4e91cad342705.png",
+    "banner" : "5ee7bef8c4f4e91cad342705.png",
+    "biografia" : "Desarrollo y soporte | Println(zeroidentidad)",
+    "ubicacion" : "Cunduacán, Tabasco",
+    "sitioweb" : "https://zeroidentidad.github.io"
+}
+
+{
+    "_id" : ObjectId("5f066c0f626b2d0e4c92cc94"),
+    "nombre" : "Fulano",
+    "apellidos" : "De Tal",
+    "fechaNacimiento" : ISODate("1993-08-26T00:00:00.000Z"),
+    "email" : "fulano@mail.com",
+    "password" : "$2a$08$1g75UIzMoEj6cukc6Po83ulg4Rdf2QkouJ6giVdkI3KZ4NDnU5zU6",
+    "avatar" : "",
+    "banner" : "",
+    "biografia" : "",
+    "ubicacion" : "",
+    "sitioweb" : ""
+}
+
+{
+    "_id" : ObjectId("5f37e711440a86e3fb500a0d"),
+    "nombre" : "Ana",
+    "apellidos" : "Rodriguez",
+    "fechaNacimiento" : ISODate("2020-08-15T13:45:53.006Z"),
+    "email" : "ana@mail.com",
+    "password" : "$2a$08$YykDi6UTcuqIFT.SNd4F4eA0sLjEzZOfmMjBgzfZXzlXYhCYIo94.",
+    "avatar" : "",
+    "banner" : "",
+    "biografia" : "",
+    "ubicacion" : "",
+    "sitioweb" : ""
+}

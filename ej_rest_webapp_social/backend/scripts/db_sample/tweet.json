@@ -1,0 +1,13 @@
+{
+    "_id" : ObjectId("5f18f73f86d89e65f52846a7"),
+    "userid" : "5ee7bef8c4f4e91cad342705",
+    "mensaje" : "Kepedo probando",
+    "fecha" : ISODate("2020-07-23T02:34:39.793Z")
+}
+
+{
+    "_id" : ObjectId("5f18f81d86d89e65f52846a8"),
+    "userid" : "5f066c0f626b2d0e4c92cc94",
+    "mensaje" : "Kepedo probando x2",
+    "fecha" : ISODate("2020-07-23T02:38:21.696Z")
+}
