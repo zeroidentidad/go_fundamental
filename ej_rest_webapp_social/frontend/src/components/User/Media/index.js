@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button} from "react-bootstrap";
 import { API_HOST } from "../../../utils/config";
 import ConfigModal from "../../Modales/ConfigModal";
+import EditUserForm from "../EditUserForm";
 import AvatarNotFound from "../../../assets/png/avatar-no-found.png";
 import "./Media.scss";
 
@@ -26,7 +27,7 @@ export default function Media(props) {
                 </div>
             )}
             <ConfigModal show={showModal} setShow={setShowModal} title="Editar perfil">
-                Formulario aqui :v
+                <EditUserForm user={user} setShowModal={setShowModal} />
             </ConfigModal>            
         </div>
     )
