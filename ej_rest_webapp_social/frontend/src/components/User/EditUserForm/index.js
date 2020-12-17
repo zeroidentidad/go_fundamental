@@ -1,14 +1,19 @@
 import React, {useState} from "react";
 import { Form, Button, Row, Col, Spinner } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import es from "date-fns/locale/es";
 
 import "./EditUserForm.scss";
 
 export default function EditUserForm(props) {
-const [loading, setLoading] = useState(false);
-
-const onSubmit = async (e) => {
-    e.preventDefault();
-}
+    const { user, setShowModal } = props;
+    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState(initialFormValue(user));
+    
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        console.log(formData);
+    }
 
     return (
         <div className="edit-user-form">
@@ -20,6 +25,7 @@ const onSubmit = async (e) => {
                         type="text"
                         placeholder="Nombre"
                         name="nombre"
+                        defaultValue={formData.nombre}
                     />
                     </Col>
                     <Col>
@@ -27,6 +33,7 @@ const onSubmit = async (e) => {
                         type="text"
                         placeholder="Apellidos"
                         name="apellidos"
+                        defaultValue={formData.apellidos}
                     />
                     </Col>
                 </Row>
@@ -39,6 +46,7 @@ const onSubmit = async (e) => {
                     placeholder="Agrega tu biografía"
                     type="text"
                     name="biografia"
+                    defaultValue={formData.biografia}
                 />
                 </Form.Group>
 
@@ -47,6 +55,15 @@ const onSubmit = async (e) => {
                     type="text"
                     placeholder="Sitio web"
                     name="sitioWeb"
+                    defaultValue={formData.sitioweb}
+                />
+                </Form.Group>
+
+                <Form.Group>
+                <DatePicker
+                    placeholder="Fecha de nacimiento"
+                    locale={es}
+                    selected={new Date(formData.fechaNacimiento)}
                 />
                 </Form.Group>
 
@@ -57,3 +74,12 @@ const onSubmit = async (e) => {
         </div>
     )
 }
+
+const initialFormValue = (user) => ({
+    nombre: user.nombre || "",
+    apellidos: user.apellidos || "",
+    biografia: user.biografia || "",
+    ubicacion: user.ubicacion || "",
+    sitioweb: user.sitioweb || "",
+    fechaNacimiento: user.fechaNacimiento || "",
+});
