@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Button, Spinner} from "react-bootstrap";
 import {withRouter} from "react-router-dom";
 import {BasicLayout} from "../../layout";
 import Media from "../../components/User/Media";
