@@ -3,8 +3,10 @@ import { Form, Button, Row, Col, Spinner } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import es from "date-fns/locale/es";
 import { useDropzone } from "react-dropzone";
+import { toast } from "react-toastify";
 import { API_HOST } from "../../../utils/config";
 import { Camera } from "../../../utils/icons";
+import { uploadBannerApi, uploadAvatarApi } from "../../../api/user";
 
 import "./EditUserForm.scss";
 
@@ -63,7 +65,19 @@ export default function EditUserForm(props) {
     
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        setLoading(true);
+        
+        if (bannerFile) {
+            await uploadBannerApi(bannerFile).catch(() => {
+                toast.error("Error al subir banner");
+            });
+        }
+        if (avatarFile) {
+            await uploadAvatarApi(avatarFile).catch(() => {
+                toast.error("Error al subir avatar");
+            });
+        }
+
     }
 
     return (
