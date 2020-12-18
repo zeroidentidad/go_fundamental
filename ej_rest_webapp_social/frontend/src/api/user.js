@@ -74,3 +74,23 @@ export function uploadAvatarApi(file) {
         return err;
     });
 }
+
+export function updateInfoApi(data) {
+    const url = `${API_HOST}/modificarperfil`;
+    
+    const params = {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${getTokenApi()}`
+        },
+        body: JSON.stringify(data)
+    };
+    
+    return fetch(url, params)
+    .then(response => {
+        return response;
+    })
+    .catch(err => {
+        return err;
+    });
+}
