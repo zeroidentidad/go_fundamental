@@ -10,6 +10,10 @@ export default function EditUserForm(props) {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState(initialFormValue(user));
     
+    const onChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log(formData);
@@ -26,6 +30,7 @@ export default function EditUserForm(props) {
                         placeholder="Nombre"
                         name="nombre"
                         defaultValue={formData.nombre}
+                        onChange={onChange}
                     />
                     </Col>
                     <Col>
@@ -34,6 +39,7 @@ export default function EditUserForm(props) {
                         placeholder="Apellidos"
                         name="apellidos"
                         defaultValue={formData.apellidos}
+                        onChange={onChange}
                     />
                     </Col>
                 </Row>
@@ -47,6 +53,7 @@ export default function EditUserForm(props) {
                     type="text"
                     name="biografia"
                     defaultValue={formData.biografia}
+                    onChange={onChange}
                 />
                 </Form.Group>
 
@@ -56,6 +63,7 @@ export default function EditUserForm(props) {
                     placeholder="Sitio web"
                     name="sitioWeb"
                     defaultValue={formData.sitioweb}
+                    onChange={onChange}
                 />
                 </Form.Group>
 
@@ -64,6 +72,9 @@ export default function EditUserForm(props) {
                     placeholder="Fecha de nacimiento"
                     locale={es}
                     selected={new Date(formData.fechaNacimiento)}
+                    onChange={(value) =>
+                        setFormData({ ...formData, fechaNacimiento: value })
+                    }
                 />
                 </Form.Group>
 
