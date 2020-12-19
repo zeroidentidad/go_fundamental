@@ -75,7 +75,7 @@ export function uploadAvatarApi(file) {
     });
 }
 
-export function updateInfoApi(data) {
+export function updateUserApi(data) {
     const url = `${API_HOST}/modificarperfil`;
     
     const params = {

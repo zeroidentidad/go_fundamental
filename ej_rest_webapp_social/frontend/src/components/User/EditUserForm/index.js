@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { API_HOST } from "../../../utils/config";
 import { Camera } from "../../../utils/icons";
-import { uploadBannerApi, uploadAvatarApi, updateInfoApi } from "../../../api/user";
+import { uploadBannerApi, uploadAvatarApi, updateUserApi } from "../../../api/user";
 
 import "./EditUserForm.scss";
 
@@ -78,7 +78,7 @@ export default function EditUserForm(props) {
             });
         }
         
-        await updateInfoApi(formData)
+        await updateUserApi(formData)
         .then(() => {
             setShowModal(false);
         })
