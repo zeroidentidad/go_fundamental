@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button} from "react-bootstrap";
 import { API_HOST } from "../../../utils/config";
-import { checkFollowApi } from "../../../api/follow";
+import { checkFollowApi, followUserApi } from "../../../api/follow";
 import ConfigModal from "../../Modales/ConfigModal";
 import EditUserForm from "../EditUserForm";
 import AvatarNotFound from "../../../assets/png/avatar-no-found.png";
@@ -11,6 +11,7 @@ export default function Media(props) {
     const {user, loggedUser}=props;
     const [showModal, setShowModal] = useState(false);
     const [following, setFollowing] = useState(null);
+    const [reloadFollow, setReloadFollow] = useState(false);
     const bannerUrl=user?.banner? `${API_HOST}/obtenerbanner?id=${user.id}`:null;
     const avatarUrl=user?.avatar? `${API_HOST}/obteneravatar?id=${user.id}`:AvatarNotFound;
 
@@ -24,8 +25,14 @@ export default function Media(props) {
             }
         });
         }
-
-    }, [user]);    
+        setReloadFollow(false);
+    }, [user, reloadFollow]);   
+    
+  const onFollow = () => {
+    followUserApi(user.id).then(() => {
+      setReloadFollow(true);
+    });
+  };    
 
     return (
         <div className="banner-avatar" style={{ backgroundImage: `url('${bannerUrl}')` }}>
@@ -41,7 +48,7 @@ export default function Media(props) {
                         <span>Siguiendo</span>
                     </Button>
                     ) : (
-                    <Button onClick={() => alert('seguir')}>
+                    <Button onClick={onFollow}>
                         <span>Seguir</span>
                     </Button>
                     ))}
