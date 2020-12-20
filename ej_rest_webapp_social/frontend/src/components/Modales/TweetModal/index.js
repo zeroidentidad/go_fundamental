@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import classNames from "classnames";
+import { toast } from "react-toastify";
 import { Close } from "../../../utils/icons";
+import { addTweetApi } from "../../../api/tweet";
 
 import "./TweetModal.scss";
 
@@ -12,7 +14,19 @@ export default function TweetModal(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("enviando");
+        if (message.length > 0 && message.length <= maxLength) {
+        addTweetApi(message)
+            .then((response) => {
+            if (response?.code >= 200 && response?.code < 300) {
+                toast.success(response.message);
+                setShow(false);
+                window.location.reload();
+            }
+            })
+            .catch(() => {
+            toast.warning("Error al enviar tuit");
+            });
+        }
     }
     
     return (
