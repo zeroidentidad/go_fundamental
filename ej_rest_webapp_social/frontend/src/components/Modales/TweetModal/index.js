@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Modal, Form, Button } from "react-bootstrap";
+import classNames from "classnames";
 import { Close } from "../../../utils/icons";
 
 import "./TweetModal.scss";
