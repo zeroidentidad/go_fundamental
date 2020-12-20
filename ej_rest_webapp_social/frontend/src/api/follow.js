@@ -43,3 +43,25 @@ export function followUserApi(idUser) {
       return err;
     });
 }
+
+export function unfollowUserApi(idUser) {
+  const url = `${API_HOST}/desrelacionar?id=${idUser}`;
+
+  const params = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${getTokenApi()}`,
+    },
+  };
+
+  return fetch(url, params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return err;
+    });
+}

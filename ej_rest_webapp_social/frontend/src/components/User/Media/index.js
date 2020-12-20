@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button} from "react-bootstrap";
 import { API_HOST } from "../../../utils/config";
-import { checkFollowApi, followUserApi } from "../../../api/follow";
+import { checkFollowApi, followUserApi, unfollowUserApi } from "../../../api/follow";
 import ConfigModal from "../../Modales/ConfigModal";
 import EditUserForm from "../EditUserForm";
 import AvatarNotFound from "../../../assets/png/avatar-no-found.png";
@@ -28,12 +28,18 @@ export default function Media(props) {
         setReloadFollow(false);
     }, [user, reloadFollow]);   
     
-  const onFollow = () => {
-    followUserApi(user.id).then(() => {
-      setReloadFollow(true);
-    });
-  };    
-
+    const onFollow = () => {
+        followUserApi(user.id).then(() => {
+        setReloadFollow(true);
+        });
+    };
+    
+    const onUnfollow = () => {
+        unfollowUserApi(user.id).then(() => {
+        setReloadFollow(true);
+        });
+    };
+    
     return (
         <div className="banner-avatar" style={{ backgroundImage: `url('${bannerUrl}')` }}>
             <div className="avatar" style={{ backgroundImage: `url('${avatarUrl}')` }}></div>
@@ -44,7 +50,7 @@ export default function Media(props) {
                     )}
 
                     {loggedUser._id!==user.id && following !== null && (following ? (
-                    <Button onClick={() => alert('siguiendo')}>
+                    <Button onClick={onUnfollow} className="unfollow">
                         <span>Siguiendo</span>
                     </Button>
                     ) : (
