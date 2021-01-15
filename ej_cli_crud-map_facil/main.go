@@ -1,35 +1,56 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
+	"os"
+	"strings"
 )
 
 func main() {
-	var opcion string
-	fmt.Println("A) Crear")
-	fmt.Println("B) Listar")
-	fmt.Println("C) Actualizar")
-	fmt.Println("D) Eliminar")
-	fmt.Scanln(&opcion)
+	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 
-	switch opcion {
-	case "a", "crear":
-		crearUsuario()
+	for {
+		fmt.Println("A) Crear")
+		fmt.Println("B) Listar")
+		fmt.Println("C) Actualizar")
+		fmt.Println("D) Eliminar")
+		fmt.Println("Ingresar opcion:")
+		opcion := readLine(reader)
 
-	case "b", "listar":
-		listarUsuarios()
+		if opcion == "quit" || opcion == "q" {
+			break
+		}
 
-	case "c", "actualizar":
-		actualizarUsuario()
+		switch opcion {
+		case "a", "crear":
+			crearUsuario()
 
-	case "d", "eliminar":
-		eliminarUsuarios()
+		case "b", "listar":
+			listarUsuarios()
 
-	default:
-		log.Println("Opción no valida")
+		case "c", "actualizar":
+			actualizarUsuario()
+
+		case "d", "eliminar":
+			eliminarUsuarios()
+
+		default:
+			log.Println("Opción no valida")
+		}
 	}
 
+	fmt.Println("Adios...")
+
+}
+
+func readLine(reader *bufio.Reader) string {
+	if opcion, err := reader.ReadString('\n'); err != nil {
+		panic("No se pudo obtener valor!")
+	} else {
+		return strings.TrimSuffix(opcion, "\n")
+	}
 }
 
 func crearUsuario() {
