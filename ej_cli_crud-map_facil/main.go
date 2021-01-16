@@ -92,7 +92,6 @@ func crearUsuario() {
 	}
 
 	users[id] = user
-	fmt.Println(users)
 }
 
 func listarUsuarios() {
@@ -103,15 +102,67 @@ func listarUsuarios() {
 }
 
 func actualizarUsuario() {
-	fmt.Println("actualizarUsuario")
+	clearConsole()
+
+	fmt.Println("Ingresar id de usuario a actualizar:")
+	id, err := strconv.Atoi(r.readLine())
+	if err != nil {
+		panic("Valor no valido")
+	}
+
+	fmt.Println("Ingresa valor para username:")
+	username := r.readLine()
+
+	fmt.Println("Ingresa valor para email:")
+	email := r.readLine()
+
+	fmt.Println("Ingresa valor para edad:")
+	age, err := strconv.Atoi(r.readLine())
+	if err != nil {
+		panic("Valor no valido")
+	}
+
+	/*user := User{
+		id,
+		username,
+		email,
+		age,
+	}
+
+	users[id] = user*/
+
+	for _, user := range users {
+		if user.id == id {
+			if username != "" {
+				user.username = username
+			}
+			if email != "" {
+				user.email = email
+			}
+			if age != 0 {
+				user.age = age
+			}
+			users[id] = user
+		}
+	}
 }
 
 func eliminarUsuarios() {
-	fmt.Println("eliminarUsuarios")
+	clearConsole()
+	fmt.Println("Ingresar id de usuario a eliminar:")
+	id, err := strconv.Atoi(r.readLine())
+	if err != nil {
+		panic("Valor no valido")
+	}
+
+	if _, ok := users[id]; ok {
+		delete(users, id)
+	}
+
 }
 
 func clearConsole() {
 	cmd := exec.Command("clear")
 	cmd.Stdout = os.Stdout
-	cmd.Run()
+	_ = cmd.Run()
 }
