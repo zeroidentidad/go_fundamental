@@ -5,24 +5,39 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
-func main() {
-	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
+type User struct {
+	id       int
+	username string
+	email    string
+	age      int
+}
 
+type ReadStd struct {
+	Reader *bufio.Reader
+}
+
+var id int
+var users map[int]User
+var r ReadStd
+
+func main() {
+
+	users = make(map[int]User)
 	for {
 		fmt.Println("A) Crear")
 		fmt.Println("B) Listar")
 		fmt.Println("C) Actualizar")
 		fmt.Println("D) Eliminar")
 		fmt.Println("Ingresar opcion:")
-		opcion := readLine(reader)
+		opcion := r.readLine()
 
 		if opcion == "quit" || opcion == "q" {
 			break
 		}
-
 		switch opcion {
 		case "a", "crear":
 			crearUsuario()
@@ -41,12 +56,12 @@ func main() {
 		}
 	}
 
-	fmt.Println("Adios...")
-
+	log.Println("Adios...")
 }
 
-func readLine(reader *bufio.Reader) string {
-	if opcion, err := reader.ReadString('\n'); err != nil {
+func (r ReadStd) readLine() string {
+	r.Reader = bufio.NewReader(os.Stdin)
+	if opcion, err := r.Reader.ReadString('\n'); err != nil {
 		panic("No se pudo obtener valor!")
 	} else {
 		return strings.TrimSuffix(opcion, "\n")
@@ -54,17 +69,38 @@ func readLine(reader *bufio.Reader) string {
 }
 
 func crearUsuario() {
-	log.Println("crearUsuario")
+	fmt.Println("Ingresa valor para username:")
+	username := r.readLine()
+
+	fmt.Println("Ingresa valor para email:")
+	email := r.readLine()
+
+	fmt.Println("Ingresa valor para edad:")
+	age, err := strconv.Atoi(r.readLine())
+	if err != nil {
+		panic("Valor no valido")
+	}
+
+	id++
+	user := User{
+		id,
+		username,
+		email,
+		age,
+	}
+
+	users[id] = user
+	fmt.Println(users)
 }
 
 func listarUsuarios() {
-	log.Println("listarUsuarios")
+	fmt.Println("listarUsuarios")
 }
 
 func actualizarUsuario() {
-	log.Println("actualizarUsuario")
+	fmt.Println("actualizarUsuario")
 }
 
 func eliminarUsuarios() {
-	log.Println("eliminarUsuarios")
+	fmt.Println("eliminarUsuarios")
 }
