@@ -122,15 +122,12 @@ func actualizarUsuario() {
 		panic("Valor no valido")
 	}
 
-	/*user := User{
-		id,
-		username,
-		email,
-		age,
-	}
+	/* forma basica:
+	user := User{ id, username, email, age, }
+	users[id] = user
+	*/
 
-	users[id] = user*/
-
+	/* check no nulos y existe */
 	for _, user := range users {
 		if user.id == id {
 			if username != "" {
