@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -69,6 +70,7 @@ func (r ReadStd) readLine() string {
 }
 
 func crearUsuario() {
+	clearConsole()
 	fmt.Println("Ingresa valor para username:")
 	username := r.readLine()
 
@@ -94,6 +96,7 @@ func crearUsuario() {
 }
 
 func listarUsuarios() {
+	clearConsole()
 	for id, user := range users {
 		fmt.Println(id, "-", user)
 	}
@@ -105,4 +108,10 @@ func actualizarUsuario() {
 
 func eliminarUsuarios() {
 	fmt.Println("eliminarUsuarios")
+}
+
+func clearConsole() {
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
