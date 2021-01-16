@@ -94,7 +94,9 @@ func crearUsuario() {
 }
 
 func listarUsuarios() {
-	fmt.Println("listarUsuarios")
+	for id, user := range users {
+		fmt.Println(id, "-", user)
+	}
 }
 
 func actualizarUsuario() {
