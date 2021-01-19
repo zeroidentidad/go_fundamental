@@ -4,6 +4,11 @@ import Error404 from "../pages/Error404";
 
 export default [
     {
+        path: "/users",
+        exact: true,
+        page: Users,
+    },
+    {
         path: "/:id",
         exact: true,
         page: User,
