@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
 import { Spinner, ButtonGroup, Button } from "react-bootstrap";
 import queryString from "query-string";
+import { isEmpty } from "lodash";
 import {BasicLayout} from "../../layout";
+import ListUsers from "../../components/ListUsers";
 import { getFollowsApi } from "../../api/follow";
 
 import "./Users.scss";
@@ -57,7 +59,30 @@ function Users(props) {
                 >
                 Nuevos
                 </Button>
-            </ButtonGroup>            
+            </ButtonGroup>
+            {!users ? (
+              <div className="users__loading">
+                <Spinner animation="border" variant="info" />
+                Cargando...
+              </div>
+            ) : (
+              <>
+                <ListUsers users={users} />
+                <Button onClick={()=>alert("Cargando más...")} className="load-more">
+                  {!btnLoading ? (
+                    btnLoading !== 0 && "Cargar más usuarios"
+                  ) : (
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}
+                </Button>
+              </>
+            )}                        
         </BasicLayout>
     )
 }
