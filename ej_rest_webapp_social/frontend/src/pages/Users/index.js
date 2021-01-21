@@ -13,6 +13,7 @@ function Users(props) {
     const {setRefreshCheckLogin, location, history} = props;
     const [users, setUsers] = useState(null);
     const params = useUsersQuery(location);
+    const [typeUser, setTypeUser] = useState(params.type || "follow");
     const [btnLoading, setBtnLoading] = useState(false);
 
   useEffect(() => {
@@ -40,6 +41,17 @@ function Users(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
+  const onChangeType = (type) => {
+    setUsers(null);
+    if (type === "new") {
+      setTypeUser("new");
+    } else {
+      setTypeUser("follow");
+    }
+    history.push({
+      search: queryString.stringify({ type: type, page: 1, search: "" }),
+    });
+  };  
 
     return (
         <BasicLayout className="users" setRefreshCheckLogin={setRefreshCheckLogin}>
@@ -52,10 +64,14 @@ function Users(props) {
             </div>
             <ButtonGroup className="users__options">
                 <Button
+                className={typeUser === "follow" && "active"}
+                onClick={() => onChangeType("follow")}
                 >
                 Siguiendo
                 </Button>
                 <Button
+                className={typeUser === "new" && "active"}
+                onClick={() => onChangeType("new")}
                 >
                 Nuevos
                 </Button>
