@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Spinner, ButtonGroup, Button } from "react-bootstrap";
 import queryString from "query-string";
 import { isEmpty } from "lodash";
+import { useDebouncedCallback } from "use-debounce";
 import {BasicLayout} from "../../layout";
 import ListUsers from "../../components/ListUsers";
 import { getFollowsApi } from "../../api/follow";
@@ -15,6 +16,13 @@ function Users(props) {
     const params = useUsersQuery(location);
     const [typeUser, setTypeUser] = useState(params.type || "follow");
     const [btnLoading, setBtnLoading] = useState(false);
+
+  const onSearch = useDebouncedCallback((value) => {
+    setUsers(null);
+    history.push({
+      search: queryString.stringify({ ...params, search: value, page: 1 }),
+    });
+  }, 200);
 
   useEffect(() => {
     getFollowsApi(queryString.stringify(params))
@@ -39,7 +47,7 @@ function Users(props) {
         setUsers([]);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  }, [location]);  
 
   const onChangeType = (type) => {
     setUsers(null);
@@ -51,8 +59,16 @@ function Users(props) {
     history.push({
       search: queryString.stringify({ type: type, page: 1, search: "" }),
     });
-  };  
-
+  }; 
+  
+  const moreData = () => {
+    setBtnLoading(true);
+    const newPage = parseInt(params.page) + 1;
+    history.push({
+      search: queryString.stringify({ ...params, page: newPage }),
+    });
+  };
+  
     return (
         <BasicLayout className="users" setRefreshCheckLogin={setRefreshCheckLogin}>
             <div className="users__title">
@@ -60,6 +76,7 @@ function Users(props) {
                 <input
                 type="text"
                 placeholder="Buscar usuario..."
+                onChange={(e) => onSearch.callback(e.target.value)}
                 />
             </div>
             <ButtonGroup className="users__options">
@@ -84,7 +101,7 @@ function Users(props) {
             ) : (
               <>
                 <ListUsers users={users} />
-                <Button onClick={()=>alert("Cargando más...")} className="load-more">
+                <Button onClick={moreData} className="load-more">
                   {!btnLoading ? (
                     btnLoading !== 0 && "Cargar más usuarios"
                   ) : (
