@@ -1,5 +1,4 @@
 - ejercicios_go_cookbook
 - ejercicios_go_web_cookbook
 - ejercicios_go_data_structures
-- ej_rest_webapp_social
 - ej_rest_webapp_snippets
