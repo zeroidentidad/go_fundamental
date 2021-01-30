@@ -11,7 +11,8 @@ func Start() {
 	router := fiber.New()
 	router.Use(logger.New())
 
-	hc := HandlersCliente{service.NewServiceCliente(domain.NewStorageStubCliente())}
+	//hc := HandlersCliente{service.NewServiceCliente(domain.NewStorageStubCliente())}
+	hc := HandlersCliente{service.NewServiceCliente(domain.NewStorageDbCliente())}
 
 	router.Get("/", hc.getAllClientes)
 

@@ -7,7 +7,7 @@ services:
     volumes:
       - mysqldata:/var/lib/mysql
       - ./initdb:/docker-entrypoint-initdb.d  
-    container_name: mysql
+    container_name: mysqldb_1
     environment:
       MYSQL_ROOT_PASSWORD: passx123
       TZ: America/Mexico_City
