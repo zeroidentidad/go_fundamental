@@ -6,7 +6,7 @@ type Cliente struct {
 	Ciudad          string
 	CodigoPostal    string
 	FechaNacimiento string
-	Status          string
+	Estatus         string
 }
 
 type StorageCliente interface {
