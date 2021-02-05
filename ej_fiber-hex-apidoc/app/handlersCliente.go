@@ -12,14 +12,11 @@ type HandlersCliente struct {
 func (hc *HandlersCliente) getAllClientes(c *fiber.Ctx) error {
 	//status := c.Query("status")
 	clientes, err := hc.service.GetAll() //status
-	if err != nil {
-		_ = c.JSON(&fiber.Map{
-			"status": false,
-			"error":  err,
-		})
-	}
-	return c.JSON(&fiber.Map{
-		"status": true,
-		"data":   clientes,
-	})
+	return resJSON(clientes, err, c)
+}
+
+func (hc *HandlersCliente) getCliente(c *fiber.Ctx) error {
+	id := c.Params("id")
+	cliente, err := hc.service.GetById(id)
+	return resJSON(cliente, err, c)
 }

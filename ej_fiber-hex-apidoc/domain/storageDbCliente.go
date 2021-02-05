@@ -36,6 +36,21 @@ func (d StorageDbCliente) FindAll() ([]Cliente, error) {
 	return clientes, nil
 }
 
+func (d StorageDbCliente) ById(id string) (*Cliente, error) {
+	findByIdSql := "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes WHERE cliente_id = ?"
+
+	row := d.client.QueryRow(findByIdSql, id)
+
+	var c Cliente
+	err := row.Scan(&c.ID, &c.Nombre, &c.Ciudad, &c.CodigoPostal, &c.FechaNacimiento, &c.Estatus)
+	if err != nil {
+		log.Println("Scan results error:", err.Error())
+		return nil, err
+	}
+
+	return &c, nil
+}
+
 func NewStorageDbCliente() StorageDbCliente {
 	client, err := sql.Open("mysql", "root:passx123@tcp(localhost:3306)/banco")
 	if err != nil {

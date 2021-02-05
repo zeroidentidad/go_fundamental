@@ -14,7 +14,8 @@ func Start() {
 	//hc := HandlersCliente{service.NewServiceCliente(domain.NewStorageStubCliente())}
 	hc := HandlersCliente{service.NewServiceCliente(domain.NewStorageDbCliente())}
 
-	router.Get("/", hc.getAllClientes)
+	router.Get("/clientes", hc.getAllClientes)
+	router.Get("/clientes/:id", hc.getCliente)
 
 	_ = router.Listen(":3000")
 }
