@@ -2,23 +2,26 @@ package domain
 
 import (
 	"database/sql"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
 )
 
 type StorageDbCliente struct {
 	client *sql.DB
 }
 
-func (d StorageDbCliente) FindAll() ([]Cliente, error) {
-
-	findAllSql := "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes"
+func (d StorageDbCliente) FindAll(estatus string) ([]Cliente, *errors.AppError) {
+	var findAllSql string
+	if estatus == "" {
+		findAllSql = "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes"
+	} else {
+		findAllSql = "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes WHERE estatus = " + estatus
+	}
 
 	rows, err := d.client.Query(findAllSql)
 	if err != nil {
-		log.Println("Query error:", err.Error())
-		return nil, err
+		return nil, errors.NewNotFoundError("Customers not found")
 	}
 
 	clientes := make([]Cliente, 0)
@@ -26,8 +29,7 @@ func (d StorageDbCliente) FindAll() ([]Cliente, error) {
 		c := Cliente{}
 		err := rows.Scan(&c.ID, &c.Nombre, &c.Ciudad, &c.CodigoPostal, &c.FechaNacimiento, &c.Estatus)
 		if err != nil {
-			log.Println("Scan results error:", err.Error())
-			return nil, err
+			return nil, errors.NewUnexpectedError("Unexpected database error")
 		}
 
 		clientes = append(clientes, c)
@@ -36,7 +38,7 @@ func (d StorageDbCliente) FindAll() ([]Cliente, error) {
 	return clientes, nil
 }
 
-func (d StorageDbCliente) ById(id string) (*Cliente, error) {
+func (d StorageDbCliente) ById(id string) (*Cliente, *errors.AppError) {
 	findByIdSql := "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes WHERE cliente_id = ?"
 
 	row := d.client.QueryRow(findByIdSql, id)
@@ -44,8 +46,11 @@ func (d StorageDbCliente) ById(id string) (*Cliente, error) {
 	var c Cliente
 	err := row.Scan(&c.ID, &c.Nombre, &c.Ciudad, &c.CodigoPostal, &c.FechaNacimiento, &c.Estatus)
 	if err != nil {
-		log.Println("Scan results error:", err.Error())
-		return nil, err
+		if err == sql.ErrNoRows {
+			return nil, errors.NewNotFoundError("Customer not found")
+		} else {
+			return nil, errors.NewUnexpectedError("Unexpected database error")
+		}
 	}
 
 	return &c, nil

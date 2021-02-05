@@ -10,8 +10,8 @@ type HandlersCliente struct {
 }
 
 func (hc *HandlersCliente) getAllClientes(c *fiber.Ctx) error {
-	//status := c.Query("status")
-	clientes, err := hc.service.GetAll() //status
+	estatus := c.Query("estatus")
+	clientes, err := hc.service.GetAll(estatus)
 	return resJSON(clientes, err, c)
 }
 

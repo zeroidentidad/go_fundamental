@@ -1,5 +1,7 @@
 package domain
 
+import "github.com/zeroidentidad/fiber-hex-apidoc/errors"
+
 type Cliente struct {
 	ID              string `db:"cliente_id"`
 	Nombre          string
@@ -10,6 +12,6 @@ type Cliente struct {
 }
 
 type StorageCliente interface {
-	FindAll() ([]Cliente, error)
-	ById(string) (*Cliente, error)
+	FindAll(string) ([]Cliente, *errors.AppError)
+	ById(string) (*Cliente, *errors.AppError)
 }
