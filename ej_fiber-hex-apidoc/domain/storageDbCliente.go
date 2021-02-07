@@ -5,6 +5,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
+	"github.com/zeroidentidad/fiber-hex-apidoc/logger"
 )
 
 type StorageDbCliente struct {
@@ -21,6 +22,7 @@ func (d StorageDbCliente) FindAll(estatus string) ([]Cliente, *errors.AppError) 
 
 	rows, err := d.client.Query(findAllSql)
 	if err != nil {
+		logger.Error("Error while querying customers table " + err.Error())
 		return nil, errors.NewNotFoundError("Customers not found")
 	}
 
@@ -29,7 +31,7 @@ func (d StorageDbCliente) FindAll(estatus string) ([]Cliente, *errors.AppError) 
 		c := Cliente{}
 		err := rows.Scan(&c.ID, &c.Nombre, &c.Ciudad, &c.CodigoPostal, &c.FechaNacimiento, &c.Estatus)
 		if err != nil {
-			return nil, errors.NewUnexpectedError("Unexpected database error")
+			return nil, errors.NewUnexpectedError("Unexpected scan error")
 		}
 
 		clientes = append(clientes, c)
@@ -47,6 +49,7 @@ func (d StorageDbCliente) ById(id string) (*Cliente, *errors.AppError) {
 	err := row.Scan(&c.ID, &c.Nombre, &c.Ciudad, &c.CodigoPostal, &c.FechaNacimiento, &c.Estatus)
 	if err != nil {
 		if err == sql.ErrNoRows {
+			logger.Error("Error while querying customers table " + err.Error())
 			return nil, errors.NewNotFoundError("Customer not found")
 		} else {
 			return nil, errors.NewUnexpectedError("Unexpected database error")
