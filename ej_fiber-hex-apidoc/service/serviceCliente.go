@@ -15,6 +15,13 @@ type DefaultServiceCliente struct {
 }
 
 func (s DefaultServiceCliente) GetAll(estatus string) ([]domain.Cliente, *errors.AppError) {
+	if estatus == "active" {
+		estatus = "1"
+	} else if estatus == "inactive" {
+		estatus = "0"
+	} else {
+		estatus = ""
+	}
 	return s.repo.FindAll(estatus)
 }
 
