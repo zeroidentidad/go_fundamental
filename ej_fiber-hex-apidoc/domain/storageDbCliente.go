@@ -4,37 +4,28 @@ import (
 	"database/sql"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
 	"github.com/zeroidentidad/fiber-hex-apidoc/logger"
 )
 
 type StorageDbCliente struct {
-	client *sql.DB
+	client *sqlx.DB
 }
 
 func (d StorageDbCliente) FindAll(estatus string) ([]Cliente, *errors.AppError) {
 	var findAllSql string
+	clientes := make([]Cliente, 0)
 	if estatus == "" {
 		findAllSql = "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes"
 	} else {
 		findAllSql = "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes WHERE estatus = " + estatus
 	}
 
-	rows, err := d.client.Query(findAllSql)
+	err := d.client.Select(&clientes, findAllSql)
 	if err != nil {
 		logger.Error("Error while querying customers table " + err.Error())
-		return nil, errors.NewNotFoundError("Customers not found")
-	}
-
-	clientes := make([]Cliente, 0)
-	for rows.Next() {
-		c := Cliente{}
-		err := rows.Scan(&c.ID, &c.Nombre, &c.Ciudad, &c.CodigoPostal, &c.FechaNacimiento, &c.Estatus)
-		if err != nil {
-			return nil, errors.NewUnexpectedError("Unexpected scan error")
-		}
-
-		clientes = append(clientes, c)
+		return nil, errors.NewNotFoundError("Unexpected database error")
 	}
 
 	return clientes, nil
@@ -43,10 +34,8 @@ func (d StorageDbCliente) FindAll(estatus string) ([]Cliente, *errors.AppError) 
 func (d StorageDbCliente) ById(id string) (*Cliente, *errors.AppError) {
 	findByIdSql := "SELECT cliente_id, nombre, ciudad, codigo_postal, fecha_nacimiento, estatus FROM clientes WHERE cliente_id = ?"
 
-	row := d.client.QueryRow(findByIdSql, id)
-
 	var c Cliente
-	err := row.Scan(&c.ID, &c.Nombre, &c.Ciudad, &c.CodigoPostal, &c.FechaNacimiento, &c.Estatus)
+	err := d.client.Get(&c, findByIdSql, id)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			logger.Error("Error while querying customers table " + err.Error())
@@ -60,7 +49,7 @@ func (d StorageDbCliente) ById(id string) (*Cliente, *errors.AppError) {
 }
 
 func NewStorageDbCliente() StorageDbCliente {
-	client, err := sql.Open("mysql", "root:passx123@tcp(localhost:3306)/banco")
+	client, err := sqlx.Open("mysql", "root:passx123@tcp(localhost:3306)/banco")
 	if err != nil {
 		panic(err)
 	}
