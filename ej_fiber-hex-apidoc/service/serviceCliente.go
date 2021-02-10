@@ -2,31 +2,55 @@ package service
 
 import (
 	"github.com/zeroidentidad/fiber-hex-apidoc/domain"
+	"github.com/zeroidentidad/fiber-hex-apidoc/dto"
 	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
 )
 
 type ServiceCliente interface {
-	GetAll(string) ([]domain.Cliente, *errors.AppError)
-	GetById(string) (*domain.Cliente, *errors.AppError)
+	GetAll(string) ([]dto.ResponseCliente, *errors.AppError)
+	GetById(string) (*dto.ResponseCliente, *errors.AppError)
 }
 
 type DefaultServiceCliente struct {
 	repo domain.StorageCliente
 }
 
-func (s DefaultServiceCliente) GetAll(estatus string) ([]domain.Cliente, *errors.AppError) {
-	if estatus == "active" {
-		estatus = "1"
-	} else if estatus == "inactive" {
-		estatus = "0"
+func (s DefaultServiceCliente) GetAll(estatus string) ([]dto.ResponseCliente, *errors.AppError) {
+	if estatus != "" {
+		estatus = ternary(estatus == "active", "1", "0").(string)
 	} else {
 		estatus = ""
 	}
-	return s.repo.FindAll(estatus)
+
+	clientes, err := s.repo.FindAll(estatus)
+	if err != nil {
+		return nil, err
+	}
+
+	res := make([]dto.ResponseCliente, 0)
+	for _, c := range clientes {
+		res = append(res, c.ToDto())
+	}
+
+	return res, err
 }
 
-func (s DefaultServiceCliente) GetById(id string) (*domain.Cliente, *errors.AppError) {
-	return s.repo.ById(id)
+func (s DefaultServiceCliente) GetById(id string) (*dto.ResponseCliente, *errors.AppError) {
+	c, err := s.repo.ById(id)
+	if err != nil {
+		return nil, err
+	}
+
+	res := dto.ResponseCliente{
+		ID:              c.ID,
+		Nombre:          c.Nombre,
+		Ciudad:          c.Ciudad,
+		CodigoPostal:    c.CodigoPostal,
+		FechaNacimiento: c.FechaNacimiento,
+		Estatus:         c.Estatus,
+	}
+
+	return &res, nil
 }
 
 func NewServiceCliente(repo domain.StorageCliente) DefaultServiceCliente {

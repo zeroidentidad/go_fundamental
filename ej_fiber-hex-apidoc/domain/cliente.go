@@ -1,6 +1,9 @@
 package domain
 
-import "github.com/zeroidentidad/fiber-hex-apidoc/errors"
+import (
+	"github.com/zeroidentidad/fiber-hex-apidoc/dto"
+	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
+)
 
 type Cliente struct {
 	ID              string `db:"cliente_id"`
@@ -9,6 +12,25 @@ type Cliente struct {
 	CodigoPostal    string `db:"codigo_postal"`
 	FechaNacimiento string `db:"fecha_nacimiento"`
 	Estatus         string
+}
+
+func (c Cliente) estatusAsText() string {
+	estatusAsText := "active"
+	if c.Estatus == "0" {
+		estatusAsText = "inactive"
+	}
+	return estatusAsText
+}
+
+func (c Cliente) ToDto() dto.ResponseCliente {
+	return dto.ResponseCliente{
+		ID:              c.ID,
+		Nombre:          c.Nombre,
+		Ciudad:          c.Ciudad,
+		CodigoPostal:    c.CodigoPostal,
+		FechaNacimiento: c.FechaNacimiento,
+		Estatus:         c.estatusAsText(),
+	}
 }
 
 type StorageCliente interface {
