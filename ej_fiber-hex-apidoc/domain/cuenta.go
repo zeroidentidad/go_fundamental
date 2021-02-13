@@ -1,0 +1,16 @@
+package domain
+
+import "github.com/zeroidentidad/fiber-hex-apidoc/errors"
+
+type Cuenta struct {
+	ID            string `db:"cuenta_id"`
+	ClienteID     string `db:"cliente_id"`
+	FechaApertura string `db:"fecha_apertura"`
+	TipoCuenta    string `db:"tipo_cuenta"`
+	Cantidad      float64
+	Estatus       string
+}
+
+type StorageCuenta interface {
+	Save(Cuenta) (*Cuenta, *errors.AppError)
+}

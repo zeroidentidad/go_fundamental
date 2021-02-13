@@ -24,7 +24,7 @@ func (d StorageDbCliente) FindAll(estatus string) ([]Cliente, *errors.AppError) 
 
 	err := d.client.Select(&clientes, findAllSql)
 	if err != nil {
-		logger.Error("Error while querying customers table " + err.Error())
+		logger.Error("Error while querying customers table: " + err.Error())
 		return nil, errors.NewNotFoundError("Unexpected database error")
 	}
 
@@ -48,13 +48,6 @@ func (d StorageDbCliente) ById(id string) (*Cliente, *errors.AppError) {
 	return &c, nil
 }
 
-func NewStorageDbCliente() StorageDbCliente {
-	client, err := sqlx.Open("mysql", "root:passx123@tcp(localhost:3306)/banco")
-	if err != nil {
-		panic(err)
-	}
-
-	return StorageDbCliente{
-		client,
-	}
+func NewStorageDbCliente(dbClient *sqlx.DB) StorageDbCliente {
+	return StorageDbCliente{dbClient}
 }
