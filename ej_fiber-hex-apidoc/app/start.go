@@ -21,12 +21,14 @@ func Start() {
 
 	dbClient := getDbClient()
 	storageDbCliente := domain.NewStorageDbCliente(dbClient)
-	//storageDbCuenta := domain.NewStorageDbCuenta(dbClient)
+	storageDbCuenta := domain.NewStorageDbCuenta(dbClient)
 
-	hc := HandlersCliente{service.NewServiceCliente(storageDbCliente)}
+	hclientes := HandlersCliente{service.NewServiceCliente(storageDbCliente)}
+	hcuentas := HandlersCuenta{service.NewServiceCuenta(storageDbCuenta)}
 
-	router.Get("/clientes", hc.getAllClientes)
-	router.Get("/clientes/:id", hc.getCliente)
+	router.Get("/clientes", hclientes.getAllClientes)
+	router.Get("/clientes/:id", hclientes.getCliente)
+	router.Post("/clientes/:id/cuenta", hcuentas.PostNewCuenta)
 
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")
