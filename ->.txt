@@ -2,4 +2,3 @@
 - ejercicios_go_web_cookbook
 - ejercicios_go_data_structures
 - ej_rest_webapp_snippets
-- ej_fiber-hex-apidoc
