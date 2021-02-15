@@ -29,7 +29,7 @@ func (s DefaultServiceCliente) GetAll(estatus string) ([]dto.ResponseCliente, *e
 
 	res := make([]dto.ResponseCliente, 0)
 	for _, c := range clientes {
-		res = append(res, c.ToDto())
+		res = append(res, c.ToDtoResponse())
 	}
 
 	return res, err

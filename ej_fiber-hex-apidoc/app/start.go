@@ -29,6 +29,7 @@ func Start() {
 	router.Get("/clientes", hclientes.getAllClientes)
 	router.Get("/clientes/:id", hclientes.getCliente)
 	router.Post("/clientes/:id/cuenta", hcuentas.PostNewCuenta)
+	router.Post("/clientes/:id/cuenta/:id_cuenta", hcuentas.PostNewTransaccion)
 
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")
@@ -54,7 +55,7 @@ func sanityCheck() {
 	}
 	for _, k := range envProps {
 		if os.Getenv(k) == "" {
-			logs.Fatal(fmt.Sprintf("Env variable %s not defined. Terminating app...", k))
+			logs.Fatal(fmt.Sprintf("- %s not defined. Terminating app...", k))
 		}
 	}
 }

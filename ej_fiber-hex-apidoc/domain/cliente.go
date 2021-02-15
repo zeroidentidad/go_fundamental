@@ -22,7 +22,7 @@ func (c Cliente) estatusAsText() string {
 	return estatusAsText
 }
 
-func (c Cliente) ToDto() dto.ResponseCliente {
+func (c Cliente) ToDtoResponse() dto.ResponseCliente {
 	return dto.ResponseCliente{
 		ID:              c.ID,
 		Nombre:          c.Nombre,
