@@ -1,6 +1,6 @@
 package main
 
-import "github.com/zeroidentidad/fiber-hex-apidoc/app"
+import "github.com/zeroidentidad/fiber-hex-api/app"
 
 func main() {
 	app.Start()

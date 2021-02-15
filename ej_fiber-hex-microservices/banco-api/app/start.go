@@ -9,9 +9,9 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
-	"github.com/zeroidentidad/fiber-hex-apidoc/domain"
-	logs "github.com/zeroidentidad/fiber-hex-apidoc/logger"
-	"github.com/zeroidentidad/fiber-hex-apidoc/service"
+	"github.com/zeroidentidad/fiber-hex-api/domain"
+	logs "github.com/zeroidentidad/fiber-hex-api/logger"
+	"github.com/zeroidentidad/fiber-hex-api/service"
 )
 
 func Start() {

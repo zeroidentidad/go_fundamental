@@ -2,8 +2,8 @@ package app
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/zeroidentidad/fiber-hex-apidoc/dto"
-	"github.com/zeroidentidad/fiber-hex-apidoc/service"
+	"github.com/zeroidentidad/fiber-hex-api/dto"
+	"github.com/zeroidentidad/fiber-hex-api/service"
 )
 
 type HandlersCuenta struct {

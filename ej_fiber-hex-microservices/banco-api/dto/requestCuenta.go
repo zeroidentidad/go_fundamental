@@ -3,7 +3,7 @@ package dto
 import (
 	"strings"
 
-	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
+	"github.com/zeroidentidad/fiber-hex-api/errors"
 )
 
 type RequestCuenta struct {

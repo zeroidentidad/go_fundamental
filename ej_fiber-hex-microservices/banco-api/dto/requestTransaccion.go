@@ -1,6 +1,6 @@
 package dto
 
-import "github.com/zeroidentidad/fiber-hex-apidoc/errors"
+import "github.com/zeroidentidad/fiber-hex-api/errors"
 
 const RETIRO = "retiro"
 const DEPOSITO = "deposito"

@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/zeroidentidad/fiber-hex-apidoc/domain"
-	"github.com/zeroidentidad/fiber-hex-apidoc/dto"
-	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
+	"github.com/zeroidentidad/fiber-hex-api/domain"
+	"github.com/zeroidentidad/fiber-hex-api/dto"
+	"github.com/zeroidentidad/fiber-hex-api/errors"
 )
 
 type ServiceCliente interface {

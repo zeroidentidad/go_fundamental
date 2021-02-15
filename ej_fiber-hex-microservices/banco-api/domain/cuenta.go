@@ -3,8 +3,8 @@ package domain
 import (
 	"time"
 
-	"github.com/zeroidentidad/fiber-hex-apidoc/dto"
-	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
+	"github.com/zeroidentidad/fiber-hex-api/dto"
+	"github.com/zeroidentidad/fiber-hex-api/errors"
 )
 
 const dbTSLayout = "2006-01-02 15:04:05"

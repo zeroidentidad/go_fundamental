@@ -1,4 +1,4 @@
-module github.com/zeroidentidad/fiber-hex-apidoc
+module github.com/zeroidentidad/fiber-hex-api
 
 go 1.15
 

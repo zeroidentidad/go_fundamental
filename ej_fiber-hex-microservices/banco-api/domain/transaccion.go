@@ -1,6 +1,6 @@
 package domain
 
-import "github.com/zeroidentidad/fiber-hex-apidoc/dto"
+import "github.com/zeroidentidad/fiber-hex-api/dto"
 
 const RETIRO = "retiro"
 

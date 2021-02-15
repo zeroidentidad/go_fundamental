@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/zeroidentidad/fiber-hex-apidoc/service"
+	"github.com/zeroidentidad/fiber-hex-api/service"
 )
 
 type HandlersCliente struct {

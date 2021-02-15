@@ -4,8 +4,8 @@ import (
 	"strconv"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
-	"github.com/zeroidentidad/fiber-hex-apidoc/logger"
+	"github.com/zeroidentidad/fiber-hex-api/errors"
+	"github.com/zeroidentidad/fiber-hex-api/logger"
 )
 
 type StorageDbCuenta struct {

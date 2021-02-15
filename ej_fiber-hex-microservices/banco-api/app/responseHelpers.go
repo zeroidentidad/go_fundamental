@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/zeroidentidad/fiber-hex-apidoc/errors"
+	"github.com/zeroidentidad/fiber-hex-api/errors"
 )
 
 func resJSON(data interface{}, err *errors.AppError, c *fiber.Ctx) error {
