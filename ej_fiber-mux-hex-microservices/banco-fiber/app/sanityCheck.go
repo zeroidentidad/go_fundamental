@@ -22,6 +22,7 @@ func sanityCheck() {
 		"DB_ADDR",
 		"DB_PORT",
 		"DB_NAME",
+		"REMOTE_SERVER",
 	}
 	for _, k := range envProps {
 		if os.Getenv(k) == "" {

@@ -30,7 +30,7 @@ func (ha HandlerAuth) Login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-/* .../auth/verify?token=validtokenstring&route=GetCliente&cliente_id=2000&cuenta_id=95470 */
+/* Sample: /auth/verify?token=aa.bb.cc&routeName=postNewTransaccion&cliente_id=2000&cuenta_id=95470 */
 func (ha HandlerAuth) Verify(w http.ResponseWriter, r *http.Request) {
 	urlParams := make(map[string]string)
 

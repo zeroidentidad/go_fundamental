@@ -28,6 +28,9 @@ func Start() {
 	router.Post("/clientes/:id/cuenta", hcuentas.postNewCuenta)
 	router.Post("/clientes/:id/cuenta/:id_cuenta", hcuentas.postNewTransaccion)
 
+	mauth := MiddlewareAuth{domain.NewStorageAuth()}
+	router.Use(mauth.authorizationHandler())
+
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")
 	logs.Info(fmt.Sprintf("Starting server on %s:%s ...", address, port))
