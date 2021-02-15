@@ -25,8 +25,8 @@ func Start() {
 
 	router.Get("/clientes", hclientes.getAllClientes)
 	router.Get("/clientes/:id", hclientes.getCliente)
-	router.Post("/clientes/:id/cuenta", hcuentas.PostNewCuenta)
-	router.Post("/clientes/:id/cuenta/:id_cuenta", hcuentas.PostNewTransaccion)
+	router.Post("/clientes/:id/cuenta", hcuentas.postNewCuenta)
+	router.Post("/clientes/:id/cuenta/:id_cuenta", hcuentas.postNewTransaccion)
 
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")

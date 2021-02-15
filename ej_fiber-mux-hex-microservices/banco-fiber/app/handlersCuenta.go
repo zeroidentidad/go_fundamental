@@ -10,7 +10,7 @@ type HandlersCuenta struct {
 	service service.ServiceCuenta
 }
 
-func (hc *HandlersCuenta) PostNewCuenta(c *fiber.Ctx) error {
+func (hc *HandlersCuenta) postNewCuenta(c *fiber.Ctx) error {
 	cliente_id := c.Params("id")
 
 	body := new(dto.RequestCuenta)
@@ -23,7 +23,7 @@ func (hc *HandlersCuenta) PostNewCuenta(c *fiber.Ctx) error {
 	return resJSON(cuenta, err, c)
 }
 
-func (hc *HandlersCuenta) PostNewTransaccion(c *fiber.Ctx) error {
+func (hc *HandlersCuenta) postNewTransaccion(c *fiber.Ctx) error {
 	cliente_id := c.Params("id")
 	cuenta_id := c.Params("id_cuenta")
 
