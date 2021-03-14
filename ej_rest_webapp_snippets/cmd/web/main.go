@@ -1,14 +1,25 @@
-package main
+package cmd
 
 import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 )
 
-func main() {
+func Start() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	flag.Parse()
+
+	/*f, ferr := os.OpenFile("/tmp/info.log", os.O_RDWR|os.O_CREATE, 0666)
+	if ferr != nil {
+		log.Fatal(ferr)
+	}
+	defer f.Close()*/
+
+	//f -> os.Stdout
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", home)
@@ -18,9 +29,13 @@ func main() {
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 
-	const port = "4000"
-	log.Println("Server start on port:", port)
-	log.Printf("Starting server on %s", *addr)
-	err := http.ListenAndServe(*addr, mux)
-	log.Fatal(err)
+	srv := &http.Server{
+		Addr:     *addr,
+		ErrorLog: errorLog,
+		Handler:  mux,
+	}
+
+	infoLog.Printf("Starting server on %s", *addr)
+	err := srv.ListenAndServe()
+	errorLog.Fatal(err)
 }
