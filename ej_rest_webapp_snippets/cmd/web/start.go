@@ -4,12 +4,14 @@ import (
 	"flag"
 	"log"
 	"pastein/pkg/mysql"
+	"text/template"
 )
 
 type application struct {
-	errorLog *log.Logger
-	infoLog  *log.Logger
-	snippets *mysql.SnippetModel
+	errorLog      *log.Logger
+	infoLog       *log.Logger
+	snippets      *mysql.SnippetModel
+	templateCache map[string]*template.Template
 }
 
 var l = &application{}
@@ -22,10 +24,16 @@ func Start() {
 	db := opendb(dsn)
 	defer db.Close()
 
+	templateCache, err := newTemplateCache("./ui/html/")
+	if err != nil {
+		l.logs().errorLog.Fatal(err)
+	}
+
 	app := &application{
-		errorLog: l.logs().errorLog,
-		infoLog:  l.logs().infoLog,
-		snippets: &mysql.SnippetModel{DB: db},
+		errorLog:      l.logs().errorLog,
+		infoLog:       l.logs().infoLog,
+		snippets:      &mysql.SnippetModel{DB: db},
+		templateCache: templateCache,
 	}
 
 	serve(app.routes(), addr)
