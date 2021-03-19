@@ -4,7 +4,8 @@ import (
 	"net/http"
 )
 
-func serve(mux *http.ServeMux, addr *string) {
+// *http.ServeMux. -> http.Handler
+func serve(mux http.Handler, addr *string) {
 	srv := &http.Server{
 		Addr:     *addr,
 		ErrorLog: l.logs().errorLog,
