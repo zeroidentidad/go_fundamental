@@ -3,6 +3,7 @@ package web
 import (
 	"fmt"
 	"net/http"
+	"pastein/pkg/forms"
 	"pastein/pkg/models"
 	"strconv"
 )
@@ -37,7 +38,7 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
-	app.render(w, r, "create.page.tmpl", nil)
+	app.render(w, r, "create.page.tmpl", &templateData{Form: forms.New(nil)})
 }
 
 func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
@@ -47,10 +48,20 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	form := forms.New(r.PostForm)
+	form.Required("title", "content", "expires")
+	form.MaxLength("title", 100)
+	form.PermittedValues("expires", "365", "7", "1")
+
+	if !form.Valid() {
+		app.render(w, r, "create.page.tmpl", &templateData{Form: form})
+		return
+	}
+
 	request := &models.SnippetRequest{
-		Title:   r.PostForm.Get("title"),
-		Content: r.PostForm.Get("content"),
-		Expires: r.PostForm.Get("expires"),
+		Title:   form.Get("title"),
+		Content: form.Get("content"),
+		Expires: form.Get("expires"),
 	}
 
 	id, err := app.snippets.Insert(request)
