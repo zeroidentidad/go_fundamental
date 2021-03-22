@@ -36,6 +36,7 @@ func Start() {
 
 	session := sessions.New([]byte(*secret))
 	session.Lifetime = 12 * time.Hour
+	session.Secure = true
 
 	app := &application{
 		errorLog:      l.logs().errorLog,
