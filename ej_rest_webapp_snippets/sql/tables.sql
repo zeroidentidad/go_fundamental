@@ -33,3 +33,15 @@ INSERT INTO snippets (title, content, created, expires) VALUES (
 UTC_TIMESTAMP(),
 DATE_ADD(UTC_TIMESTAMP(), INTERVAL 7 DAY)
 );
+
+-- Create a `users` table.
+CREATE TABLE users (
+id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+hashed_password CHAR(60) NOT NULL,
+created DATETIME NOT NULL
+);
+
+-- Constraint on email column.
+ALTER TABLE users ADD CONSTRAINT users_uc_email UNIQUE (email);

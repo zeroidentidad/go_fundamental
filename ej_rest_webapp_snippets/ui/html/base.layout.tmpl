@@ -13,8 +13,17 @@
             <h1><a href='/'>Pastein</a></h1>
         </header>
         <nav>
-            <a href='/'>Home</a>
-            <a href='/snippet/create'>Crear snippet</a>
+            <div>
+                <a href='/'>Home</a>
+                <a href='/snippet/create'>Crear snippet</a>
+            </div>
+            <div>
+                <a href='/user/signup'>Registro</a>
+                <a href='/user/login'>Ingresar</a>
+                <form action='/user/logout' method='POST'>
+                    <button>Salir</button>
+                </form>
+            </div>            
         </nav>
         <section>
             {{with .Flash}}
