@@ -32,3 +32,9 @@ type User struct {
 	HashedPassword []byte
 	Created        time.Time
 }
+
+type UserRequest struct {
+	Name     string
+	Email    string
+	Password string
+}

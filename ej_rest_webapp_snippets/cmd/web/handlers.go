@@ -89,14 +89,32 @@ func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
 	form := forms.New(r.PostForm)
 	form.Required("name", "email", "password")
 	form.MatchesPattern("email", forms.EmailRX)
-	form.MinLength("password", 10)
+	form.MinLength("password", 8)
 
 	if !form.Valid() {
 		app.render(w, r, "signup.page.tmpl", &templateData{Form: form})
 		return
 	}
 
-	fmt.Fprintln(w, "Create a new user...")
+	request := &models.UserRequest{
+		Name:     form.Get("name"),
+		Email:    form.Get("email"),
+		Password: form.Get("password"),
+	}
+
+	err = app.users.Insert(request)
+	if err == models.ErrDuplicateEmail {
+		form.Errors.Add("email", "Email ya está en uso")
+		app.render(w, r, "signup.page.tmpl", &templateData{Form: form})
+		return
+	} else if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.session.Put(r, "flash", "Registro exitoso. Puede iniciar sesión.")
+
+	http.Redirect(w, r, "/user/login", http.StatusSeeOther)
 }
 
 func (app *application) loginUserForm(w http.ResponseWriter, r *http.Request) {
