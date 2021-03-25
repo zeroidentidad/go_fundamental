@@ -122,9 +122,36 @@ func (app *application) loginUserForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Authenticate and login user...")
+	err := r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	form := forms.New(r.PostForm)
+	request := &models.UserRequest{
+		Email:    form.Get("email"),
+		Password: form.Get("password"),
+	}
+
+	id, err := app.users.Authenticate(request)
+	if err == models.ErrInvalidCredentials {
+		form.Errors.Add("generic", "Datos de acceso incorrectos")
+		app.render(w, r, "login.page.tmpl", &templateData{Form: form})
+		return
+	} else if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.session.Put(r, "userID", id)
+
+	http.Redirect(w, r, "/snippet/create", http.StatusSeeOther)
 }
 
 func (app *application) logoutUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Logout user...")
+	app.session.Remove(r, "userID")
+	app.session.Put(r, "flash", "Has cerrado sesión!")
+
+	http.Redirect(w, r, "/", 303)
 }
