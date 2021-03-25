@@ -15,14 +15,19 @@
         <nav>
             <div>
                 <a href='/'>Home</a>
-                <a href='/snippet/create'>Crear snippet</a>
+                {{if .AuthenticatedUser}}
+                    <a href='/snippet/create'>Crear snippet</a>
+                {{end}}
             </div>
             <div>
-                <a href='/user/signup'>Registro</a>
-                <a href='/user/login'>Ingresar</a>
-                <form action='/user/logout' method='POST'>
-                    <button>Salir</button>
-                </form>
+                {{if .AuthenticatedUser}}
+                    <form action='/user/logout' method='POST'>
+                        <button>Salir</button>
+                    </form>
+                {{else}}                
+                    <a href='/user/signup'>Registro</a>
+                    <a href='/user/login'>Ingresar</a>
+                {{end}}
             </div>            
         </nav>
         <section>
