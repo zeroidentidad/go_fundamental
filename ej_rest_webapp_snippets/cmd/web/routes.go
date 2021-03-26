@@ -8,9 +8,9 @@ import (
 )
 
 // *http.ServeMux. -> http.Handler
-func (app *application) routes() http.Handler {
+func (app *Application) Routes() http.Handler {
 	stdMiddlewares := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
-	dncMiddleware := alice.New(app.session.Enable, noSurf)
+	dncMiddleware := alice.New(app.Session.Enable, noSurf, app.authenticate)
 
 	mux := pat.New()
 	mux.Get("/", dncMiddleware.ThenFunc(app.home))

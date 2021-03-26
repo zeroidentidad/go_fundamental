@@ -7,7 +7,7 @@ import (
 )
 
 // *http.ServeMux. -> http.Handler
-func serve(mux http.Handler, addr *string) {
+func Serve(mux http.Handler, addr *string) {
 	tlsConfig := &tls.Config{
 		PreferServerCipherSuites: true,
 		CurvePreferences:         []tls.CurveID{tls.X25519, tls.CurveP256},
@@ -15,7 +15,7 @@ func serve(mux http.Handler, addr *string) {
 
 	srv := &http.Server{
 		Addr:         *addr,
-		ErrorLog:     l.logs().errorLog,
+		ErrorLog:     App.Logs().ErrorLog,
 		Handler:      mux,
 		TLSConfig:    tlsConfig,
 		IdleTimeout:  time.Minute,
@@ -23,7 +23,7 @@ func serve(mux http.Handler, addr *string) {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	l.logs().infoLog.Printf("Starting server on %s", *addr)
+	App.Logs().InfoLog.Printf("Starting server on %s", *addr)
 	err := srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
-	l.logs().errorLog.Fatal(err)
+	App.Logs().ErrorLog.Fatal(err)
 }

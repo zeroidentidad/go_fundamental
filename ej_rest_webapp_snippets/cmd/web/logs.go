@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func (app *application) logs() (logs *application) {
+func (app *Application) Logs() (logs *Application) {
 	/*f, err := os.OpenFile("/tmp/info.log", os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		log.Fatal(err)
@@ -16,9 +16,9 @@ func (app *application) logs() (logs *application) {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	logs = &application{
-		errorLog: errorLog,
-		infoLog:  infoLog,
+	logs = &Application{
+		ErrorLog: errorLog,
+		InfoLog:  infoLog,
 	}
 
 	return logs

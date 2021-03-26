@@ -1,9 +1,7 @@
 package main
 
-import (
-	web "pastein/cmd/web"
-)
+import "pastein/cmd"
 
 func main() {
-	web.Start()
+	cmd.Start()
 }

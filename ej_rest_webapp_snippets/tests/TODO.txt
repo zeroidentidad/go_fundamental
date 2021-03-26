@@ -1,0 +1,5 @@
+- Unit tests
+- HTTP tests
+- Mock deps
+- HTML forms
+- Coverage

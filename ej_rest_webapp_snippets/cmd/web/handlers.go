@@ -8,8 +8,8 @@ import (
 	"strconv"
 )
 
-func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	s, err := app.snippets.Latest()
+func (app *Application) home(w http.ResponseWriter, r *http.Request) {
+	s, err := app.Snippets.Latest()
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -18,14 +18,14 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "home.page.tmpl", &templateData{Snippets: s})
 }
 
-func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
+func (app *Application) showSnippet(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
 		return
 	}
 
-	s, err := app.snippets.Get(id)
+	s, err := app.Snippets.Get(id)
 	if err == models.ErrNoRecord {
 		app.notFound(w)
 		return
@@ -37,11 +37,11 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "show.page.tmpl", &templateData{Snippet: s})
 }
 
-func (app *application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
+func (app *Application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "create.page.tmpl", &templateData{Form: forms.New(nil)})
 }
 
-func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
+func (app *Application) createSnippet(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
@@ -64,22 +64,22 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		Expires: form.Get("expires"),
 	}
 
-	id, err := app.snippets.Insert(request)
+	id, err := app.Snippets.Insert(request)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	app.session.Put(r, "flash", "Snippet creado correctamente!")
+	app.Session.Put(r, "flash", "Snippet creado correctamente!")
 
 	http.Redirect(w, r, fmt.Sprintf("/snippet/%d", id), http.StatusSeeOther)
 }
 
-func (app *application) signupUserForm(w http.ResponseWriter, r *http.Request) {
+func (app *Application) signupUserForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "signup.page.tmpl", &templateData{Form: forms.New(nil)})
 }
 
-func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
+func (app *Application) signupUser(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
@@ -102,7 +102,7 @@ func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
 		Password: form.Get("password"),
 	}
 
-	err = app.users.Insert(request)
+	err = app.Users.Insert(request)
 	if err == models.ErrDuplicateEmail {
 		form.Errors.Add("email", "Email ya está en uso")
 		app.render(w, r, "signup.page.tmpl", &templateData{Form: form})
@@ -112,16 +112,16 @@ func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.session.Put(r, "flash", "Registro exitoso. Puede iniciar sesión.")
+	app.Session.Put(r, "flash", "Registro exitoso. Puede iniciar sesión.")
 
 	http.Redirect(w, r, "/user/login", http.StatusSeeOther)
 }
 
-func (app *application) loginUserForm(w http.ResponseWriter, r *http.Request) {
+func (app *Application) loginUserForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "login.page.tmpl", &templateData{Form: forms.New(nil)})
 }
 
-func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
+func (app *Application) loginUser(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
@@ -134,7 +134,7 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 		Password: form.Get("password"),
 	}
 
-	id, err := app.users.Authenticate(request)
+	id, err := app.Users.Authenticate(request)
 	if err == models.ErrInvalidCredentials {
 		form.Errors.Add("generic", "Datos de acceso incorrectos")
 		app.render(w, r, "login.page.tmpl", &templateData{Form: form})
@@ -144,14 +144,14 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.session.Put(r, "userID", id)
+	app.Session.Put(r, "userID", id)
 
 	http.Redirect(w, r, "/snippet/create", http.StatusSeeOther)
 }
 
-func (app *application) logoutUser(w http.ResponseWriter, r *http.Request) {
-	app.session.Remove(r, "userID")
-	app.session.Put(r, "flash", "Has cerrado sesión!")
+func (app *Application) logoutUser(w http.ResponseWriter, r *http.Request) {
+	app.Session.Remove(r, "userID")
+	app.Session.Put(r, "flash", "Has cerrado sesión!")
 
 	http.Redirect(w, r, "/", 303)
 }
