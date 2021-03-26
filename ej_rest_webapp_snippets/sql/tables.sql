@@ -13,7 +13,7 @@ CREATE INDEX idx_snippets_created ON snippets(created);
 -- Dummy records.
 INSERT INTO snippets (title, content, created, expires) VALUES (
 'Un viejo estanque silencioso',
-'Un viejo estanque silencioso...\nUna rana salta al estanque,\nsplash! Silencio de nuevo.',
+'Un viejo estanque silencioso... Una rana salta al estanque,splash! Silencio de nuevo.',
 UTC_TIMESTAMP(),
 DATE_ADD(UTC_TIMESTAMP(), INTERVAL 365 DAY)
 );

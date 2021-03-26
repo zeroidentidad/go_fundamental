@@ -1,5 +1,5 @@
--- Create a new UTF-8 `snippetbox` database.
-CREATE DATABASE snippetbox CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- Create a new UTF-8 `pastein` database.
+CREATE DATABASE pastein CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- Switch to using `snippetbox` database.
-USE snippetbox;
+-- Switch to using `pastein` database.
+USE pastein;
