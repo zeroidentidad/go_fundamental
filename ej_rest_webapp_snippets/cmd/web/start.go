@@ -38,6 +38,8 @@ func Start() {
 	session := sessions.New([]byte(*secret))
 	session.Lifetime = 12 * time.Hour
 	session.Secure = true
+	// CSRF Protection opt
+	// session.SameSite = http.SameSiteStrictMode
 
 	app := &application{
 		errorLog:      l.logs().errorLog,
