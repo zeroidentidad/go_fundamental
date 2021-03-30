@@ -4,7 +4,7 @@
 
 ## HTTP tests
 
-- TODO
+- Root run all: `go test ./...`
 
 ##  Mock deps
 
