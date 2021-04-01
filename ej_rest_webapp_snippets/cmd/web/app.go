@@ -2,7 +2,7 @@ package web
 
 import (
 	"log"
-	"pastein/pkg/mysql"
+	"pastein/pkg/models"
 	"text/template"
 
 	"github.com/golangcollege/sessions"
@@ -16,9 +16,21 @@ type Application struct {
 	ErrorLog      *log.Logger
 	InfoLog       *log.Logger
 	Session       *sessions.Session
-	Snippets      *mysql.SnippetModel
+	Snippets      SnippetsInterfaces
 	TemplateCache map[string]*template.Template
-	Users         *mysql.UserModel
+	Users         UsersInterfaces
+}
+
+type SnippetsInterfaces interface {
+	Insert(*models.SnippetRequest) (int, error)
+	Get(int) (*models.Snippet, error)
+	Latest() ([]*models.Snippet, error)
+}
+
+type UsersInterfaces interface {
+	Insert(*models.UserRequest) error
+	Authenticate(*models.UserRequest) (int, error)
+	Get(int) (*models.User, error)
 }
 
 var App = &Application{}
