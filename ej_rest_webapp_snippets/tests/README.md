@@ -8,12 +8,16 @@
 
 ##  Mock deps
 
-- TODO
+- Root run all: `go test ./...`
 
 ## HTML forms
 
-- TODO
+- Root run all: `go test ./...`
 
 ## Coverage
 
-- TODO
+- Root run all: `go test -cover ./...`
+
+- Salida detalle: `go test -coverprofile=/tmp/profile.out ./...`
+
+- Salida html: `go tool cover -html=/tmp/profile.out`
