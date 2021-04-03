@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gopher Site</title>
+    <link>http://example.org/</link>
+    <description>Recent content on Gopher Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es</language><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Acerca</title>
+      <link>http://example.org/acerca/</link>
+      <pubDate>Sat, 03 Apr 2021 13:19:25 -0600</pubDate>
+      
+      <guid>http://example.org/acerca/</guid>
+      <description>Esta es mi página Acerca de.</description>
+    </item>
+    
+  </channel>
+</rss>
