@@ -2,8 +2,8 @@ Mi portafolio.
 
 En este sitio, encontrará:
 
-* Mi biografía
+* La biografía
 
-* Mis proyectos
+* Los proyectos
 
-* Mi resumen
+* Los colaboradores
