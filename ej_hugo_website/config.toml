@@ -1,4 +1,7 @@
 baseURL = "http://example.org/"
-languageCode = "es"
+languageCode = "es-mx"
 title = "Gophers LATAM"
 theme = "basic"
+[params]
+    author = "ZeroIdentidad"
+    description = "Gophers LATAM site"
