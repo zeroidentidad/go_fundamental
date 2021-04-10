@@ -17,4 +17,13 @@
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="{{"favicon.ico"|relURL}}">
     <link rel="stylesheet" href="{{"css/style.css"|relURL}}?v={{.Date}}">
+    {{ range .AlternativeOutputFormats -}}
+    {{- $link := `
+    <link rel="%s" type="%s" href="%s" title="%s">` -}}
+    {{- $title := printf "%s - %s" $.Page.Title $.Site.Title -}}
+    {{- if $.Page.IsHome -}}
+    {{ $title = $.Site.Title }}
+    {{- end -}}
+    {{ printf $link .Rel .MediaType.Type .Permalink $title | safeHTML }}
+    {{- end }}
 </head>

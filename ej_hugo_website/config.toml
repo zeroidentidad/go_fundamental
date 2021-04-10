@@ -5,3 +5,6 @@ theme = "basic"
 [params]
     author = "ZeroIdentidad"
     description = "Gophers LATAM site"
+
+gh_url = "https://api.github.com/users"
+gh_user = "gophers-latam"
