@@ -4,7 +4,8 @@ title = "Gophers LATAM"
 theme = "basic"
 [params]
     author = "ZeroIdentidad"
-    description = "Gophers LATAM site"
+    description = "Gophers LATAM"
 
 gh_url = "https://api.github.com/users"
 gh_user = "gophers-latam"
+pygmentsUseClasses = true
