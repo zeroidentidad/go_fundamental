@@ -6,7 +6,7 @@ theme = "basic"
     author = "ZeroIdentidad"
     description = "Gophers LATAM"
 
-gh_url = "https://api.github.com/users"
+gh_url = "https://api.github.com/orgs"
 gh_user = "gophers-latam"
 pygmentsUseClasses = true
 [permalinks]
@@ -18,3 +18,4 @@ year = "year"
 month = "month"
 tag = "tags"
 category = "categories"
+Paginate = 10

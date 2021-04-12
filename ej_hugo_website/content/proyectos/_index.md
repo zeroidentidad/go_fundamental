@@ -8,4 +8,4 @@ outputs:
 - RSS
 ---
 
-Lista de principales proyectos en comunidad. Puede seleccionar en cada uno para obtener más información sobre cada proyecto.
+Lista de principales proyectos en comunidad. Puedes seleccionar en cada uno para obtener más información sobre cada proyecto.
