@@ -1,9 +1,15 @@
-Mi portafolio.
+**Portafolio comunitario**
 
 En este sitio, encontrará:
 
-* La biografía
+° La biografía
 
-* Los proyectos
+° Los proyectos
 
-* Los colaboradores
+° Los posts
+
+° Los colaboradores
+
+° Los contactos
+
+**de Gophers LATAM.**

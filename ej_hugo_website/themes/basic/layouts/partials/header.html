@@ -1,4 +1,7 @@
 <header>
-    <h1>{{ .Site.Title }}</h1>
+    <center>
+        <img alt="{{ .Site.Title }}" src="{{"assets/awesome.png"|relURL}}" height="40">
+        <b>{{ .Site.Title }}</b>
+    </center>
 </header>
 {{- partial "nav.html" . -}}

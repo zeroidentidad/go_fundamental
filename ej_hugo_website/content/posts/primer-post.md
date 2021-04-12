@@ -3,6 +3,8 @@ title: "Primer Post"
 date: 2021-04-10T20:21:07-05:00
 draft: false
 author: Zero
+year: "2021"
+month: "2021/04"
 categories:
 - Personal
 - Experiencias

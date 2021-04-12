@@ -1,10 +1,10 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
+title: "Segundo Post"
+date: 2021-04-12T00:12:24-05:00
 draft: false
 author: Gophers LATAM
-year: "{{ dateFormat "2006" .Date }}"
-month: "{{ dateFormat "2006/01" .Date }}"
+year: "2021"
+month: "2021/04"
 categories:
 - Personal
 - Experiencias

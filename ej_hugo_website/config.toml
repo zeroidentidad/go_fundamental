@@ -9,3 +9,12 @@ theme = "basic"
 gh_url = "https://api.github.com/users"
 gh_user = "gophers-latam"
 pygmentsUseClasses = true
+[permalinks]
+posts = "posts/:year/:month/:slug/"
+year = "/posts/:slug/"
+month = "/posts/:slug/"
+[taxonomies]
+year = "year"
+month = "month"
+tag = "tags"
+category = "categories"
