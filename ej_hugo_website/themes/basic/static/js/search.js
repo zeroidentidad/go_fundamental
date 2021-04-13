@@ -53,7 +53,7 @@ function search() {
         });
         display(list);        
     } else {
-        SearchApp.output.innerHTML = "Ingrese un valor de búsqueda <br/>";
+        SearchApp.output.innerHTML = "Ingrese un valor de búsqueda";
     }
 }
 

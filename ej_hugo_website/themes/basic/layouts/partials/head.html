@@ -16,8 +16,10 @@
         {{- end -}}
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="{{"favicon.ico"|relURL}}">
-    <link rel="stylesheet" href="{{"css/style.css"|relURL}}?v={{.Date}}">
-    <link rel="stylesheet" href="{{"css/syntax.css"|relURL}}">
+    {{ $style := resources.Get "css/style.scss" | toCSS | minify | fingerprint }}
+    {{ $syntax := resources.Get "css/syntax.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{$style.RelPermalink}}">
+    <link rel="stylesheet" href="{{$syntax.RelPermalink}}">
     {{- range .AlternativeOutputFormats -}}
     {{- $link := `
     <link rel="%s" type="%s" href="%s" title="%s">` -}}
