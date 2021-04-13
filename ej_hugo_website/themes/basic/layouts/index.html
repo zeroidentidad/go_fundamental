@@ -11,7 +11,10 @@
 <hr>
 {{ .Content }}
 </center>
-<script src="//unpkg.com/lunr@2.3.6/lunr.js"></script>
-<script src="//unpkg.com/axios@0.19.0/dist/axios.js"></script>
-<script src="{{"js/search.js" | relURL}}"></script>
+{{ $lunr := resources.Get "js/lunr.js" }}
+{{ $axios := resources.Get "js/axios.js" }}
+{{ $search := resources.Get "js/search.js" }}
+{{ $libs := slice $lunr $axios $search }}
+{{ $js := $libs | resources.Concat "js/app.js" | minify | fingerprint }}
+<script src="{{$js.RelPermalink}}"></script>
 {{ end }}
