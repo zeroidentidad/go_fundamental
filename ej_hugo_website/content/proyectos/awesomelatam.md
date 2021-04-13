@@ -7,6 +7,8 @@ summary: "Github README"
 tech_used:
 - Github
 - Markdown
+keywords:
+- html
 repo: https://github.com/gophers-latam/awesome-latam
 ---
 

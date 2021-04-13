@@ -4,9 +4,10 @@ width: 80%;
 }
 
 nav, footer {
-background-color: #333;
+background-color: #150421;
 color: #fff;
 text-align: center;
+height: 25px;
 }
 
 nav {

@@ -8,6 +8,8 @@ tech_used:
 - JavaScript
 - CSS
 - HTML
+keywords:
+- html
 repo: https://github.com/gophers-latam/{{ replace .Name | title }}
 ---
 

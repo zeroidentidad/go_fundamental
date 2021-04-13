@@ -1,6 +1,5 @@
 {{ define "main" }}
-<center>
-<hr>
+<h2>{{ .Title }}</h2>
 <input type="search" id="searchField">
 <button id="searchButton">Buscar</button>
 <input id="allwords" type="checkbox">
@@ -8,10 +7,8 @@
 <div id="output">
     <p>Esperando entrada de búsqueda</p>
 </div>
-<hr>
-{{ .Content }}
-</center>
+<br>
 <script src="//unpkg.com/lunr@2.3.6/lunr.js"></script>
 <script src="//unpkg.com/axios@0.19.0/dist/axios.js"></script>
-<script src="{{ " js/search.js" | relURL }}"></script>
+<script src="{{ "js/search.js" | relURL }}"></script>
 {{ end }}

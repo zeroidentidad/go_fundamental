@@ -2,14 +2,14 @@
 
 En este sitio, encontrará:
 
-° La biografía
+🗿 La biografía
 
-° Los proyectos
+🗃️ Los proyectos
 
-° Los posts
+📝 Los posts
 
-° Los colaboradores
+🧙‍♂️ Los colaboradores
 
-° Los contactos
+🌎 Los contactos
 
 **de Gophers LATAM.**

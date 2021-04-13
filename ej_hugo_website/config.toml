@@ -2,6 +2,7 @@ baseURL = "http://example.org/"
 languageCode = "es-mx"
 title = "Gophers LATAM"
 theme = "basic"
+disqusShortname = "gophers-latam"
 [params]
     author = "ZeroIdentidad"
     description = "Gophers LATAM"
