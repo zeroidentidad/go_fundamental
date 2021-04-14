@@ -137,3 +137,7 @@ your url is: https://grumpy-turtle-68.localtunnel.me
 
 # -p flag, coincidente con el de hugo server
 ```
+
+# Publicación del sitio:
+
+- **[gohugo.io/hosting-and-deployment/hosting-on-github/](https://gohugo.io/hosting-and-deployment/hosting-on-github/)**
