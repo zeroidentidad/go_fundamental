@@ -126,7 +126,7 @@ hugo new posts/nombre-post.md
 hugo new proyectos/nombre-proyecto.md
 ```
 
-# Consideracciones:
+# Consideraciones:
 
 Para ver Disqus de los comentarios en local usar **localtunnel**:
 ```shell
