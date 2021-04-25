@@ -1,7 +1,0 @@
-
-temas o conceptos involucrados:
-
-- variables aletaorias
-- medidas de probabilidad: 0-1 - %
-- probabilidad condicional, e independiente
-- hipotesis
