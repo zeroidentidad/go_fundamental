@@ -18,3 +18,19 @@
 - Torres de Hanoi
 
 - Algoritmos de retroceso (Backtracking)
+
+## Algoritmos de retroceso (Backtracking):
+
+- Cadenas binarias: generando todas las cadenas binarias
+
+- Generando cadenas k−arias
+
+- Problema de N-Queens
+
+- El problema de la mochila (Knapsack)
+
+- Cadenas generalizadas
+
+- Ciclos hamiltonianos
+
+- Problema de coloración de gráficos
