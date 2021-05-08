@@ -5,12 +5,13 @@ import (
 	"testing"
 )
 
-func BenchmarkSampleOne(b *testing.B) {
+// go test -run BenchmarkSampleStruct -v --bench . --benchmem
+func BenchmarkSampleStruct(b *testing.B) {
 	logger := log.New(devNull{}, "test", log.Llongfile)
 	b.ResetTimer()
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
-		logger.Println("This si awesome")
+		logger.Println("Is awesome")
 	}
 	b.StopTimer()
 }
