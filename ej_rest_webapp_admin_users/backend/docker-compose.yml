@@ -1,0 +1,25 @@
+version: '2.1'
+
+services:
+  mysql:
+    image: docker.io/bitnami/mysql:8.0
+    ports:
+      - '3306:3306'
+    volumes:
+      - 'mysql_data:/bitnami/mysql/data'
+    container_name: goback_mysqldb  
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - MYSQL_ROOT_PASSWORD=password123
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=passwordx
+      - MYSQL_DATABASE=admin_users
+    healthcheck:
+      test: ['CMD', '/opt/bitnami/scripts/mysql/healthcheck.sh']
+      interval: 15s
+      timeout: 5s
+      retries: 6
+
+volumes:
+  mysql_data:
+    driver: local

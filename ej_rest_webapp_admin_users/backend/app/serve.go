@@ -9,10 +9,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func serve(addr string, port string, router *fiber.App) {
+func serve(router *fiber.App) {
+	ADDR := os.Getenv("SERVER_ADDRESS")
+	PORT := os.Getenv("SERVER_PORT")
 	go func() {
-		logs.Info(fmt.Sprintf("Starting server on %s:%s ...", addr, port))
-		err := router.Listen(fmt.Sprintf("%s:%s", addr, port))
+		logs.Info(fmt.Sprintf("Starting server on %s:%s ...", ADDR, PORT))
+		err := router.Listen(fmt.Sprintf("%s:%s", ADDR, PORT))
 		logs.Fatal(err.Error())
 	}()
 

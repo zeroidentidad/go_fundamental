@@ -1,13 +1,12 @@
 package app
 
-import (
-	"os"
-)
+import "log"
 
 func Start() {
 	configLoad()
 
-	ADDR := os.Getenv("SERVER_ADDRESS")
-	PORT := os.Getenv("SERVER_PORT")
-	serve(ADDR, PORT, routes())
+	db := dbClient()
+	log.Println(db)
+
+	serve(routes())
 }
