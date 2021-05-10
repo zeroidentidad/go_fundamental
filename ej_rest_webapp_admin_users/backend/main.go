@@ -1,9 +1,9 @@
 package main
 
 import (
-	"backend/cmd"
+	"backend/app"
 )
 
 func main() {
-	cmd.Start()
+	app.Start()
 }
