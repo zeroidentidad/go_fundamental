@@ -9,7 +9,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func configLoad() {
+func config() {
 	err := godotenv.Load(".env.prod")
 	if err != nil {
 		logs.Info("Ignore .env.prod file exists")

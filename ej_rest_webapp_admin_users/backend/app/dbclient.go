@@ -10,14 +10,14 @@ import (
 	"gorm.io/gorm"
 )
 
-func dbClient() *gorm.DB {
+func dbclient() *gorm.DB {
 	dbUser := os.Getenv("DB_USER")
 	dbPasswd := os.Getenv("DB_PASSWD")
 	dbAddr := os.Getenv("DB_ADDR")
 	dbPort := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_NAME")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, dbPasswd, dbAddr, dbPort, dbName)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbPasswd, dbAddr, dbPort, dbName)
 	client, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logs.Fatal(err.Error())

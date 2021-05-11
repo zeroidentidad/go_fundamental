@@ -3,9 +3,9 @@ package app
 import "log"
 
 func Start() {
-	configLoad()
+	config()
 
-	db := dbClient()
+	db := dbclient()
 	log.Println(db)
 
 	serve(routes())
