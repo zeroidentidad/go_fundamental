@@ -13,7 +13,8 @@ func routes() *fiber.App {
 
 	hu := handlers.HandlerUser{}
 
-	router.Get("/", hu.Hello)
+	prefix := "/api"
+	router.Post(prefix+"/register", hu.Register)
 
 	return router
 }
