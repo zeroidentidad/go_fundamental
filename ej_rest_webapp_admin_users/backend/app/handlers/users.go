@@ -1,22 +1,22 @@
 package handlers
 
 import (
-	"backend/domain"
+	"backend/dto"
+	"backend/service"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type HandlerUser struct {
+	Svc service.UserService
 }
 
 func (h *HandlerUser) Register(c *fiber.Ctx) error {
-	user := domain.User{
-		ID:        1,
-		FirstName: "testn name",
-		LastName:  "test last",
-		Email:     "test email",
-		Password:  "test pass",
+	body := new(dto.RequestUser)
+	if err := ParseBody(c, body); err != nil {
+		return err
 	}
 
-	return c.JSON(user)
+	user, err := h.Svc.Register(*body)
+	return resJSON(user, err, c)
 }
