@@ -10,11 +10,11 @@ import (
 )
 
 func serve(router *fiber.App) {
-	ADDR := os.Getenv("SERVER_ADDRESS")
-	PORT := os.Getenv("SERVER_PORT")
+	addr := os.Getenv("SERVER_ADDRESS")
+	port := os.Getenv("SERVER_PORT")
 	go func() {
-		logs.Info(fmt.Sprintf("Starting server on %s:%s ...", ADDR, PORT))
-		err := router.Listen(fmt.Sprintf("%s:%s", ADDR, PORT))
+		logs.Info(fmt.Sprintf("Starting server on %s:%s ...", addr, port))
+		err := router.Listen(fmt.Sprintf("%s:%s", addr, port))
 		logs.Fatal(err.Error())
 	}()
 

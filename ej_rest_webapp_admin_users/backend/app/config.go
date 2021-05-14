@@ -12,11 +12,11 @@ import (
 func config() {
 	err := godotenv.Load(".env.prod")
 	if err != nil {
-		logs.Info("Ignore .env.prod file exists")
+		logs.Info("Ignore '.env.prod' file exists")
 
 		err := godotenv.Load()
 		if err != nil {
-			logs.Fatal("Error loading .env file")
+			logs.Fatal("Error loading '.env' file")
 		}
 	}
 
@@ -28,10 +28,11 @@ func config() {
 		"DB_ADDR",
 		"DB_PORT",
 		"DB_NAME",
+		"DB_MIGRATE",
 	}
 	for _, k := range envProps {
 		if os.Getenv(k) == "" {
-			logs.Fatal(fmt.Sprintf("- %s not defined. Terminating...", k))
+			logs.Fatal(fmt.Sprintf("- '%s' not defined. Terminating...", k))
 		}
 	}
 }
