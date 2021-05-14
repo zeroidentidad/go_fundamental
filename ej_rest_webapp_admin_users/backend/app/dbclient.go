@@ -2,6 +2,7 @@ package app
 
 import (
 	"backend/logs"
+	"backend/migrate"
 	"fmt"
 	"os"
 	"time"
@@ -31,6 +32,11 @@ func dbclient() *gorm.DB {
 	pool.SetConnMaxLifetime(time.Minute * 3)
 	pool.SetMaxOpenConns(10)
 	pool.SetMaxIdleConns(10)
+
+	// run auto migrations:
+	if os.Getenv("DB_MIGRATE") == "true" {
+		migrate.Migrations(client)
+	}
 
 	return client
 }

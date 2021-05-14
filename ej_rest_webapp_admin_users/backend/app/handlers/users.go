@@ -3,6 +3,7 @@ package handlers
 import (
 	"backend/dto"
 	"backend/service"
+	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -18,5 +19,5 @@ func (h *HandlerUser) Register(c *fiber.Ctx) error {
 	}
 
 	user, err := h.Svc.Register(*body)
-	return resJSON(user, err, c)
+	return resJSON(user, err, c, http.StatusCreated)
 }

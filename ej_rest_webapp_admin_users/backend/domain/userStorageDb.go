@@ -2,6 +2,7 @@ package domain
 
 import (
 	"backend/errs"
+	"backend/logs"
 
 	"gorm.io/gorm"
 )
@@ -15,13 +16,11 @@ func NewUserStorageDb(dbClient *gorm.DB) UserStorageDb {
 }
 
 func (db UserStorageDb) InsertUser(u User) (*User, *errs.AppError) {
-	// _sql := `INSERT INTO users ()`
-
-	//_, err := db.client
-	/*if err != nil {
-		logs.Error("Error creating new user: " + err.Error())
-		return &u, errors.UnexpectedError("Unexpected error from database")
-	}*/
+	r := db.client.Create(&u)
+	if r.Error != nil {
+		logs.Error("Error creating user: " + r.Error.Error())
+		return &u, errs.NewUnexpectedError("Unexpected error from database")
+	}
 
 	return &u, nil
 }

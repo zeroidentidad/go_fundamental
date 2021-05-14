@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"backend/errs"
-	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -15,7 +14,7 @@ func ParseBody(ctx *fiber.Ctx, body interface{}) *fiber.Error {
 	return nil
 }
 
-func resJSON(data interface{}, err *errs.AppError, c *fiber.Ctx) error {
+func resJSON(data interface{}, err *errs.AppError, c *fiber.Ctx, status int) error {
 	if err != nil {
 		c.Status(err.Code)
 		return c.JSON(&fiber.Map{
@@ -23,8 +22,6 @@ func resJSON(data interface{}, err *errs.AppError, c *fiber.Ctx) error {
 		})
 	}
 
-	c.Status(http.StatusCreated)
-	return c.JSON(&fiber.Map{
-		"data": data,
-	})
+	c.Status(status)
+	return c.JSON(data)
 }
