@@ -9,16 +9,14 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-func routes() *fiber.App {
+func routes(prefix string) *fiber.App {
 	router := fiber.New()
 	router.Use(logger.New())
 
-	dbUsers := dbclient()
-	userStorage := domain.NewUserStorageDb(dbUsers)
-
+	db := dbclient()
+	userStorage := domain.NewUserStorageDb(db)
 	hu := handlers.HandlerUser{Svc: service.NewUserService(userStorage)}
 
-	prefix := "/api"
 	router.Post(prefix+"/register", hu.Register)
 
 	return router

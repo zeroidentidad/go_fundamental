@@ -2,5 +2,5 @@ package app
 
 func Start() {
 	config()
-	serve(routes())
+	serve(routes("/api"))
 }
