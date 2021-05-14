@@ -21,3 +21,13 @@ func (h *HandlerUser) Register(c *fiber.Ctx) error {
 	user, err := h.Svc.Register(*body)
 	return resJSON(user, err, c, http.StatusCreated)
 }
+
+func (h *HandlerUser) Login(c *fiber.Ctx) error {
+	body := new(dto.RequestUser)
+	if err := ParseBody(c, body); err != nil {
+		return err
+	}
+
+	user, err := h.Svc.Login(*body)
+	return resJSON(user, err, c, http.StatusOK)
+}

@@ -12,6 +12,7 @@ type User struct {
 
 type UserStorage interface {
 	InsertUser(User) (*User, *errs.AppError)
+	SelectByLogin(User) (*User, *errs.AppError)
 }
 
 func NewUser(id uint, fn, ln, em, pass string) User {

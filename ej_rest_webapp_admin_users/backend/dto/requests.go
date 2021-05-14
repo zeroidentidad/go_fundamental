@@ -8,11 +8,11 @@ import (
 
 type RequestUser struct {
 	ID              uint   `json:"user_id,omitempty"`
-	FirstName       string `json:"first_name"`
-	LastName        string `json:"last_name"`
+	FirstName       string `json:"first_name,omitempty"`
+	LastName        string `json:"last_name,omitempty"`
 	Email           string `json:"email"`
 	Password        string `json:"password"`
-	PasswordConfirm string `json:"password_confirm"`
+	PasswordConfirm string `json:"password_confirm,omitempty"`
 }
 
 func (u RequestUser) EmptyPassword() bool {

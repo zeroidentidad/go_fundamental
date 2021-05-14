@@ -8,6 +8,7 @@ import (
 
 type UserService interface {
 	Register(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
+	Login(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
 }
 
 type DefaultUserService struct {
@@ -20,9 +21,32 @@ func (s DefaultUserService) Register(req dto.RequestUser) (res *dto.ResponseUser
 		return res, err
 	}
 
-	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, req.Password)
+	pass, err := req.EncryptPassword()
+	if err != nil {
+		return res, err
+	}
+
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass)
 
 	usr, err := s.repo.InsertUser(u)
+	if err != nil {
+		return res, err
+	}
+
+	res = &dto.ResponseUser{
+		ID:        usr.ID,
+		FirstName: usr.FirstName,
+		LastName:  usr.LastName,
+		Email:     usr.Email,
+	}
+
+	return res, nil
+}
+
+func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUser, err *errs.AppError) {
+	u := domain.NewUser(0, "", "", req.Email, req.Password)
+
+	usr, err := s.repo.SelectByLogin(u)
 	if err != nil {
 		return res, err
 	}

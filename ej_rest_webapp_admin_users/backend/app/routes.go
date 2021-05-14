@@ -18,6 +18,7 @@ func routes(prefix string) *fiber.App {
 	hu := handlers.HandlerUser{Svc: service.NewUserService(userStorage)}
 
 	router.Post(prefix+"/register", hu.Register)
+	router.Post(prefix+"/login", hu.Login)
 
 	return router
 }
