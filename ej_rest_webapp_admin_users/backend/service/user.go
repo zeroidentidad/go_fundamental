@@ -8,7 +8,7 @@ import (
 
 type UserService interface {
 	Register(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
-	Login(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
+	Login(dto.RequestUser) (*dto.ResponseUserLogin, *errs.AppError)
 }
 
 type DefaultUserService struct {
@@ -43,7 +43,7 @@ func (s DefaultUserService) Register(req dto.RequestUser) (res *dto.ResponseUser
 	return res, nil
 }
 
-func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUser, err *errs.AppError) {
+func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUserLogin, err *errs.AppError) {
 	u := domain.NewUser(0, "", "", req.Email, req.Password)
 
 	usr, err := s.repo.SelectByLogin(u)
@@ -51,13 +51,19 @@ func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUser, e
 		return res, err
 	}
 
-	res = &dto.ResponseUser{
+	login := &dto.ResponseUser{
 		ID:        usr.ID,
 		FirstName: usr.FirstName,
 		LastName:  usr.LastName,
 		Email:     usr.Email,
 	}
 
+	tk, err := login.CreateToken()
+	if err != nil {
+		return res, err
+	}
+
+	res = tk
 	return res, nil
 }
 
