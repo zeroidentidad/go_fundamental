@@ -21,13 +21,13 @@ func (u RequestUser) EmptyPassword() bool {
 
 func (r RequestUser) ValidatePassword() *errs.AppError {
 	if r.EmptyPassword() {
-		return errs.NewValidationError("La contraseña no debe estar vacia")
+		return errs.NewValidationError("The password must not be empty")
 	}
 	if len(r.Password) < 6 {
-		return errs.NewValidationError("La contraseña es demasiado corta")
+		return errs.NewValidationError("The password is too short")
 	}
 	if r.Password != r.PasswordConfirm {
-		return errs.NewValidationError("Confirmación de contraseña no válida")
+		return errs.NewValidationError("Invalid password confirmation")
 	}
 	return nil
 }
@@ -35,7 +35,7 @@ func (r RequestUser) ValidatePassword() *errs.AppError {
 func (r RequestUser) EncryptPassword() (string, *errs.AppError) {
 	cost := 8
 	if r.EmptyPassword() {
-		return "", errs.NewValidationError("contraseña vacia no puede encriptase")
+		return "", errs.NewValidationError("Invalid empty password")
 	}
 	bytes, _ := bcrypt.GenerateFromPassword([]byte(r.Password), cost)
 	return string(bytes), nil

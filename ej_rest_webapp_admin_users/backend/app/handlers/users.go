@@ -36,3 +36,11 @@ func (h *HandlerUser) Login(c *fiber.Ctx) error {
 
 	return resJSON(c, login, err, http.StatusCreated)
 }
+
+func (h *HandlerUser) AuthUser(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+
+	claims, err := h.Svc.AuthUser(cookie)
+
+	return resJSON(c, claims, err, http.StatusOK)
+}

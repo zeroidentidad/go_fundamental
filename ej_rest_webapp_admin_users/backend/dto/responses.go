@@ -1,6 +1,7 @@
 package dto
 
 import (
+	"encoding/json"
 	"time"
 
 	"backend/errs"
@@ -20,6 +21,11 @@ type ResponseUser struct {
 
 type ResponseUserLogin struct {
 	Token string `json:"token"`
+}
+
+type UserClaims struct {
+	ResponseUser
+	jwt.StandardClaims
 }
 
 func (u ResponseUser) CreateToken() (*ResponseUserLogin, *errs.AppError) {
@@ -46,5 +52,20 @@ func (u ResponseUser) claimsForUser() jwt.MapClaims {
 		"email":      u.Email,
 		"exp":        time.Now().Add(TOKEN_DURATION).Unix(),
 	}
+
 	return claims
+}
+
+func FromJwtMapClaims(mapClaims jwt.MapClaims) (uc *UserClaims, err error) {
+	bytes, err := json.Marshal(mapClaims)
+	if err != nil {
+		return uc, err
+	}
+
+	err = json.Unmarshal(bytes, &uc)
+	if err != nil {
+		return uc, err
+	}
+
+	return uc, nil
 }
