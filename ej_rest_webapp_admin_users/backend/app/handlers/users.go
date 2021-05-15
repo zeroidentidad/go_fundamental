@@ -14,20 +14,25 @@ type HandlerUser struct {
 
 func (h *HandlerUser) Register(c *fiber.Ctx) error {
 	body := new(dto.RequestUser)
-	if err := ParseBody(c, body); err != nil {
+	if err := parseBody(c, body); err != nil {
 		return err
 	}
 
 	user, err := h.Svc.Register(*body)
-	return resJSON(user, err, c, http.StatusCreated)
+	return resJSON(c, user, err, http.StatusCreated)
 }
 
 func (h *HandlerUser) Login(c *fiber.Ctx) error {
+	var login fiber.Map
 	body := new(dto.RequestUser)
-	if err := ParseBody(c, body); err != nil {
+	if err := parseBody(c, body); err != nil {
 		return err
 	}
 
-	user, err := h.Svc.Login(*body)
-	return resJSON(user, err, c, http.StatusOK)
+	jwt, err := h.Svc.Login(*body)
+	if err == nil {
+		login = *setCookie(c, jwt.Token, dto.TOKEN_DURATION)
+	}
+
+	return resJSON(c, login, err, http.StatusCreated)
 }

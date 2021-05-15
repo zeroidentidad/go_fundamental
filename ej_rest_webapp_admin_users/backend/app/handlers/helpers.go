@@ -2,19 +2,20 @@ package handlers
 
 import (
 	"backend/errs"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func ParseBody(ctx *fiber.Ctx, body interface{}) *fiber.Error {
-	if err := ctx.BodyParser(body); err != nil {
+func parseBody(c *fiber.Ctx, body interface{}) *fiber.Error {
+	if err := c.BodyParser(body); err != nil {
 		return fiber.ErrBadRequest
 	}
 
 	return nil
 }
 
-func resJSON(data interface{}, err *errs.AppError, c *fiber.Ctx, status int) error {
+func resJSON(c *fiber.Ctx, data interface{}, err *errs.AppError, status int) error {
 	if err != nil {
 		c.Status(err.Code)
 		return c.JSON(&fiber.Map{
@@ -24,4 +25,18 @@ func resJSON(data interface{}, err *errs.AppError, c *fiber.Ctx, status int) err
 
 	c.Status(status)
 	return c.JSON(data)
+}
+
+func setCookie(c *fiber.Ctx, jwt string, duration time.Duration) *fiber.Map {
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    jwt,
+		Expires:  time.Now().Add(duration),
+		HTTPOnly: true,
+	}
+	c.Cookie(&cookie)
+
+	return &fiber.Map{
+		"message": "success",
+	}
 }
