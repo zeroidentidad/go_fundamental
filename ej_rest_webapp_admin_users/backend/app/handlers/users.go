@@ -37,6 +37,12 @@ func (h *HandlerUser) Login(c *fiber.Ctx) error {
 	return resJSON(c, login, err, http.StatusCreated)
 }
 
+func (h *HandlerUser) Logout(c *fiber.Ctx) error {
+	logout := *setCookie(c, "", -dto.TOKEN_DURATION)
+
+	return resJSON(c, logout, nil, http.StatusOK)
+}
+
 func (h *HandlerUser) AuthUser(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 

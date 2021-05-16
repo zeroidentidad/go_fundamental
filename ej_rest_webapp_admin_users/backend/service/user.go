@@ -82,11 +82,11 @@ func (s DefaultUserService) AuthUser(tk string) (*dto.UserClaims, *errs.AppError
 		return []byte(dto.TOKEN_SECRET), nil
 	})
 	if err != nil {
-		return &claims, errs.NewValidationError("Invalid token format")
+		return &claims, errs.NewBadRequestError("Without session token")
 	}
 
 	if !token.Valid {
-		return &claims, errs.NewValidationError("Invalid token")
+		return &claims, errs.NewBadRequestError("Invalid session token")
 	}
 
 	mapClaims := token.Claims.(jwt.MapClaims)
