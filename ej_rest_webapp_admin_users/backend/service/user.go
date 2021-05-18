@@ -13,6 +13,8 @@ type UserService interface {
 	Register(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
 	Login(dto.RequestUser) (*dto.ResponseUserLogin, *errs.AppError)
 	User(*dto.UserClaims) (*dto.ResponseUser, *errs.AppError)
+	Users() (*[]dto.ResponseUser, *errs.AppError)
+	CreateUser(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
 }
 
 type DefaultUserService struct {
@@ -104,6 +106,43 @@ func (s DefaultUserService) User(req *dto.UserClaims) (res *dto.ResponseUser, er
 	u := domain.NewUser(req.ID, "", "", "", "")
 
 	usr, err := s.repo.SelectUser(u)
+	if err != nil {
+		return res, err
+	}
+
+	res = &dto.ResponseUser{
+		ID:        usr.ID,
+		FirstName: usr.FirstName,
+		LastName:  usr.LastName,
+		Email:     usr.Email,
+	}
+
+	return res, nil
+}
+
+func (s DefaultUserService) Users() (*[]dto.ResponseUser, *errs.AppError) {
+	res := make([]dto.ResponseUser, 0)
+	users, err := s.repo.SelectUsers()
+	if err != nil {
+		return &res, err
+	}
+
+	for _, u := range *users {
+		res = append(res, u.ToDto())
+	}
+
+	return &res, err
+}
+
+func (s DefaultUserService) CreateUser(req dto.RequestUser) (res *dto.ResponseUser, err *errs.AppError) {
+	pass, err := req.EncryptPassword()
+	if err != nil {
+		return res, err
+	}
+
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass)
+
+	usr, err := s.repo.InsertUser(u)
 	if err != nil {
 		return res, err
 	}

@@ -1,6 +1,9 @@
 package domain
 
-import "backend/errs"
+import (
+	"backend/dto"
+	"backend/errs"
+)
 
 type User struct {
 	ID        uint   `gorm:"column:id;primaryKey"`
@@ -14,6 +17,7 @@ type UserStorage interface {
 	InsertUser(User) (*User, *errs.AppError)
 	SelectByLogin(User) (*User, *errs.AppError)
 	SelectUser(u User) (*User, *errs.AppError)
+	SelectUsers() (*[]User, *errs.AppError)
 }
 
 func NewUser(id uint, fn, ln, em, pass string) User {
@@ -23,5 +27,14 @@ func NewUser(id uint, fn, ln, em, pass string) User {
 		LastName:  ln,
 		Email:     em,
 		Password:  pass,
+	}
+}
+
+func (u User) ToDto() dto.ResponseUser {
+	return dto.ResponseUser{
+		ID:        u.ID,
+		FirstName: u.FirstName,
+		LastName:  u.LastName,
+		Email:     u.Email,
 	}
 }

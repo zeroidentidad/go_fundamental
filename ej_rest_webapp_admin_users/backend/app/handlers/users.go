@@ -62,3 +62,20 @@ func (h *HandlerUser) User(c *fiber.Ctx) error {
 
 	return resJSON(c, user, err, http.StatusOK)
 }
+
+func (h *HandlerUser) Users(c *fiber.Ctx) error {
+
+	users, err := h.Svc.Users()
+
+	return resJSON(c, users, err, http.StatusOK)
+}
+
+func (h *HandlerUser) CreateUser(c *fiber.Ctx) error {
+	body := new(dto.RequestUser)
+	if err := parseBody(c, body); err != nil {
+		return err
+	}
+
+	user, err := h.Svc.CreateUser(*body)
+	return resJSON(c, user, err, http.StatusCreated)
+}
