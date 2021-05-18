@@ -12,6 +12,18 @@ type HandlerUser struct {
 	Svc service.UserService
 }
 
+func (h *HandlerUser) AuthUser(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+
+	claims, err := h.Svc.AuthUser(cookie)
+	if err != nil {
+		return resJSON(c, claims, err, http.StatusOK)
+	}
+	c.Locals("user", claims)
+
+	return c.Next()
+}
+
 func (h *HandlerUser) Register(c *fiber.Ctx) error {
 	body := new(dto.RequestUser)
 	if err := parseBody(c, body); err != nil {
@@ -43,10 +55,10 @@ func (h *HandlerUser) Logout(c *fiber.Ctx) error {
 	return resJSON(c, logout, nil, http.StatusOK)
 }
 
-func (h *HandlerUser) AuthUser(c *fiber.Ctx) error {
-	cookie := c.Cookies("jwt")
+func (h *HandlerUser) User(c *fiber.Ctx) error {
+	usr := c.Locals("user")
 
-	claims, err := h.Svc.AuthUser(cookie)
+	user, err := h.Svc.User(usr.(*dto.UserClaims))
 
-	return resJSON(c, claims, err, http.StatusOK)
+	return resJSON(c, user, err, http.StatusOK)
 }

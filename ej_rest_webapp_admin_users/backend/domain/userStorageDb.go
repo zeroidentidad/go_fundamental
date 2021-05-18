@@ -47,3 +47,17 @@ func (db UserStorageDb) SelectByLogin(u User) (*User, *errs.AppError) {
 
 	return &usr, nil
 }
+
+func (db UserStorageDb) SelectUser(u User) (*User, *errs.AppError) {
+	var usr User
+	r := db.client.Where("id = ?", u.ID).First(&usr)
+	if r.Error != nil {
+		if errors.Is(r.Error, gorm.ErrRecordNotFound) {
+			return &usr, errs.NewUnexpectedError("User not found")
+		}
+		logs.Error("Error finding user: " + r.Error.Error())
+		return &usr, errs.NewUnexpectedError("Unexpected error from database")
+	}
+
+	return &usr, nil
+}

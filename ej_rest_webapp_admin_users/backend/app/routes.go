@@ -21,8 +21,11 @@ func routes(prefix string) *fiber.App {
 
 	router.Post(prefix+"/register", hu.Register)
 	router.Post(prefix+"/login", hu.Login)
+
+	router.Use(hu.AuthUser)
+
 	router.Post(prefix+"/logout", hu.Logout)
-	router.Get(prefix+"/auth-user", hu.AuthUser)
+	router.Get(prefix+"/user", hu.User)
 
 	return router
 }
