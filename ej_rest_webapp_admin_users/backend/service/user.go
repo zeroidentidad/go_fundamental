@@ -4,6 +4,7 @@ import (
 	"backend/domain"
 	"backend/dto"
 	"backend/errs"
+	"strconv"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -15,6 +16,9 @@ type UserService interface {
 	User(*dto.UserClaims) (*dto.ResponseUser, *errs.AppError)
 	Users() (*[]dto.ResponseUser, *errs.AppError)
 	CreateUser(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
+	GetUser(string) (*dto.ResponseUser, *errs.AppError)
+	UpdateUser(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
+	DeleteUser(string) *errs.AppError
 }
 
 type DefaultUserService struct {
@@ -68,14 +72,9 @@ func (s DefaultUserService) Register(req dto.RequestUser) (res *dto.ResponseUser
 		return res, err
 	}
 
-	res = &dto.ResponseUser{
-		ID:        usr.ID,
-		FirstName: usr.FirstName,
-		LastName:  usr.LastName,
-		Email:     usr.Email,
-	}
+	dto := usr.ToDto()
 
-	return res, nil
+	return &dto, nil
 }
 
 func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUserLogin, err *errs.AppError) {
@@ -86,12 +85,7 @@ func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUserLog
 		return res, err
 	}
 
-	login := &dto.ResponseUser{
-		ID:        usr.ID,
-		FirstName: usr.FirstName,
-		LastName:  usr.LastName,
-		Email:     usr.Email,
-	}
+	login := usr.ToDto()
 
 	tk, err := login.CreateToken()
 	if err != nil {
@@ -110,14 +104,9 @@ func (s DefaultUserService) User(req *dto.UserClaims) (res *dto.ResponseUser, er
 		return res, err
 	}
 
-	res = &dto.ResponseUser{
-		ID:        usr.ID,
-		FirstName: usr.FirstName,
-		LastName:  usr.LastName,
-		Email:     usr.Email,
-	}
+	dto := usr.ToDto()
 
-	return res, nil
+	return &dto, nil
 }
 
 func (s DefaultUserService) Users() (*[]dto.ResponseUser, *errs.AppError) {
@@ -147,12 +136,54 @@ func (s DefaultUserService) CreateUser(req dto.RequestUser) (res *dto.ResponseUs
 		return res, err
 	}
 
-	res = &dto.ResponseUser{
-		ID:        usr.ID,
-		FirstName: usr.FirstName,
-		LastName:  usr.LastName,
-		Email:     usr.Email,
+	dto := usr.ToDto()
+
+	return &dto, nil
+}
+
+func (s DefaultUserService) GetUser(id string) (res *dto.ResponseUser, err *errs.AppError) {
+	_id, _ := strconv.Atoi(id)
+	u := domain.NewUser(uint(_id), "", "", "", "")
+
+	usr, err := s.repo.SelectUser(u)
+	if err != nil {
+		return res, err
 	}
 
-	return res, nil
+	dto := usr.ToDto()
+
+	return &dto, nil
+}
+
+func (s DefaultUserService) UpdateUser(req dto.RequestUser) (res *dto.ResponseUser, err *errs.AppError) {
+	if req.Password != "" {
+		pass, err := req.EncryptPassword()
+		if err != nil {
+			return res, err
+		}
+		req.Password = pass
+	}
+
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, req.Password)
+
+	usr, err := s.repo.UpdateUser(u)
+	if err != nil {
+		return res, err
+	}
+
+	dto := usr.ToDto()
+
+	return &dto, nil
+}
+
+func (s DefaultUserService) DeleteUser(id string) (err *errs.AppError) {
+	_id, _ := strconv.Atoi(id)
+	u := domain.NewUser(uint(_id), "", "", "", "")
+
+	err = s.repo.DeleteUser(u)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

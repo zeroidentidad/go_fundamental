@@ -75,3 +75,23 @@ func (db UserStorageDb) SelectUsers() (*[]User, *errs.AppError) {
 
 	return &users, nil
 }
+
+func (db UserStorageDb) UpdateUser(u User) (*User, *errs.AppError) {
+	r := db.client.Model(&u).Updates(u)
+	if r.Error != nil {
+		logs.Error("Error updating user: " + r.Error.Error())
+		return &u, errs.NewUnexpectedError("Unexpected error from database")
+	}
+
+	return &u, nil
+}
+
+func (db UserStorageDb) DeleteUser(u User) *errs.AppError {
+	r := db.client.Delete(&u)
+	if r.Error != nil {
+		logs.Error("Error deleting user: " + r.Error.Error())
+		return errs.NewUnexpectedError("Unexpected error from database")
+	}
+
+	return nil
+}

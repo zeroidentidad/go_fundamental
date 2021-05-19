@@ -28,6 +28,9 @@ func routes(prefix string) *fiber.App {
 	router.Get(prefix+"/user", hu.User)
 	router.Get(prefix+"/users", hu.Users)
 	router.Post(prefix+"/create-user", hu.CreateUser)
+	router.Get(prefix+"/get-user/:id", hu.GetUser)
+	router.Put(prefix+"/update-user", hu.UpdateUser)
+	router.Delete(prefix+"/delete-user/:id", hu.DeleteUser)
 
 	return router
 }

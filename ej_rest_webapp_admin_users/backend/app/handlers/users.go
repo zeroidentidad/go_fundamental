@@ -79,3 +79,29 @@ func (h *HandlerUser) CreateUser(c *fiber.Ctx) error {
 	user, err := h.Svc.CreateUser(*body)
 	return resJSON(c, user, err, http.StatusCreated)
 }
+
+func (h *HandlerUser) GetUser(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	user, err := h.Svc.GetUser(id)
+
+	return resJSON(c, user, err, http.StatusOK)
+}
+
+func (h *HandlerUser) UpdateUser(c *fiber.Ctx) error {
+	body := new(dto.RequestUser)
+	if err := parseBody(c, body); err != nil {
+		return err
+	}
+
+	user, err := h.Svc.UpdateUser(*body)
+	return resJSON(c, user, err, http.StatusCreated)
+}
+
+func (h *HandlerUser) DeleteUser(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	err := h.Svc.DeleteUser(id)
+
+	return resJSON(c, "deleted", err, http.StatusOK)
+}

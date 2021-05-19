@@ -16,8 +16,10 @@ type User struct {
 type UserStorage interface {
 	InsertUser(User) (*User, *errs.AppError)
 	SelectByLogin(User) (*User, *errs.AppError)
-	SelectUser(u User) (*User, *errs.AppError)
+	SelectUser(User) (*User, *errs.AppError)
 	SelectUsers() (*[]User, *errs.AppError)
+	UpdateUser(User) (*User, *errs.AppError)
+	DeleteUser(User) *errs.AppError
 }
 
 func NewUser(id uint, fn, ln, em, pass string) User {
