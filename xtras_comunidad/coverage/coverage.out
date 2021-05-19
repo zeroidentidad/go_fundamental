@@ -1,0 +1,8 @@
+mode: set
+validate/validate_user.go:11.39,12.17 1 1
+validate/validate_user.go:16.2,16.17 1 1
+validate/validate_user.go:20.2,21.32 2 1
+validate/validate_user.go:25.2,25.18 1 1
+validate/validate_user.go:12.17,14.3 1 1
+validate/validate_user.go:16.17,18.3 1 1
+validate/validate_user.go:21.32,23.3 1 1
