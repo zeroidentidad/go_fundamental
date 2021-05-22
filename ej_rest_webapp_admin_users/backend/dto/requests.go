@@ -15,6 +15,11 @@ type RequestUser struct {
 	PasswordConfirm string `json:"password_confirm,omitempty"`
 }
 
+type RequestRole struct {
+	ID   uint   `json:"role_id,omitempty"`
+	Name string `json:"name"`
+}
+
 func (u RequestUser) EmptyPassword() bool {
 	return u.Password == ""
 }

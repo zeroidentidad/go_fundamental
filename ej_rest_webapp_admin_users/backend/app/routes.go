@@ -10,27 +10,36 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-func routes(prefix string) *fiber.App {
-	router := fiber.New()
-	router.Use(logger.New())
-	router.Use(cors.New(cors.Config{AllowCredentials: true}))
-
+func routes() *fiber.App {
 	db := dbclient()
 	userStorage := domain.NewUserStorageDb(db)
 	hu := handlers.HandlerUser{Svc: service.NewUserService(userStorage)}
+	roleStorage := domain.NewRoleStorageDb(db)
+	hr := handlers.HandlerRole{Svc: service.NewRoleService(roleStorage)}
 
-	router.Post(prefix+"/register", hu.Register)
-	router.Post(prefix+"/login", hu.Login)
+	router := fiber.New()
+	router.Use(logger.New())
+	router.Use(cors.New(cors.Config{AllowCredentials: true}))
+	route := router.Group("/api")
 
-	router.Use(hu.AuthUser)
+	route.Post("/register", hu.Register)
+	route.Post("/login", hu.Login)
 
-	router.Post(prefix+"/logout", hu.Logout)
-	router.Get(prefix+"/user", hu.User)
-	router.Get(prefix+"/users", hu.Users)
-	router.Post(prefix+"/create-user", hu.CreateUser)
-	router.Get(prefix+"/get-user/:id", hu.GetUser)
-	router.Put(prefix+"/update-user", hu.UpdateUser)
-	router.Delete(prefix+"/delete-user/:id", hu.DeleteUser)
+	route.Use(hu.AuthUser)
+
+	route.Post("/logout", hu.Logout)
+	route.Get("/user", hu.User)
+	route.Get("/users", hu.Users)
+	route.Post("/create-user", hu.CreateUser)
+	route.Get("/get-user/:id", hu.GetUser)
+	route.Put("/update-user", hu.UpdateUser)
+	route.Delete("/delete-user/:id", hu.DeleteUser)
+
+	route.Get("/roles", hr.Roles)
+	route.Post("/create-role", hr.CreateRole)
+	route.Get("/get-role/:id", hr.GetRole)
+	route.Put("/update-role", hr.UpdateRole)
+	route.Delete("/delete-role/:id", hr.DeleteRole)
 
 	return router
 }

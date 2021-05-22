@@ -19,6 +19,11 @@ type ResponseUser struct {
 	Email     string `json:"email,omitempty"`
 }
 
+type ResponseRole struct {
+	ID   uint   `json:"role_id"`
+	Name string `json:"name"`
+}
+
 type ResponseUserLogin struct {
 	Token string `json:"token"`
 }

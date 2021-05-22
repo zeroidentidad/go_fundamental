@@ -64,7 +64,6 @@ func (h *HandlerUser) User(c *fiber.Ctx) error {
 }
 
 func (h *HandlerUser) Users(c *fiber.Ctx) error {
-
 	users, err := h.Svc.Users()
 
 	return resJSON(c, users, err, http.StatusOK)
