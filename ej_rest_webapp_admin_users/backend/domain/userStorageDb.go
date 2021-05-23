@@ -50,7 +50,7 @@ func (db UserStorageDb) SelectByLogin(u User) (*User, *errs.AppError) {
 
 func (db UserStorageDb) SelectUser(u User) (*User, *errs.AppError) {
 	var usr User
-	r := db.client.Where("id = ?", u.ID).First(&usr)
+	r := db.client.Where("id = ?", u.ID).Preload("Role").First(&usr)
 	if r.Error != nil {
 		if errors.Is(r.Error, gorm.ErrRecordNotFound) {
 			return &usr, errs.NewUnexpectedError("User not found")
@@ -64,7 +64,7 @@ func (db UserStorageDb) SelectUser(u User) (*User, *errs.AppError) {
 
 func (db UserStorageDb) SelectUsers() (*[]User, *errs.AppError) {
 	users := make([]User, 0)
-	r := db.client.Find(&users)
+	r := db.client.Preload("Role").Find(&users)
 	if r.Error != nil {
 		if errors.Is(r.Error, gorm.ErrEmptySlice) {
 			return &users, errs.NewUnexpectedError("Users not found")

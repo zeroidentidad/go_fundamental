@@ -65,7 +65,7 @@ func (s DefaultUserService) Register(req dto.RequestUser) (res *dto.ResponseUser
 		return res, err
 	}
 
-	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass)
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass, req.RoleID)
 
 	usr, err := s.repo.InsertUser(u)
 	if err != nil {
@@ -78,7 +78,7 @@ func (s DefaultUserService) Register(req dto.RequestUser) (res *dto.ResponseUser
 }
 
 func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUserLogin, err *errs.AppError) {
-	u := domain.NewUser(0, "", "", req.Email, req.Password)
+	u := domain.NewUser(0, "", "", req.Email, req.Password, 0)
 
 	usr, err := s.repo.SelectByLogin(u)
 	if err != nil {
@@ -97,7 +97,7 @@ func (s DefaultUserService) Login(req dto.RequestUser) (res *dto.ResponseUserLog
 }
 
 func (s DefaultUserService) User(req *dto.UserClaims) (res *dto.ResponseUser, err *errs.AppError) {
-	u := domain.NewUser(req.ID, "", "", "", "")
+	u := domain.NewUser(req.ID, "", "", "", "", 0)
 
 	usr, err := s.repo.SelectUser(u)
 	if err != nil {
@@ -129,7 +129,7 @@ func (s DefaultUserService) CreateUser(req dto.RequestUser) (res *dto.ResponseUs
 		return res, err
 	}
 
-	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass)
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass, req.RoleID)
 
 	usr, err := s.repo.InsertUser(u)
 	if err != nil {
@@ -143,7 +143,7 @@ func (s DefaultUserService) CreateUser(req dto.RequestUser) (res *dto.ResponseUs
 
 func (s DefaultUserService) GetUser(id string) (res *dto.ResponseUser, err *errs.AppError) {
 	_id, _ := strconv.Atoi(id)
-	u := domain.NewUser(uint(_id), "", "", "", "")
+	u := domain.NewUser(uint(_id), "", "", "", "", 0)
 
 	usr, err := s.repo.SelectUser(u)
 	if err != nil {
@@ -164,7 +164,7 @@ func (s DefaultUserService) UpdateUser(req dto.RequestUser) (res *dto.ResponseUs
 		req.Password = pass
 	}
 
-	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, req.Password)
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, req.Password, req.RoleID)
 
 	usr, err := s.repo.UpdateUser(u)
 	if err != nil {
@@ -178,7 +178,7 @@ func (s DefaultUserService) UpdateUser(req dto.RequestUser) (res *dto.ResponseUs
 
 func (s DefaultUserService) DeleteUser(id string) (err *errs.AppError) {
 	_id, _ := strconv.Atoi(id)
-	u := domain.NewUser(uint(_id), "", "", "", "")
+	u := domain.NewUser(uint(_id), "", "", "", "", 0)
 
 	err = s.repo.DeleteUser(u)
 	if err != nil {

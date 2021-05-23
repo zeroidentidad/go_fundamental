@@ -11,6 +11,8 @@ type User struct {
 	LastName  string `gorm:"column:last_name"`
 	Email     string `gorm:"column:email;unique"`
 	Password  string `gorm:"column:password"`
+	RoleID    uint   `gorm:"column:role_id"`
+	Role      Role   `gorm:"foreignKey:role_id"`
 }
 
 type UserStorage interface {
@@ -22,13 +24,14 @@ type UserStorage interface {
 	DeleteUser(User) *errs.AppError
 }
 
-func NewUser(id uint, fn, ln, em, pass string) User {
+func NewUser(id uint, fn, ln, em, pass string, rol uint) User {
 	return User{
 		ID:        id,
 		FirstName: fn,
 		LastName:  ln,
 		Email:     em,
 		Password:  pass,
+		RoleID:    rol,
 	}
 }
 
@@ -38,5 +41,10 @@ func (u User) ToDto() dto.ResponseUser {
 		FirstName: u.FirstName,
 		LastName:  u.LastName,
 		Email:     u.Email,
+		RoleID:    u.RoleID,
+		Role: dto.ResponseRole{
+			ID:   u.Role.ID,
+			Name: u.Role.Name,
+		},
 	}
 }
