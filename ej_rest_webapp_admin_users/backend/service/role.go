@@ -40,7 +40,7 @@ func (s DefaultRoleService) Roles() (*[]dto.ResponseRole, *errs.AppError) {
 }
 
 func (s DefaultRoleService) CreateRole(req dto.RequestRole) (res *dto.ResponseRole, err *errs.AppError) {
-	r := domain.NewRole(req.ID, req.Name)
+	r := domain.NewRole(req.ID, req.Name, req.Permissions)
 
 	role, err := s.repo.InsertRole(r)
 	if err != nil {
@@ -54,7 +54,7 @@ func (s DefaultRoleService) CreateRole(req dto.RequestRole) (res *dto.ResponseRo
 
 func (s DefaultRoleService) GetRole(id string) (res *dto.ResponseRole, err *errs.AppError) {
 	_id, _ := strconv.Atoi(id)
-	u := domain.NewRole(uint(_id), "")
+	u := domain.NewRole(uint(_id), "", []string{})
 
 	rol, err := s.repo.SelectRole(u)
 	if err != nil {
@@ -67,7 +67,7 @@ func (s DefaultRoleService) GetRole(id string) (res *dto.ResponseRole, err *errs
 }
 
 func (s DefaultRoleService) UpdateRole(req dto.RequestRole) (res *dto.ResponseRole, err *errs.AppError) {
-	r := domain.NewRole(req.ID, req.Name)
+	r := domain.NewRole(req.ID, req.Name, req.Permissions)
 
 	role, err := s.repo.UpdateRole(r)
 	if err != nil {
@@ -81,7 +81,7 @@ func (s DefaultRoleService) UpdateRole(req dto.RequestRole) (res *dto.ResponseRo
 
 func (s DefaultRoleService) DeleteRole(id string) (err *errs.AppError) {
 	_id, _ := strconv.Atoi(id)
-	r := domain.NewRole(uint(_id), "")
+	r := domain.NewRole(uint(_id), "", []string{})
 
 	err = s.repo.DeleteRole(r)
 	if err != nil {

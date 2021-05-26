@@ -22,7 +22,13 @@ type ResponseUser struct {
 }
 
 type ResponseRole struct {
-	ID   uint   `json:"role_id"`
+	ID          uint                 `json:"role_id"`
+	Name        string               `json:"name"`
+	Permissions []ResponsePermission `json:"permissions"`
+}
+
+type ResponsePermission struct {
+	ID   uint   `json:"permission_id"`
 	Name string `json:"name"`
 }
 

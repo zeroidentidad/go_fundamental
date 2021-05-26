@@ -69,7 +69,7 @@ func (db UserStorageDb) SelectUsers() (*[]User, *errs.AppError) {
 		if errors.Is(r.Error, gorm.ErrEmptySlice) {
 			return &users, errs.NewUnexpectedError("Users not found")
 		}
-		logs.Error("Error finding user: " + r.Error.Error())
+		logs.Error("Error finding users: " + r.Error.Error())
 		return &users, errs.NewUnexpectedError("Unexpected error from database")
 	}
 

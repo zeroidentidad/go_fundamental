@@ -16,6 +16,8 @@ func routes() *fiber.App {
 	hu := handlers.HandlerUser{Svc: service.NewUserService(userStorage)}
 	roleStorage := domain.NewRoleStorageDb(db)
 	hr := handlers.HandlerRole{Svc: service.NewRoleService(roleStorage)}
+	permissionStorage := domain.NewPermissionStorageDb(db)
+	hp := handlers.HandlerPermission{Svc: service.NewPermissionService(permissionStorage)}
 
 	router := fiber.New()
 	router.Use(logger.New())
@@ -40,6 +42,8 @@ func routes() *fiber.App {
 	route.Get("/get-role/:id", hr.GetRole)
 	route.Put("/update-role", hr.UpdateRole)
 	route.Delete("/delete-role/:id", hr.DeleteRole)
+
+	route.Get("/permissions", hp.Permissions)
 
 	return router
 }

@@ -17,8 +17,9 @@ type RequestUser struct {
 }
 
 type RequestRole struct {
-	ID   uint   `json:"role_id,omitempty"`
-	Name string `json:"name"`
+	ID          uint     `json:"role_id,omitempty"`
+	Name        string   `json:"name"`
+	Permissions []string `json:"permissions"`
 }
 
 func (u RequestUser) EmptyPassword() bool {
