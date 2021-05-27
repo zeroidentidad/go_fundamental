@@ -4,6 +4,7 @@ import (
 	"backend/dto"
 	"backend/service"
 	"net/http"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -64,9 +65,18 @@ func (h *HandlerUser) User(c *fiber.Ctx) error {
 }
 
 func (h *HandlerUser) Users(c *fiber.Ctx) error {
-	users, err := h.Svc.Users()
+	page, _ := strconv.Atoi(c.Query("page", "1"))
+	users, total, err := h.Svc.Users(page)
 
-	return resJSON(c, users, err, http.StatusOK)
+	res := fiber.Map{
+		"data": users,
+		"meta": fiber.Map{
+			"total": total,
+			"page":  page,
+		},
+	}
+
+	return resJSON(c, res, err, http.StatusOK)
 }
 
 func (h *HandlerUser) CreateUser(c *fiber.Ctx) error {

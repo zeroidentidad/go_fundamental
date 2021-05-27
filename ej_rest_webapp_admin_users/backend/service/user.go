@@ -14,7 +14,7 @@ type UserService interface {
 	Register(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
 	Login(dto.RequestUser) (*dto.ResponseUserLogin, *errs.AppError)
 	User(*dto.UserClaims) (*dto.ResponseUser, *errs.AppError)
-	Users() (*[]dto.ResponseUser, *errs.AppError)
+	Users(int) (*[]dto.ResponseUser, int64, *errs.AppError)
 	CreateUser(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
 	GetUser(string) (*dto.ResponseUser, *errs.AppError)
 	UpdateUser(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
@@ -109,18 +109,18 @@ func (s DefaultUserService) User(req *dto.UserClaims) (res *dto.ResponseUser, er
 	return &dto, nil
 }
 
-func (s DefaultUserService) Users() (*[]dto.ResponseUser, *errs.AppError) {
+func (s DefaultUserService) Users(page int) (*[]dto.ResponseUser, int64, *errs.AppError) {
 	res := make([]dto.ResponseUser, 0)
-	users, err := s.repo.SelectUsers()
+	users, total, err := s.repo.SelectUsers(page)
 	if err != nil {
-		return &res, err
+		return &res, total, err
 	}
 
 	for _, u := range *users {
 		res = append(res, u.ToDto())
 	}
 
-	return &res, err
+	return &res, total, err
 }
 
 func (s DefaultUserService) CreateUser(req dto.RequestUser) (res *dto.ResponseUser, err *errs.AppError) {

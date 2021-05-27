@@ -5,6 +5,8 @@ import (
 	"backend/errs"
 )
 
+const LIMIT_PAG int = 10
+
 type User struct {
 	ID        uint   `gorm:"column:id;primaryKey"`
 	FirstName string `gorm:"column:first_name"`
@@ -19,7 +21,7 @@ type UserStorage interface {
 	InsertUser(User) (*User, *errs.AppError)
 	SelectByLogin(User) (*User, *errs.AppError)
 	SelectUser(User) (*User, *errs.AppError)
-	SelectUsers() (*[]User, *errs.AppError)
+	SelectUsers(int) (*[]User, int64, *errs.AppError)
 	UpdateUser(User) (*User, *errs.AppError)
 	DeleteUser(User) *errs.AppError
 }

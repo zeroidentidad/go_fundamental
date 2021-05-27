@@ -62,18 +62,21 @@ func (db UserStorageDb) SelectUser(u User) (*User, *errs.AppError) {
 	return &usr, nil
 }
 
-func (db UserStorageDb) SelectUsers() (*[]User, *errs.AppError) {
+func (db UserStorageDb) SelectUsers(page int) (*[]User, int64, *errs.AppError) {
+	var total int64
+	db.client.Model(&User{}).Count(&total)
+	offset := (page - 1) * LIMIT_PAG
 	users := make([]User, 0)
-	r := db.client.Preload("Role").Find(&users)
+	r := db.client.Preload("Role").Offset(offset).Limit(LIMIT_PAG).Find(&users)
 	if r.Error != nil {
 		if errors.Is(r.Error, gorm.ErrEmptySlice) {
-			return &users, errs.NewUnexpectedError("Users not found")
+			return &users, total, errs.NewUnexpectedError("Users not found")
 		}
 		logs.Error("Error finding users: " + r.Error.Error())
-		return &users, errs.NewUnexpectedError("Unexpected error from database")
+		return &users, total, errs.NewUnexpectedError("Unexpected error from database")
 	}
 
-	return &users, nil
+	return &users, total, nil
 }
 
 func (db UserStorageDb) UpdateUser(u User) (*User, *errs.AppError) {
