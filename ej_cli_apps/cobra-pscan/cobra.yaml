@@ -1,0 +1,8 @@
+author: Nil
+license:
+  header: |
+    this source code can be useful for practice build CLI apps.
+  text: |
+    {{ .copyright }}
+    
+    Nil
