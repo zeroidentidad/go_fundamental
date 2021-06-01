@@ -19,6 +19,8 @@ type UserService interface {
 	GetUser(string) (*dto.ResponseUser, *errs.AppError)
 	UpdateUser(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
 	DeleteUser(string) *errs.AppError
+	UpdateProfile(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
+	UpdatePassword(dto.RequestUser) (*dto.ResponseUser, *errs.AppError)
 }
 
 type DefaultUserService struct {
@@ -186,4 +188,41 @@ func (s DefaultUserService) DeleteUser(id string) (err *errs.AppError) {
 	}
 
 	return nil
+}
+
+func (s DefaultUserService) UpdateProfile(req dto.RequestUser) (res *dto.ResponseUser, err *errs.AppError) {
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, "", req.RoleID)
+
+	usr, err := s.repo.UpdateUser(u)
+	if err != nil {
+		return res, err
+	}
+
+	dto := usr.ToDto()
+
+	return &dto, nil
+}
+
+func (s DefaultUserService) UpdatePassword(req dto.RequestUser) (res *dto.ResponseUser, err *errs.AppError) {
+	err = req.ValidatePassword()
+	if err != nil {
+		return res, err
+	}
+
+	pass, err := req.EncryptPassword()
+	if err != nil {
+		return res, err
+	}
+	req.Password = pass
+
+	u := domain.NewUser(req.ID, "", "", "", req.Password, 0)
+
+	usr, err := s.repo.UpdateUser(u)
+	if err != nil {
+		return res, err
+	}
+
+	dto := usr.ToDto()
+
+	return &dto, nil
 }

@@ -31,6 +31,8 @@ func routes() *fiber.App {
 
 	route.Post("/logout", hu.Logout)
 	route.Get("/user", hu.User)
+	route.Put("/update-profile", hu.UpdateProfile)
+	route.Put("/update-password", hu.UpdatePassword)
 	route.Get("/users", hu.Users)
 	route.Post("/create-user", hu.CreateUser)
 	route.Get("/get-user/:id", hu.GetUser)

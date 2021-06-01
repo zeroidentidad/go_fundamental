@@ -114,3 +114,33 @@ func (h *HandlerUser) DeleteUser(c *fiber.Ctx) error {
 
 	return resJSON(c, "deleted", err, http.StatusOK)
 }
+
+func (h *HandlerUser) UpdateProfile(c *fiber.Ctx) error {
+	usr := c.Locals("user")
+
+	id := usr.(*dto.UserClaims).ResponseUser.ID
+
+	body := new(dto.RequestUser)
+	if err := parseBody(c, body); err != nil {
+		return err
+	}
+	body.ID = id
+
+	user, err := h.Svc.UpdateProfile(*body)
+	return resJSON(c, user, err, http.StatusCreated)
+}
+
+func (h *HandlerUser) UpdatePassword(c *fiber.Ctx) error {
+	usr := c.Locals("user")
+
+	id := usr.(*dto.UserClaims).ResponseUser.ID
+
+	body := new(dto.RequestUser)
+	if err := parseBody(c, body); err != nil {
+		return err
+	}
+	body.ID = id
+
+	user, err := h.Svc.UpdatePassword(*body)
+	return resJSON(c, user, err, http.StatusCreated)
+}
