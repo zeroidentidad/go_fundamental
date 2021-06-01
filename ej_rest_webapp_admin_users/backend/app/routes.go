@@ -13,39 +13,47 @@ import (
 func routes() *fiber.App {
 	db := dbclient()
 	userStorage := domain.NewUserStorageDb(db)
-	hu := handlers.HandlerUser{Svc: service.NewUserService(userStorage)}
+	user := handlers.HandlerUser{Svc: service.NewUserService(userStorage)}
 	roleStorage := domain.NewRoleStorageDb(db)
-	hr := handlers.HandlerRole{Svc: service.NewRoleService(roleStorage)}
+	role := handlers.HandlerRole{Svc: service.NewRoleService(roleStorage)}
 	permissionStorage := domain.NewPermissionStorageDb(db)
-	hp := handlers.HandlerPermission{Svc: service.NewPermissionService(permissionStorage)}
+	permission := handlers.HandlerPermission{Svc: service.NewPermissionService(permissionStorage)}
+	productStorage := domain.NewProductStorageDb(db)
+	product := handlers.HandlerProduct{Svc: service.NewProductService(productStorage)}
 
 	router := fiber.New()
 	router.Use(logger.New())
 	router.Use(cors.New(cors.Config{AllowCredentials: true}))
 	route := router.Group("/api")
 
-	route.Post("/register", hu.Register)
-	route.Post("/login", hu.Login)
+	route.Post("/register", user.Register)
+	route.Post("/login", user.Login)
 
-	route.Use(hu.AuthUser)
+	route.Use(user.AuthUser)
 
-	route.Post("/logout", hu.Logout)
-	route.Get("/user", hu.User)
-	route.Put("/update-profile", hu.UpdateProfile)
-	route.Put("/update-password", hu.UpdatePassword)
-	route.Get("/users", hu.Users)
-	route.Post("/create-user", hu.CreateUser)
-	route.Get("/get-user/:id", hu.GetUser)
-	route.Put("/update-user", hu.UpdateUser)
-	route.Delete("/delete-user/:id", hu.DeleteUser)
+	route.Post("/logout", user.Logout)
+	route.Get("/user", user.User)
+	route.Put("/update-profile", user.UpdateProfile)
+	route.Put("/update-password", user.UpdatePassword)
+	route.Get("/users", user.Users)
+	route.Post("/create-user", user.CreateUser)
+	route.Get("/get-user/:id", user.GetUser)
+	route.Put("/update-user", user.UpdateUser)
+	route.Delete("/delete-user/:id", user.DeleteUser)
 
-	route.Get("/roles", hr.Roles)
-	route.Post("/create-role", hr.CreateRole)
-	route.Get("/get-role/:id", hr.GetRole)
-	route.Put("/update-role", hr.UpdateRole)
-	route.Delete("/delete-role/:id", hr.DeleteRole)
+	route.Get("/roles", role.Roles)
+	route.Post("/create-role", role.CreateRole)
+	route.Get("/get-role/:id", role.GetRole)
+	route.Put("/update-role", role.UpdateRole)
+	route.Delete("/delete-role/:id", role.DeleteRole)
 
-	route.Get("/permissions", hp.Permissions)
+	route.Get("/permissions", permission.Permissions)
+
+	route.Get("/products", product.Products)
+	route.Post("/create-product", product.CreateProduct)
+	route.Get("/get-product/:id", product.GetProduct)
+	route.Put("/update-product", product.UpdateProduct)
+	route.Delete("/delete-product/:id", product.DeleteProduct)
 
 	return router
 }

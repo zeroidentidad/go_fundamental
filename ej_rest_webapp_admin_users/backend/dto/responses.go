@@ -13,7 +13,7 @@ const TOKEN_DURATION = time.Hour * 720 // 1 mes
 const TOKEN_SECRET = "S3cRet_n0N3_1d3Nt"
 
 type ResponseUser struct {
-	ID        uint         `json:"user_id,omitempty"`
+	ID        uint         `json:"user_id,"`
 	FirstName string       `json:"first_name,omitempty"`
 	LastName  string       `json:"last_name,omitempty"`
 	Email     string       `json:"email,omitempty"`
@@ -30,6 +30,14 @@ type ResponseRole struct {
 type ResponsePermission struct {
 	ID   uint   `json:"permission_id"`
 	Name string `json:"name"`
+}
+
+type ResponseProduct struct {
+	ID          uint    `json:"product_id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Image       string  `json:"image"`
+	Price       float64 `json:"price"`
 }
 
 type ResponseUserLogin struct {

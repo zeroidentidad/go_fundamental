@@ -5,8 +5,6 @@ import (
 	"backend/errs"
 )
 
-const LIMIT_PAG int = 10
-
 type User struct {
 	ID        uint   `gorm:"column:id;primaryKey"`
 	FirstName string `gorm:"column:first_name"`

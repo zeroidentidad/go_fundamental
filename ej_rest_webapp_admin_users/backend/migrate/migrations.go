@@ -7,5 +7,5 @@ import (
 )
 
 func Migrations(database *gorm.DB) {
-	_ = database.AutoMigrate(&domain.User{}, &domain.Role{}, &domain.Permission{})
+	_ = database.AutoMigrate(&domain.User{}, &domain.Role{}, &domain.Permission{}, &domain.Product{})
 }

@@ -22,6 +22,14 @@ type RequestRole struct {
 	Permissions []string `json:"permissions"`
 }
 
+type RequestProduct struct {
+	ID          uint    `json:"product_id,omitempty"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	Image       string  `json:"image,omitempty"`
+	Price       float64 `json:"price"`
+}
+
 func (u RequestUser) EmptyPassword() bool {
 	return u.Password == ""
 }
