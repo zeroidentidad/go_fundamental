@@ -28,6 +28,7 @@ func routes() *fiber.App {
 
 	route.Post("/register", user.Register)
 	route.Post("/login", user.Login)
+	route.Static("/uploads", "./uploads")
 
 	route.Use(user.AuthUser)
 
@@ -54,6 +55,7 @@ func routes() *fiber.App {
 	route.Get("/get-product/:id", product.GetProduct)
 	route.Put("/update-product", product.UpdateProduct)
 	route.Delete("/delete-product/:id", product.DeleteProduct)
+	route.Post("/upload-image", product.UploadImage)
 
 	return router
 }

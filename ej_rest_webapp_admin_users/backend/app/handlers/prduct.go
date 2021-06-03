@@ -63,3 +63,34 @@ func (h *HandlerProduct) DeleteProduct(c *fiber.Ctx) error {
 
 	return resJSON(c, "deleted", err, http.StatusOK)
 }
+
+func (h *HandlerProduct) UploadImage(c *fiber.Ctx) error {
+	product_id := c.FormValue("product_id")
+	form, err := c.MultipartForm()
+	if err != nil {
+		return err
+	}
+
+	files := form.File["image"]
+	var filename string
+	for _, file := range files {
+		filename = product_id + "-" + file.Filename
+		if err := c.SaveFile(file, "./uploads/"+filename); err != nil {
+			return err
+		}
+	}
+
+	id, _ := strconv.Atoi(product_id)
+	p := dto.RequestProduct{}
+	p.ID = uint(id)
+	p.Image = filename
+
+	product, errs := h.Svc.UpdateProduct(p)
+
+	upload := fiber.Map{
+		"data": product,
+		"url":  c.BaseURL() + "/api/uploads/" + filename,
+	}
+
+	return resJSON(c, upload, errs, http.StatusCreated)
+}
