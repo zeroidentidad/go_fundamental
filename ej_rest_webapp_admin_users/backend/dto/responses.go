@@ -40,6 +40,24 @@ type ResponseProduct struct {
 	Price       float64 `json:"price"`
 }
 
+type ResponseOrder struct {
+	ID         uint                `json:"id"`
+	Name       string              `json:"name"`
+	Email      string              `json:"email"`
+	Total      float32             `json:"total"`
+	UpdatedAt  string              `json:"updated_at"`
+	CreatedAt  string              `json:"created_at"`
+	OrderItems []ResponseOrderItem `json:"order_items"`
+}
+
+type ResponseOrderItem struct {
+	ID           uint    `json:"id"`
+	OrderID      uint    `json:"order_id"`
+	ProductTitle string  `json:"product_title"`
+	Price        float32 `json:"price"`
+	Quantity     uint    `json:"quantity"`
+}
+
 type ResponseUserLogin struct {
 	Token string `json:"token"`
 }

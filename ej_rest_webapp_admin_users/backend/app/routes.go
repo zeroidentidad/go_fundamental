@@ -20,6 +20,8 @@ func routes() *fiber.App {
 	permission := handlers.HandlerPermission{Svc: service.NewPermissionService(permissionStorage)}
 	productStorage := domain.NewProductStorageDb(db)
 	product := handlers.HandlerProduct{Svc: service.NewProductService(productStorage)}
+	orderStorage := domain.NewOrderStorageDb(db)
+	order := handlers.HandlerOrder{Svc: service.NewOrderService(orderStorage)}
 
 	router := fiber.New()
 	router.Use(logger.New())
@@ -56,6 +58,8 @@ func routes() *fiber.App {
 	route.Put("/update-product", product.UpdateProduct)
 	route.Delete("/delete-product/:id", product.DeleteProduct)
 	route.Post("/upload-image", product.UploadImage)
+
+	route.Get("/orders", order.Orders)
 
 	return router
 }
