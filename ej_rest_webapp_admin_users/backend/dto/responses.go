@@ -6,7 +6,7 @@ import (
 
 	"backend/errs"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 const TOKEN_DURATION = time.Hour * 720 // 1 mes

@@ -6,7 +6,7 @@ import (
 	"backend/errs"
 	"strconv"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 type UserService interface {
