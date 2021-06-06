@@ -26,9 +26,23 @@ func (db OrderStorageDb) SelectOrders(page int) (*[]Order, int64, *errs.AppError
 		if errors.Is(r.Error, gorm.ErrEmptySlice) {
 			return &orders, total, errs.NewUnexpectedError("Orders not found")
 		}
-		logs.Error("Error finding Orders: " + r.Error.Error())
+		logs.Error("Error finding orders: " + r.Error.Error())
 		return &orders, total, errs.NewUnexpectedError("Unexpected error from database")
 	}
 
 	return &orders, total, nil
+}
+
+func (db OrderStorageDb) SelectAllOrders() (*[]Order, *errs.AppError) {
+	orders := make([]Order, 0)
+	r := db.client.Preload("OrderItems").Find(&orders)
+	if r.Error != nil {
+		if errors.Is(r.Error, gorm.ErrEmptySlice) {
+			return &orders, errs.NewUnexpectedError("Orders not found")
+		}
+		logs.Error("Error finding orders: " + r.Error.Error())
+		return &orders, errs.NewUnexpectedError("Unexpected error from database")
+	}
+
+	return &orders, nil
 }

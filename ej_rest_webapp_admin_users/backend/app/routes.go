@@ -60,6 +60,7 @@ func routes() *fiber.App {
 	route.Post("/upload-image", product.UploadImage)
 
 	route.Get("/orders", order.Orders)
+	route.Post("/export-orders", order.ExportOrders)
 
 	return router
 }

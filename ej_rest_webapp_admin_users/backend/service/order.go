@@ -8,6 +8,7 @@ import (
 
 type OrderService interface {
 	Orders(int) (*[]dto.ResponseOrder, int64, *errs.AppError)
+	ExportOrders() (*[]dto.ResponseOrder, *errs.AppError)
 }
 
 type DefaultOrderService struct {
@@ -32,4 +33,18 @@ func (s DefaultOrderService) Orders(page int) (*[]dto.ResponseOrder, int64, *err
 	}
 
 	return &res, total, err
+}
+
+func (s DefaultOrderService) ExportOrders() (*[]dto.ResponseOrder, *errs.AppError) {
+	res := make([]dto.ResponseOrder, 0)
+	orders, err := s.repo.SelectAllOrders()
+	if err != nil {
+		return &res, err
+	}
+
+	for _, o := range *orders {
+		res = append(res, o.ToDto())
+	}
+
+	return &res, err
 }

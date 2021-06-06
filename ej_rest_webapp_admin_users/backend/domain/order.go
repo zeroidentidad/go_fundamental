@@ -25,6 +25,7 @@ type OrderItem struct {
 
 type OrderStorage interface {
 	SelectOrders(int) (*[]Order, int64, *errs.AppError)
+	SelectAllOrders() (*[]Order, *errs.AppError)
 }
 
 func (o Order) ToDto() dto.ResponseOrder {

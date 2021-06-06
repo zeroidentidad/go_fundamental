@@ -1,7 +1,11 @@
 package handlers
 
 import (
+	"backend/dto"
 	"backend/errs"
+	"encoding/csv"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -39,4 +43,52 @@ func setCookie(c *fiber.Ctx, jwt string, duration time.Duration) *fiber.Map {
 	return &fiber.Map{
 		"message": "success",
 	}
+}
+
+func CreateFile(filePath string, fileData interface{}) error {
+	file, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	var orders = fileData.(*[]dto.ResponseOrder)
+
+	// header
+	_ = writer.Write([]string{"ID", "Name", "Email", "Product Title", "Price", "Quantity"})
+
+	for _, order := range *orders {
+		// body
+		data := []string{
+			strconv.Itoa(int(order.ID)),
+			order.Name,
+			order.Email,
+			"",
+			"",
+			"",
+		}
+		if err := writer.Write(data); err != nil {
+			return err
+		}
+
+		// detail
+		for _, item := range order.OrderItems {
+			data := []string{
+				"",
+				"",
+				"",
+				item.ProductTitle,
+				strconv.Itoa(int(item.Price)),
+				strconv.Itoa(int(item.Quantity)),
+			}
+			if err := writer.Write(data); err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }

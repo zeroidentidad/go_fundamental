@@ -26,3 +26,18 @@ func (h *HandlerOrder) Orders(c *fiber.Ctx) error {
 
 	return resJSON(c, res, err, http.StatusOK)
 }
+
+func (h *HandlerOrder) ExportOrders(c *fiber.Ctx) error {
+	filePath := "./download/orders.csv"
+
+	orders, err := h.Svc.ExportOrders()
+	if err != nil {
+		return resJSON(c, nil, err, http.StatusOK)
+	}
+
+	if err := CreateFile(filePath, orders); err != nil {
+		return err
+	}
+
+	return c.Download(filePath)
+}
