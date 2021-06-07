@@ -94,6 +94,7 @@ func (u ResponseUser) claimsForUser() jwt.MapClaims {
 		"first_name": u.FirstName,
 		"last_name":  u.LastName,
 		"email":      u.Email,
+		"role_id":    u.RoleID,
 		"exp":        time.Now().Add(TOKEN_DURATION).Unix(),
 	}
 

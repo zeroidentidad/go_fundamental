@@ -35,6 +35,13 @@ func routes() *fiber.App {
 	route.Use(user.AuthUser)
 
 	route.Post("/logout", user.Logout)
+
+	route.Use(func(c *fiber.Ctx) error {
+		if err := permission.IsAuthorized(c, "users"); err != nil {
+			return err
+		}
+		return c.Next()
+	})
 	route.Get("/user", user.User)
 	route.Put("/update-profile", user.UpdateProfile)
 	route.Put("/update-password", user.UpdatePassword)
@@ -44,6 +51,12 @@ func routes() *fiber.App {
 	route.Put("/update-user", user.UpdateUser)
 	route.Delete("/delete-user/:id", user.DeleteUser)
 
+	route.Use(func(c *fiber.Ctx) error {
+		if err := permission.IsAuthorized(c, "roles"); err != nil {
+			return err
+		}
+		return c.Next()
+	})
 	route.Get("/roles", role.Roles)
 	route.Post("/create-role", role.CreateRole)
 	route.Get("/get-role/:id", role.GetRole)
@@ -52,6 +65,12 @@ func routes() *fiber.App {
 
 	route.Get("/permissions", permission.Permissions)
 
+	route.Use(func(c *fiber.Ctx) error {
+		if err := permission.IsAuthorized(c, "products"); err != nil {
+			return err
+		}
+		return c.Next()
+	})
 	route.Get("/products", product.Products)
 	route.Post("/create-product", product.CreateProduct)
 	route.Get("/get-product/:id", product.GetProduct)
@@ -59,6 +78,12 @@ func routes() *fiber.App {
 	route.Delete("/delete-product/:id", product.DeleteProduct)
 	route.Post("/upload-image", product.UploadImage)
 
+	route.Use(func(c *fiber.Ctx) error {
+		if err := permission.IsAuthorized(c, "orders"); err != nil {
+			return err
+		}
+		return c.Next()
+	})
 	route.Get("/orders", order.Orders)
 	route.Post("/export-orders", order.ExportOrders)
 	route.Get("/chart-sales", order.ChartSales)

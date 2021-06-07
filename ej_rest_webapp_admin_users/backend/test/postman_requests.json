@@ -1,0 +1,622 @@
+{
+	"info": {
+		"_postman_id": "6ef8a037-3373-4382-8e51-ea16ba33a600",
+		"name": "fiber-admin-react",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"test7 name\",\n\t\"last_name\": \"test7 last\",\n\t\"email\": \"test7@mail.com\",\n\t\"password\": \"123456\",\n    \"password_confirm\": \"123456\",\n    \"role_id\": 3   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/register",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test3@mail.com\",\n\t\"password\": \"123456\"   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/login",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test3@mail.com\",\n\t\"password\": \"test pass\"   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/logout",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/user",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update-profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"test 4\",\n\t\"last_name\": \"test4 update\",\n\t\"email\": \"test3@mail.com\",\n    \"role_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/update-profile",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"update-profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update-password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"password\": \"123456\",\n    \"password_confirm\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/update-password",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"update-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/users?page=2",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create-user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"6 name\",\n\t\"last_name\": \"test6 last\",\n\t\"email\": \"test6@mail.com\",\n\t\"password\": \"123456\",\n    \"role_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/create-user",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"create-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get-user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/get-user/3",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"get-user",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update-user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 5,\n    \"first_name\": \"update name\",\n    \"last_name\": \"update last\",\n    \"email\": \"test4@mail.com\",\n    \"role_id\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/update-user",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"update-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/delete-user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/delete-user/6",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"delete-user",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/roles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/roles",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create-role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Test X\",\n    \"permissions\": [\"1\",\"3\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/create-role",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"create-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update-role",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"role_id\": 3,\n        \"name\": \"Viewer\",\n        \"permissions\": [\"1\",\"3\",\"5\",\"7\"]        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/update-role",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"update-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get-role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/get-role/1",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"get-role",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/delete-role",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/delete-role/5",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"delete-role",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/permissions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/permissions",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"permissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/products",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create-product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Product X2\",\n    \"description\": \"Product X2 description\",\n    \"image\": \"product-x2.png\",\n    \"price\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/create-product",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"create-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update-product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"product_id\": 1,\n    \"title\": \"Product X\",\n    \"description\": \"The Product X description\",\n    \"image\": \"product-x.png\",\n    \"price\": 30.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/update-product",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"update-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get-product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/get-product/1",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"get-product",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/delete-product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/delete-product/5",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"delete-product",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/upload-image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/chucho/Imágenes/shipit.jpg"
+						},
+						{
+							"key": "product_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{ServURL}}/api/upload-image",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"upload-image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/uploads/file.ext",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/uploads/shipit.jpg",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"uploads",
+						"shipit.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/orders",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/export-orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/export-orders",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"export-orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/chart-sales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ServURL}}/api/chart-sales",
+					"host": [
+						"{{ServURL}}"
+					],
+					"path": [
+						"api",
+						"chart-sales"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -54,9 +54,9 @@ func (s DefaultRoleService) CreateRole(req dto.RequestRole) (res *dto.ResponseRo
 
 func (s DefaultRoleService) GetRole(id string) (res *dto.ResponseRole, err *errs.AppError) {
 	_id, _ := strconv.Atoi(id)
-	u := domain.NewRole(uint(_id), "", []string{})
+	r := domain.NewRole(uint(_id), "", []string{})
 
-	rol, err := s.repo.SelectRole(u)
+	rol, err := s.repo.SelectRole(r)
 	if err != nil {
 		return res, err
 	}

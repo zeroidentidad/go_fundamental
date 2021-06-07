@@ -45,7 +45,7 @@ func setCookie(c *fiber.Ctx, jwt string, duration time.Duration) *fiber.Map {
 	}
 }
 
-func CreateFile(filePath string, fileData interface{}) error {
+func CreateFile(filePath string, orders *[]dto.ResponseOrder) error {
 	file, err := os.Create(filePath)
 	if err != nil {
 		return err
@@ -54,8 +54,6 @@ func CreateFile(filePath string, fileData interface{}) error {
 
 	writer := csv.NewWriter(file)
 	defer writer.Flush()
-
-	var orders = fileData.(*[]dto.ResponseOrder)
 
 	// header
 	_ = writer.Write([]string{"ID", "Name", "Email", "Product Title", "Price", "Quantity"})

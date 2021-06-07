@@ -12,6 +12,7 @@ type Permission struct {
 
 type PermissionStorage interface {
 	SelectPermissions() (*[]Permission, *errs.AppError)
+	SelectRole(Role) (*Role, *errs.AppError)
 }
 
 func (r Permission) ToDto() dto.ResponsePermission {

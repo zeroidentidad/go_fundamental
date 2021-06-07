@@ -29,3 +29,17 @@ func (db PermissionStorageDb) SelectPermissions() (*[]Permission, *errs.AppError
 
 	return &permissions, nil
 }
+
+func (db PermissionStorageDb) SelectRole(role Role) (*Role, *errs.AppError) {
+	var rol Role
+	r := db.client.Where("id = ?", role.ID).Preload("Permissions").First(&rol)
+	if r.Error != nil {
+		if errors.Is(r.Error, gorm.ErrRecordNotFound) {
+			return &rol, errs.NewUnexpectedError("Role not found")
+		}
+		logs.Error("Error finding role: " + r.Error.Error())
+		return &rol, errs.NewUnexpectedError("Unexpected error from database")
+	}
+
+	return &rol, nil
+}
