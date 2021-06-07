@@ -58,6 +58,11 @@ type ResponseOrderItem struct {
 	Quantity     uint    `json:"quantity"`
 }
 
+type ResponseSales struct {
+	Date string `json:"date"`
+	Sum  string `json:"sum"`
+}
+
 type ResponseUserLogin struct {
 	Token string `json:"token"`
 }

@@ -23,9 +23,15 @@ type OrderItem struct {
 	Quantity     uint    `gorm:"column:quantity"`
 }
 
+type Sales struct {
+	Date string `gorm:"column:date"`
+	Sum  string `gorm:"column:sum"`
+}
+
 type OrderStorage interface {
 	SelectOrders(int) (*[]Order, int64, *errs.AppError)
 	SelectAllOrders() (*[]Order, *errs.AppError)
+	SelectSales() (*[]Sales, *errs.AppError)
 }
 
 func (o Order) ToDto() dto.ResponseOrder {
@@ -49,5 +55,12 @@ func (o Order) ToDto() dto.ResponseOrder {
 		UpdatedAt:  o.UpdatedAt,
 		CreatedAt:  o.CreatedAt,
 		OrderItems: order_items,
+	}
+}
+
+func (s Sales) ToDto() dto.ResponseSales {
+	return dto.ResponseSales{
+		Date: s.Date,
+		Sum:  s.Sum,
 	}
 }

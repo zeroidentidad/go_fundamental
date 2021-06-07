@@ -41,3 +41,9 @@ func (h *HandlerOrder) ExportOrders(c *fiber.Ctx) error {
 
 	return c.Download(filePath)
 }
+
+func (h *HandlerOrder) ChartSales(c *fiber.Ctx) error {
+	sales, err := h.Svc.ChartSales()
+
+	return resJSON(c, sales, err, http.StatusOK)
+}

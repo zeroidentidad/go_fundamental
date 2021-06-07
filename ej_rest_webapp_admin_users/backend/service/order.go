@@ -9,6 +9,7 @@ import (
 type OrderService interface {
 	Orders(int) (*[]dto.ResponseOrder, int64, *errs.AppError)
 	ExportOrders() (*[]dto.ResponseOrder, *errs.AppError)
+	ChartSales() (*[]dto.ResponseSales, *errs.AppError)
 }
 
 type DefaultOrderService struct {
@@ -44,6 +45,20 @@ func (s DefaultOrderService) ExportOrders() (*[]dto.ResponseOrder, *errs.AppErro
 
 	for _, o := range *orders {
 		res = append(res, o.ToDto())
+	}
+
+	return &res, err
+}
+
+func (s DefaultOrderService) ChartSales() (*[]dto.ResponseSales, *errs.AppError) {
+	res := make([]dto.ResponseSales, 0)
+	sales, err := s.repo.SelectSales()
+	if err != nil {
+		return &res, err
+	}
+
+	for _, s := range *sales {
+		res = append(res, s.ToDto())
 	}
 
 	return &res, err

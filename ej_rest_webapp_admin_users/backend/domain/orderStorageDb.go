@@ -46,3 +46,22 @@ func (db OrderStorageDb) SelectAllOrders() (*[]Order, *errs.AppError) {
 
 	return &orders, nil
 }
+
+func (db OrderStorageDb) SelectSales() (*[]Sales, *errs.AppError) {
+	sales := make([]Sales, 0)
+	r := db.client.Raw(`
+		SELECT o.created_at as date, SUM(oi.price * oi.quantity) as sum
+		FROM orders o
+		JOIN order_items oi on o.id = oi.order_id
+		GROUP BY date
+	`).Scan(&sales)
+	if r.Error != nil {
+		if errors.Is(r.Error, gorm.ErrEmptySlice) {
+			return &sales, errs.NewUnexpectedError("Sales not found")
+		}
+		logs.Error("Error finding sales: " + r.Error.Error())
+		return &sales, errs.NewUnexpectedError("Unexpected error from database")
+	}
+
+	return &sales, nil
+}
