@@ -8,11 +8,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type HandlerOrder struct {
+type Order struct {
 	Svc service.OrderService
 }
 
-func (h *HandlerOrder) Orders(c *fiber.Ctx) error {
+func (h *Order) Orders(c *fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 	orders, total, err := h.Svc.Orders(page)
 
@@ -27,7 +27,7 @@ func (h *HandlerOrder) Orders(c *fiber.Ctx) error {
 	return resJSON(c, res, err, http.StatusOK)
 }
 
-func (h *HandlerOrder) ExportOrders(c *fiber.Ctx) error {
+func (h *Order) ExportOrders(c *fiber.Ctx) error {
 	filePath := "./download/orders.csv"
 
 	orders, err := h.Svc.ExportOrders()
@@ -42,7 +42,7 @@ func (h *HandlerOrder) ExportOrders(c *fiber.Ctx) error {
 	return c.Download(filePath)
 }
 
-func (h *HandlerOrder) ChartSales(c *fiber.Ctx) error {
+func (h *Order) ChartSales(c *fiber.Ctx) error {
 	sales, err := h.Svc.ChartSales()
 
 	return resJSON(c, sales, err, http.StatusOK)

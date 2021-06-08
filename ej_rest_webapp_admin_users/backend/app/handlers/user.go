@@ -9,11 +9,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type HandlerUser struct {
+type User struct {
 	Svc service.UserService
 }
 
-func (h *HandlerUser) AuthUser(c *fiber.Ctx) error {
+func (h *User) AuthUser(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 
 	claims, err := h.Svc.AuthUser(cookie)
@@ -25,7 +25,7 @@ func (h *HandlerUser) AuthUser(c *fiber.Ctx) error {
 	return c.Next()
 }
 
-func (h *HandlerUser) Register(c *fiber.Ctx) error {
+func (h *User) Register(c *fiber.Ctx) error {
 	body := new(dto.RequestUser)
 	if err := parseBody(c, body); err != nil {
 		return err
@@ -35,7 +35,7 @@ func (h *HandlerUser) Register(c *fiber.Ctx) error {
 	return resJSON(c, user, err, http.StatusCreated)
 }
 
-func (h *HandlerUser) Login(c *fiber.Ctx) error {
+func (h *User) Login(c *fiber.Ctx) error {
 	var login fiber.Map
 	body := new(dto.RequestUser)
 	if err := parseBody(c, body); err != nil {
@@ -50,13 +50,13 @@ func (h *HandlerUser) Login(c *fiber.Ctx) error {
 	return resJSON(c, login, err, http.StatusCreated)
 }
 
-func (h *HandlerUser) Logout(c *fiber.Ctx) error {
+func (h *User) Logout(c *fiber.Ctx) error {
 	logout := *setCookie(c, "", -dto.TOKEN_DURATION)
 
 	return resJSON(c, logout, nil, http.StatusOK)
 }
 
-func (h *HandlerUser) User(c *fiber.Ctx) error {
+func (h *User) User(c *fiber.Ctx) error {
 	usr := c.Locals("user")
 
 	user, err := h.Svc.User(usr.(*dto.UserClaims))
@@ -64,7 +64,7 @@ func (h *HandlerUser) User(c *fiber.Ctx) error {
 	return resJSON(c, user, err, http.StatusOK)
 }
 
-func (h *HandlerUser) Users(c *fiber.Ctx) error {
+func (h *User) Users(c *fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 	users, total, err := h.Svc.Users(page)
 
@@ -79,7 +79,7 @@ func (h *HandlerUser) Users(c *fiber.Ctx) error {
 	return resJSON(c, res, err, http.StatusOK)
 }
 
-func (h *HandlerUser) CreateUser(c *fiber.Ctx) error {
+func (h *User) CreateUser(c *fiber.Ctx) error {
 	body := new(dto.RequestUser)
 	if err := parseBody(c, body); err != nil {
 		return err
@@ -89,7 +89,7 @@ func (h *HandlerUser) CreateUser(c *fiber.Ctx) error {
 	return resJSON(c, user, err, http.StatusCreated)
 }
 
-func (h *HandlerUser) GetUser(c *fiber.Ctx) error {
+func (h *User) GetUser(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	user, err := h.Svc.GetUser(id)
@@ -97,7 +97,7 @@ func (h *HandlerUser) GetUser(c *fiber.Ctx) error {
 	return resJSON(c, user, err, http.StatusOK)
 }
 
-func (h *HandlerUser) UpdateUser(c *fiber.Ctx) error {
+func (h *User) UpdateUser(c *fiber.Ctx) error {
 	body := new(dto.RequestUser)
 	if err := parseBody(c, body); err != nil {
 		return err
@@ -107,7 +107,7 @@ func (h *HandlerUser) UpdateUser(c *fiber.Ctx) error {
 	return resJSON(c, user, err, http.StatusCreated)
 }
 
-func (h *HandlerUser) DeleteUser(c *fiber.Ctx) error {
+func (h *User) DeleteUser(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	err := h.Svc.DeleteUser(id)
@@ -115,7 +115,7 @@ func (h *HandlerUser) DeleteUser(c *fiber.Ctx) error {
 	return resJSON(c, "deleted", err, http.StatusOK)
 }
 
-func (h *HandlerUser) UpdateProfile(c *fiber.Ctx) error {
+func (h *User) UpdateProfile(c *fiber.Ctx) error {
 	usr := c.Locals("user")
 
 	id := usr.(*dto.UserClaims).ResponseUser.ID
@@ -130,7 +130,7 @@ func (h *HandlerUser) UpdateProfile(c *fiber.Ctx) error {
 	return resJSON(c, user, err, http.StatusCreated)
 }
 
-func (h *HandlerUser) UpdatePassword(c *fiber.Ctx) error {
+func (h *User) UpdatePassword(c *fiber.Ctx) error {
 	usr := c.Locals("user")
 
 	id := usr.(*dto.UserClaims).ResponseUser.ID

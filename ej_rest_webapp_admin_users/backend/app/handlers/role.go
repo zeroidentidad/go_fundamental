@@ -8,17 +8,17 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type HandlerRole struct {
+type Role struct {
 	Svc service.RoleService
 }
 
-func (h *HandlerRole) Roles(c *fiber.Ctx) error {
+func (h *Role) Roles(c *fiber.Ctx) error {
 	roles, err := h.Svc.Roles()
 
 	return resJSON(c, roles, err, http.StatusOK)
 }
 
-func (h *HandlerRole) CreateRole(c *fiber.Ctx) error {
+func (h *Role) CreateRole(c *fiber.Ctx) error {
 	body := new(dto.RequestRole)
 	if err := parseBody(c, body); err != nil {
 		return err
@@ -28,7 +28,7 @@ func (h *HandlerRole) CreateRole(c *fiber.Ctx) error {
 	return resJSON(c, role, err, http.StatusCreated)
 }
 
-func (h *HandlerRole) GetRole(c *fiber.Ctx) error {
+func (h *Role) GetRole(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	role, err := h.Svc.GetRole(id)
@@ -36,7 +36,7 @@ func (h *HandlerRole) GetRole(c *fiber.Ctx) error {
 	return resJSON(c, role, err, http.StatusOK)
 }
 
-func (h *HandlerRole) UpdateRole(c *fiber.Ctx) error {
+func (h *Role) UpdateRole(c *fiber.Ctx) error {
 	body := new(dto.RequestRole)
 	if err := parseBody(c, body); err != nil {
 		return err
@@ -46,7 +46,7 @@ func (h *HandlerRole) UpdateRole(c *fiber.Ctx) error {
 	return resJSON(c, role, err, http.StatusCreated)
 }
 
-func (h *HandlerRole) DeleteRole(c *fiber.Ctx) error {
+func (h *Role) DeleteRole(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	err := h.Svc.DeleteRole(id)

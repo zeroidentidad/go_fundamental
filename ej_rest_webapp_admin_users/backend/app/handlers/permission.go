@@ -9,11 +9,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type HandlerPermission struct {
+type Permission struct {
 	Svc service.PermissionService
 }
 
-func (h *HandlerPermission) IsAuthorized(c *fiber.Ctx, page string) error {
+func (h *Permission) IsAuthorized(c *fiber.Ctx, page string) error {
 	usr := c.Locals("user")
 	role_id := usr.(*dto.UserClaims).ResponseUser.RoleID
 
@@ -40,7 +40,7 @@ func (h *HandlerPermission) IsAuthorized(c *fiber.Ctx, page string) error {
 	return errors.New("unauthorized")
 }
 
-func (h *HandlerPermission) Permissions(c *fiber.Ctx) error {
+func (h *Permission) Permissions(c *fiber.Ctx) error {
 	permissions, err := h.Svc.Permissions()
 
 	return resJSON(c, permissions, err, http.StatusOK)

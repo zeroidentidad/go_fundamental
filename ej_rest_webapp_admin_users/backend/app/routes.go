@@ -6,87 +6,84 @@ import (
 	"backend/service"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-func routes() *fiber.App {
+func Routes(router *fiber.App) *fiber.App {
 	db := dbclient()
 	userStorage := domain.NewUserStorageDb(db)
-	user := handlers.HandlerUser{Svc: service.NewUserService(userStorage)}
+	user := handlers.User{Svc: service.NewUserService(userStorage)}
 	roleStorage := domain.NewRoleStorageDb(db)
-	role := handlers.HandlerRole{Svc: service.NewRoleService(roleStorage)}
+	role := handlers.Role{Svc: service.NewRoleService(roleStorage)}
 	permissionStorage := domain.NewPermissionStorageDb(db)
-	permission := handlers.HandlerPermission{Svc: service.NewPermissionService(permissionStorage)}
+	permission := handlers.Permission{Svc: service.NewPermissionService(permissionStorage)}
 	productStorage := domain.NewProductStorageDb(db)
-	product := handlers.HandlerProduct{Svc: service.NewProductService(productStorage)}
+	product := handlers.Product{Svc: service.NewProductService(productStorage)}
 	orderStorage := domain.NewOrderStorageDb(db)
-	order := handlers.HandlerOrder{Svc: service.NewOrderService(orderStorage)}
+	order := handlers.Order{Svc: service.NewOrderService(orderStorage)}
 
-	router := fiber.New()
-	router.Use(logger.New())
-	router.Use(cors.New(cors.Config{AllowCredentials: true}))
-	route := router.Group("/api")
+	router.Static("/", "../frontend/build")
 
-	route.Post("/register", user.Register)
-	route.Post("/login", user.Login)
-	route.Static("/uploads", "./uploads")
+	api := router.Group("/api")
 
-	route.Use(user.AuthUser)
+	api.Post("/register", user.Register)
+	api.Post("/login", user.Login)
+	api.Static("/uploads", "./uploads")
 
-	route.Post("/logout", user.Logout)
+	api.Use(user.AuthUser)
 
-	route.Use(func(c *fiber.Ctx) error {
+	api.Post("/logout", user.Logout)
+
+	api.Use(func(c *fiber.Ctx) error {
 		if err := permission.IsAuthorized(c, "users"); err != nil {
 			return err
 		}
 		return c.Next()
 	})
-	route.Get("/user", user.User)
-	route.Put("/update-profile", user.UpdateProfile)
-	route.Put("/update-password", user.UpdatePassword)
-	route.Get("/users", user.Users)
-	route.Post("/create-user", user.CreateUser)
-	route.Get("/get-user/:id", user.GetUser)
-	route.Put("/update-user", user.UpdateUser)
-	route.Delete("/delete-user/:id", user.DeleteUser)
+	api.Get("/user", user.User)
+	api.Put("/update-profile", user.UpdateProfile)
+	api.Put("/update-password", user.UpdatePassword)
+	api.Get("/users", user.Users)
+	api.Post("/create-user", user.CreateUser)
+	api.Get("/get-user/:id", user.GetUser)
+	api.Put("/update-user", user.UpdateUser)
+	api.Delete("/delete-user/:id", user.DeleteUser)
 
-	route.Use(func(c *fiber.Ctx) error {
+	api.Use(func(c *fiber.Ctx) error {
 		if err := permission.IsAuthorized(c, "roles"); err != nil {
 			return err
 		}
 		return c.Next()
 	})
-	route.Get("/roles", role.Roles)
-	route.Post("/create-role", role.CreateRole)
-	route.Get("/get-role/:id", role.GetRole)
-	route.Put("/update-role", role.UpdateRole)
-	route.Delete("/delete-role/:id", role.DeleteRole)
+	api.Get("/roles", role.Roles)
+	api.Post("/create-role", role.CreateRole)
+	api.Get("/get-role/:id", role.GetRole)
+	api.Put("/update-role", role.UpdateRole)
+	api.Delete("/delete-role/:id", role.DeleteRole)
 
-	route.Get("/permissions", permission.Permissions)
+	api.Get("/permissions", permission.Permissions)
 
-	route.Use(func(c *fiber.Ctx) error {
+	api.Use(func(c *fiber.Ctx) error {
 		if err := permission.IsAuthorized(c, "products"); err != nil {
 			return err
 		}
 		return c.Next()
 	})
-	route.Get("/products", product.Products)
-	route.Post("/create-product", product.CreateProduct)
-	route.Get("/get-product/:id", product.GetProduct)
-	route.Put("/update-product", product.UpdateProduct)
-	route.Delete("/delete-product/:id", product.DeleteProduct)
-	route.Post("/upload-image", product.UploadImage)
+	api.Get("/products", product.Products)
+	api.Post("/create-product", product.CreateProduct)
+	api.Get("/get-product/:id", product.GetProduct)
+	api.Put("/update-product", product.UpdateProduct)
+	api.Delete("/delete-product/:id", product.DeleteProduct)
+	api.Post("/upload-image", product.UploadImage)
 
-	route.Use(func(c *fiber.Ctx) error {
+	api.Use(func(c *fiber.Ctx) error {
 		if err := permission.IsAuthorized(c, "orders"); err != nil {
 			return err
 		}
 		return c.Next()
 	})
-	route.Get("/orders", order.Orders)
-	route.Post("/export-orders", order.ExportOrders)
-	route.Get("/chart-sales", order.ChartSales)
+	api.Get("/orders", order.Orders)
+	api.Post("/export-orders", order.ExportOrders)
+	api.Get("/chart-sales", order.ChartSales)
 
 	return router
 }

@@ -9,11 +9,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type HandlerProduct struct {
+type Product struct {
 	Svc service.ProductService
 }
 
-func (h *HandlerProduct) Products(c *fiber.Ctx) error {
+func (h *Product) Products(c *fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 	products, total, err := h.Svc.Products(page)
 
@@ -28,7 +28,7 @@ func (h *HandlerProduct) Products(c *fiber.Ctx) error {
 	return resJSON(c, res, err, http.StatusOK)
 }
 
-func (h *HandlerProduct) CreateProduct(c *fiber.Ctx) error {
+func (h *Product) CreateProduct(c *fiber.Ctx) error {
 	body := new(dto.RequestProduct)
 	if err := parseBody(c, body); err != nil {
 		return err
@@ -38,7 +38,7 @@ func (h *HandlerProduct) CreateProduct(c *fiber.Ctx) error {
 	return resJSON(c, product, err, http.StatusCreated)
 }
 
-func (h *HandlerProduct) GetProduct(c *fiber.Ctx) error {
+func (h *Product) GetProduct(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	product, err := h.Svc.GetProduct(id)
@@ -46,7 +46,7 @@ func (h *HandlerProduct) GetProduct(c *fiber.Ctx) error {
 	return resJSON(c, product, err, http.StatusOK)
 }
 
-func (h *HandlerProduct) UpdateProduct(c *fiber.Ctx) error {
+func (h *Product) UpdateProduct(c *fiber.Ctx) error {
 	body := new(dto.RequestProduct)
 	if err := parseBody(c, body); err != nil {
 		return err
@@ -56,7 +56,7 @@ func (h *HandlerProduct) UpdateProduct(c *fiber.Ctx) error {
 	return resJSON(c, product, err, http.StatusCreated)
 }
 
-func (h *HandlerProduct) DeleteProduct(c *fiber.Ctx) error {
+func (h *Product) DeleteProduct(c *fiber.Ctx) error {
 	id := c.Params("id")
 
 	err := h.Svc.DeleteProduct(id)
@@ -64,7 +64,7 @@ func (h *HandlerProduct) DeleteProduct(c *fiber.Ctx) error {
 	return resJSON(c, "deleted", err, http.StatusOK)
 }
 
-func (h *HandlerProduct) UploadImage(c *fiber.Ctx) error {
+func (h *Product) UploadImage(c *fiber.Ctx) error {
 	product_id := c.FormValue("product_id")
 	form, err := c.MultipartForm()
 	if err != nil {
