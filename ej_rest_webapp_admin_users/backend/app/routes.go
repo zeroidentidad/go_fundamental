@@ -32,6 +32,9 @@ func Routes(router *fiber.App) *fiber.App {
 	api.Use(user.AuthUser)
 
 	api.Post("/logout", user.Logout)
+	api.Get("/user", user.User)
+	api.Put("/update-profile", user.UpdateProfile)
+	api.Put("/update-password", user.UpdatePassword)
 
 	api.Use(func(c *fiber.Ctx) error {
 		if err := permission.IsAuthorized(c, "users"); err != nil {
@@ -39,9 +42,6 @@ func Routes(router *fiber.App) *fiber.App {
 		}
 		return c.Next()
 	})
-	api.Get("/user", user.User)
-	api.Put("/update-profile", user.UpdateProfile)
-	api.Put("/update-password", user.UpdatePassword)
 	api.Get("/users", user.Users)
 	api.Post("/create-user", user.CreateUser)
 	api.Get("/get-user/:id", user.GetUser)
