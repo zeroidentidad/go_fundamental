@@ -13,7 +13,7 @@ type RequestUser struct {
 	Email           string `json:"email"`
 	Password        string `json:"password"`
 	PasswordConfirm string `json:"password_confirm,omitempty"`
-	RoleID          uint   `json:"role_id"`
+	RoleID          uint   `json:"role_id,omitempty"`
 }
 
 type RequestRole struct {

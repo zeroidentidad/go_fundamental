@@ -67,7 +67,7 @@ func (s DefaultUserService) Register(req dto.RequestUser) (res *dto.ResponseUser
 		return res, err
 	}
 
-	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass, req.RoleID)
+	u := domain.NewUser(req.ID, req.FirstName, req.LastName, req.Email, pass, domain.DEFAULT_ROLID)
 
 	usr, err := s.repo.InsertUser(u)
 	if err != nil {
