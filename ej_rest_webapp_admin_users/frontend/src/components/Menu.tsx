@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 const Menu = () => {
     return (
@@ -6,14 +6,14 @@ const Menu = () => {
         <div className="position-sticky pt-3">
             <ul className="nav flex-column">
                 <li className="nav-item">
-                    <Link className="nav-link active" to={'/'}>
+                    <NavLink className="nav-link" to={'/'} exact>
                         Dashboard
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link active" to={'/users'}>
+                    <NavLink className="nav-link" to={'/users'}>
                         Users
-                    </Link>
+                    </NavLink>
                 </li>                
             </ul>
         </div>
