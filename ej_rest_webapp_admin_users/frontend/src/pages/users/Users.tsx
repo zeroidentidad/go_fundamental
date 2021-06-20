@@ -1,19 +1,25 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
+import Paginator from "../../components/Paginator";
 import Wrapper from "../../components/Wrapper";
 import {User} from "../../models/user";
 
 const Users = () => {
     const [users, setUsers] = useState([])
+    const [page, setPage] = useState(1);
+    const [lastPage, setLastPage] = useState(0);
+
     useEffect(() => {
         (
             async () => {
-                const {data} = await axios.get("users");
+                const {data} = await axios.get(`users?page=${page}`);
                 setUsers(data.data)
+                setLastPage(data.meta.last_page);
             }
         )()
-    }, [])
-        return (
+    }, [page])
+
+    return (
             <Wrapper>
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
@@ -41,8 +47,9 @@ const Users = () => {
                 </tbody>
                 </table>
             </div>
+            <Paginator page={page} lastPage={lastPage} pageChanged={setPage}/>           
             </Wrapper>
-        );
+    );
 }
 
 export default Users;
