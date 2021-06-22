@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from "axios";
 import {useEffect, useState} from "react";
 import Paginator from "../../components/Paginator";
@@ -18,6 +19,15 @@ const Users = () => {
             }
         )()
     }, [page])
+
+    const del = async (id: number) => {
+        if (window.confirm('You want to delete this record?')) {
+            await axios.delete(`delete-user/${id}`);
+
+            setUsers(users.filter((u: User) => u.user_id !== id));
+        }
+    }
+
 
     return (
             <Wrapper>
@@ -40,7 +50,13 @@ const Users = () => {
                     <td>{user.first_name} {user.last_name}</td>
                     <td>{user.email}</td>
                     <td>{user.role.name}</td>
-                    <td>action</td>
+                    <td>
+                        <div className="btn-group mr-2">
+                            <a href="#" 
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={() => del(user.user_id)}>Delete</a>
+                        </div>                        
+                    </td>
                     </tr>                         
                     )                       
                     })}
