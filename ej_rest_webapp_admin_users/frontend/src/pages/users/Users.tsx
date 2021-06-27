@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import Paginator from "../../components/Paginator";
 import Wrapper from "../../components/Wrapper";
 import {User} from "../../models/user";
@@ -31,6 +32,9 @@ const Users = () => {
 
     return (
             <Wrapper>
+            <div className="pt-3 pb-2 mb-3 border-bottom">
+                <Link to="/users/create" className="btn btn-sm btn-outline-secondary">Create</Link>
+            </div>                
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
                 <thead>
