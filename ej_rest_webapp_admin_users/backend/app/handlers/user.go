@@ -1,10 +1,8 @@
 package handlers
 
 import (
-	"backend/domain"
 	"backend/dto"
 	"backend/service"
-	"math"
 	"net/http"
 	"strconv"
 
@@ -75,7 +73,7 @@ func (h *User) Users(c *fiber.Ctx) error {
 		"meta": fiber.Map{
 			"total":     total,
 			"page":      page,
-			"last_page": math.Ceil(float64(int(total) / domain.LIMIT_PAG)),
+			"last_page": lastPage(total),
 		},
 	}
 

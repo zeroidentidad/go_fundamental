@@ -1,15 +1,21 @@
 package handlers
 
 import (
+	"backend/domain"
 	"backend/dto"
 	"backend/errs"
 	"encoding/csv"
+	"math"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
+
+func lastPage(total int64) float64 {
+	return math.Ceil(float64(int(total) / domain.LIMIT_PAG))
+}
 
 func parseBody(c *fiber.Ctx, body interface{}) *fiber.Error {
 	if err := c.BodyParser(body); err != nil {

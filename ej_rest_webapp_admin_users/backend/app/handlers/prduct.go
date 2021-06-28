@@ -20,8 +20,9 @@ func (h *Product) Products(c *fiber.Ctx) error {
 	res := fiber.Map{
 		"data": products,
 		"meta": fiber.Map{
-			"total": total,
-			"page":  page,
+			"total":     total,
+			"page":      page,
+			"last_page": lastPage(total),
 		},
 	}
 
