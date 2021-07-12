@@ -2,7 +2,7 @@ import axios from 'axios';
 import {SyntheticEvent, useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import Wrapper from "../../components/Wrapper";
-//import ImageUpload from "../../components/ImageUpload";
+import ImageUpload from "../../components/ImageUpload";
 
 const ProductCreate = () => {
     const [title, setTitle] = useState('');
@@ -49,9 +49,7 @@ const ProductCreate = () => {
                         value={image}
                         onChange={e => setImage(e.target.value)}
                         />
-                        {/*
                         <ImageUpload uploaded={setImage}/>
-                        */}
                     </div>
                 </div>
                 <div className="mb-3">
